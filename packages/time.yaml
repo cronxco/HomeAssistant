@@ -1,0 +1,141 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 21:52
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:02
+
+# This package deals with time and all time-based automations
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+
+scene:
+  - name: Good Night
+    entities:
+      switch.flux:
+        state: off
+      group.living_room:
+        state: off
+        transition: 30
+      group.hall:
+        state: off
+        transition: 45
+      group.bedroom:
+        state: off
+        transition: 60
+
+group:
+  time_modes:
+    name: Time Modes
+    control: hidden
+    entities:
+      - input_boolean.dawn_mode
+      - input_boolean.morning_mode
+      - input_boolean.afternoon_mode
+      - input_boolean.evening_mode
+      - input_boolean.night_mode
+
+input_boolean:
+  dawn_mode:
+    initial: off
+    name: Dawn
+    icon: mdi:weather-sunset-up
+
+  morning_mode:
+    initial: off
+    name: Morning
+    icon: mdi:coffee
+
+  afternoon_mode:
+    initial: off
+    name: Afternoon
+    icon: mdi:clock-out
+
+  evening_mode:
+    initial: off
+    name: Evening
+    icon: mdi:weather-sunset-down
+
+  night_mode:
+    initial: off
+    name: Night
+    icon: mdi:weather-night
+
+automation:
+  - alias: 'Reset additional switches'
+    trigger:
+        platform: time
+        # When 'after' is used, you cannot also match on hour, minute, seconds.
+        # Military time format.
+        after: '04:30:00'
+    condition:
+      - condition: time
+        before: '06:00:00'
+    action:
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.romance_mode
+          - input_boolean.party_mode
+          - input_boolean.quiet_mode
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+      - service: input_boolean.turn_on
+        entity_id:
+         - input_boolean.dawn_mode
+  - alias: 'Morning Mode'
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      above: 0.1
+    condition:
+      - condition: time
+        before: '12:00:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.morning_mode
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dawn_mode
+  - alias: "Afternoon Mode"
+    trigger:
+        platform: time
+        # You can also match on interval. This will match every 5 minutes
+        after: '12:00:00'
+    condition:
+      - condition: time
+        before: '16:30:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.afternoon_mode
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.morning_mode
+  - alias: 'Evening Mode'
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      below: 3.5
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.afternoon_mode
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.evening_mode
+  - alias: "Night Mode"
+    trigger:
+        platform: time
+        # You can also match on interval. This will match every 5 minutes
+        after: '22:00:00'
+    condition:
+      - condition: time
+        before: '23:00:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.night_mode
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.evening_mode
+      - service: switch.turn_off
+        entity_id: switch.flux

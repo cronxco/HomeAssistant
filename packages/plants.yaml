@@ -1,0 +1,152 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:07
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 19:33
+
+# Because plants are cool. And gree.
+
+homeassistant:
+  customize:
+     sensor.aquatica_temperature:
+       icon: mdi:oil-temperature
+     sensor.aquatica_moisture:
+       icon: mdi:water-percent
+     sensor.aquatica_brightness:
+       icon: mdi:brightness-7
+     sensor.aquatica_conductivity:
+       icon: mdi:flash
+     sensor.aquatica_battery:
+       icon: mdi:battery-charging
+
+     sensor.aloe_temperature:
+       icon: mdi:oil-temperature
+     sensor.aloe_moisture:
+       icon: mdi:water-percent
+     sensor.aloe_brightness:
+       icon: mdi:brightness-7
+     sensor.aloe_conductivity:
+       icon: mdi:flash
+     sensor.aloe_battery:
+       icon: mdi:battery-charging
+
+     sensor.chilli_temperature:
+       icon: mdi:oil-temperature
+     sensor.chilli_moisture:
+       icon: mdi:water-percent
+     sensor.chilli_brightness:
+       icon: mdi:brightness-7
+     sensor.chilli_conductivity:
+       icon: mdi:flash
+     sensor.chilli_battery:
+       icon: mdi:battery-charging
+
+sensor:
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Conductivity'
+      unit_of_measurement: 'n'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
+
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Conductivity'
+      unit_of_measurement: 'n'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
+
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Conductivity'
+      unit_of_measurement: 'n'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
+
+group:
+  aquatica:
+    name: Aquatica
+    control: hidden
+    entities:
+      - sensor.aquatica_temperature
+      - sensor.aquatica_moisture
+      - sensor.aquatica_brightness
+      - sensor.aquatica_conductivity
+      - sensor.aquatica_battery
+
+  aloe:
+    name: Aloe
+    control: hidden
+    entities:
+      - sensor.aloe_temperature
+      - sensor.aloe_moisture
+      - sensor.aloe_brightness
+      - sensor.aloe_conductivity
+      - sensor.aloe_battery
+
+  chilli:
+    name: Chilli
+    control: hidden
+    entities:
+      - sensor.chilli_temperature
+      - sensor.chilli_moisture
+      - sensor.chilli_brightness
+      - sensor.chilli_conductivity
+      - sensor.chilli_battery

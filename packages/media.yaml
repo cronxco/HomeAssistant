@@ -1,0 +1,97 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 20:30
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 19:19
+
+
+# This package deals with visual media
+
+homeassistant:
+  customize:
+    media_player.plex_for_sony_playstation_4_0117:
+     friendly_name: PS4
+    media_player.snowdondefault:
+     friendly_name: Bedroom Plex
+    media_player.dan_iphone:
+     hidden: true
+    media_player.daniels_ipad:
+     hidden: true
+    media_player.will_iphone:
+     hidden: true
+    media_player.plex_for_lg_webos_043002:
+     friendly_name: LR Plex
+    media_player.lg_webos_tv_remote:
+     friendly_name: LG TV
+
+media_player:
+  - platform: plex
+    include_non_clients: true
+    scan_interval: 5
+    use_custom_entity_ids: true
+    use_episode_art: true
+  - platform: webostv
+    host: 10.10.1.80
+    name: LivingRoomTV
+    customize:
+      sources:
+        - livetv
+        - youtube
+        - "Plex"
+        - "All 4"
+        - itv
+        - netflix
+        - bbc
+  - platform: universal
+    name: Living Room
+    children:
+      - media_player.re5tnmcirzppsyvi
+      - media_player.livingroomtv
+    commands:
+      turn_on:
+        service: remote.turn_on
+        data:
+          - entity_id: remote.living_room
+          - activity: "Watch TV"
+      turn_off:
+        service: remote.turn_off
+        data:
+         - entity_id: remote.living_room
+    attributes:
+      state: remote.living_room
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 10.10.1.81
+
+switch:
+  platform: template
+  switches:
+    tv:
+      value_template: "{% if is_state('remote.living_room', 'on') %}on{% else %}off{% endif %}"
+      turn_on:
+        service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          entity_id: remote.living_room
+          activity: "Watch TV"
+      turn_off:
+        service: remote.turn_off
+        entity_id: remote.living_room
+
+
+scene:
+  - name: Media Off
+    entities:
+     remote.living_room:
+        state: off
+  - name: Cinema
+    entities:
+     light.sofa:
+        state: off
+        transition: 10
+     light.dining:
+        state: on
+        transition: 10
+        brightness: 35

@@ -1,0 +1,15 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:13
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:02
+
+# This package deals with transport
+
+
+sensor:
+
+  - platform: rest
+    resource: https://api.tfl.gov.uk/line/tram/status
+    name: Tram Status
+    value_template: '{{value_json[0].lineStatuses[0].statusSeverityDescription}}'

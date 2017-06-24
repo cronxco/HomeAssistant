@@ -1,0 +1,178 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   11/06/2017 19:15
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 19:34
+
+# This package allows for presence detection and response to comings and goings
+
+homeassistant:
+  customize:
+    input_boolean.will_home:
+      entity_picture: https://dl.dropboxusercontent.com/s/ol56sk67g3k85q6/10941867_10152852798116951_8651112368850156837_n.jpg?dl=0&preview=10941867_10152852798116951_8651112368850156837_n.jpg?raw=1
+
+    input_boolean.dan_home:
+      entity_picture: https://dl.dropboxusercontent.com/s/p0t92qnfbp8v10q/10988484_10152608760881951_4841404066886686356_n-3.jpg?dl=0&preview=10988484_10152608760881951_4841404066886686356_n-3.jpg?raw=1
+
+
+device_tracker:
+  - platform: tplink
+    host: 10.10.1.1
+    username: !secret tplink_user
+    password: !secret tplink_pass
+    track_new_devices: true
+    consider_home: 60
+
+  - platform: owntracks
+    max_gps_accuracy: 200
+
+  - platform: tado
+    username: !secret tado_user
+    password: !secret tado_pass
+
+zone:
+  - name: Home
+    latitude: !secret lat
+    longitude: !secret long
+    radius: 120
+    icon: mdi:home
+
+input_boolean:
+  will_home:
+    name: Will Home
+    initial: on
+
+  will_very_away:
+    name: Will Very Away
+    initial: off
+
+  dan_home:
+    name: Dan Home
+    initial: on
+
+  dan_very_away:
+    name: Dan Very Away
+    initial: off
+
+  away_mode:
+    initial: off
+    name: Away
+    icon: mdi:nature-people
+
+  home_mode:
+    initial: on
+    name: Home
+    icon: mdi:home
+
+group:
+  People:
+    - input_boolean.dan_home
+    - input_boolean.will_home
+  Will Presence:
+    -  device_tracker.willphone_willphone
+    -  device_tracker.006171752dad
+  Dan Presence:
+    -  device_tracker.danphone_danphone
+    -  device_tracker.b853acd5d725
+  presence_modes:
+    name: Presence Modes
+    control: hidden
+    entities:
+      - input_boolean.home_mode
+      - input_boolean.away_mode
+
+automation:
+  - alias: 'Will Away'
+    condition:
+      condition: state
+      entity_id: input_boolean.will_home
+      state: 'on'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.006171752dad
+        state: 'not_home'
+        for:
+          minutes: 3
+      - platform: state
+        entity_id: device_tracker.willphone_willphone
+        state: 'not_home'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.will_home
+  - alias: 'Dan Away'
+    condition:
+      condition: state
+      entity_id: input_boolean.dan_home
+      state: 'on'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.b853acd5d725
+        state: 'not_home'
+        for:
+          minutes: 3
+      - platform: state
+        entity_id: device_tracker.danphone_danphone
+        state: 'not_home'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.dan_home
+  - alias: 'Will Very Away'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.will_home
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 4
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.will_very_away
+  - alias: 'Dan Very Away'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.dan_home
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 4
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.dan_very_away
+  - alias: 'Will Tracker Home'
+    condition:
+      condition: state
+      entity_id: input_boolean.will_home
+      state: 'off'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.006171752dad
+        state: 'home'
+      - platform: state
+        entity_id: device_tracker.willphone_willphone
+        state: 'home'
+        for:
+          minutes: 3
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.will_home
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.will_very_away
+  - alias: 'Dan Tracker Home'
+    condition:
+      condition: state
+      entity_id: input_boolean.dan_home
+      state: 'off'
+    trigger:
+      - platform: state
+        entity_id: device_tracker.b853acd5d725
+        state: 'home'
+      - platform: state
+        entity_id: device_tracker.danphone_danphone
+        state: 'home'
+        for:
+          minutes: 3
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.dan_home
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.dan_very_away

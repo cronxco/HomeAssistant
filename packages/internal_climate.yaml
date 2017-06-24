@@ -1,0 +1,51 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:12
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:01
+
+# This package deals with the internal climate.
+
+
+sensor:
+  - platform: command_line
+    command: '/bin/cat /home/basecamp/.homeassistant/tado/state_1.json'
+    value_template: '{{ value_json.sensorDataPoints.humidity.percentage }}'
+    unit_of_measurement: '%'
+    name: 'Indoor Humidity'
+
+  - platform: command_line
+    command: '/bin/cat /home/basecamp/.homeassistant/tado/state_1.json'
+    value_template: '{{ value_json.sensorDataPoints.insideTemperature.celsius }}'
+    unit_of_measurement: °C
+    name: 'Indoor Temperature'
+
+  - platform: command_line
+    command: '/bin/cat /home/basecamp/.homeassistant/tado/state_1.json'
+    value_template: '{{ value_json.setting.temperature.celsius }}'
+    unit_of_measurement: °C
+    name: 'Indoor Set Temp'
+
+  - platform: command_line
+    command: '/bin/cat /home/basecamp/.homeassistant/tado/state_1.json'
+    value_template: '{{ value_json.activityDataPoints.heatingPower.percentage }}'
+    unit_of_measurement: '%'
+    name: 'Indoor Heating Power'
+
+  - platform: command_line
+    command: '/bin/cat /home/basecamp/.homeassistant/tado/devices.json'
+    value_template: >
+      {% if value_json.0.connectionState.value == 1 %}
+        online
+      {% else %}
+        offline
+      {% endif %}
+    name: Thermostat Status
+
+group:
+  Internal:
+    - sensor.indoor_temperature
+    - sensor.indoor_humidity
+    - sensor.indoor_set_temp
+    - sensor.indoor_heating_power
+    - sensor.thermostat_status

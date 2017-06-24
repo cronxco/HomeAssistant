@@ -1,0 +1,46 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:21
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:01
+
+# This is a package for modes - a few manual, a few automated
+
+
+input_boolean:
+
+  holiday_mode:
+    initial: off
+    name: Holiday
+    icon: mdi:beach
+
+  guest_mode:
+    initial: off
+    name: Guest
+    icon: mdi:account-multiple
+
+  party_mode:
+    initial: off
+    name: Party
+    icon: mdi:cake-variant
+
+  romance_mode:
+    initial: off
+    name: Romance
+    icon: mdi:heart
+
+  quiet_mode:
+    initial: off
+    name: Quiet
+    icon: mdi:volume-off
+
+group:
+  manual_modes:
+    name: Manual Modes
+    control: hidden
+    entities:
+      - input_boolean.holiday_mode
+      - input_boolean.guest_mode
+      - input_boolean.romance_mode
+      - input_boolean.party_mode
+      - input_boolean.quiet_mode

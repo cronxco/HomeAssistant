@@ -1,0 +1,79 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:02
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 19:55
+
+# This package deals with internal monitoring - both inside the flat and inside the server
+
+homeassistant:
+  customize:
+    sensor.power_usage:
+      friendly_name: 'Electricity'
+      icon: mdi:speedometer
+    sensor.speedtest_ping:
+       icon: mdi:pulse
+    sensor.speedtest_download:
+       icon: mdi:cloud-download
+    sensor.speedtest_upload:
+       icon: mdi:cloud-upload
+    sensor.disk_use_mediabasecampsherpa:
+       friendly_name: "Sherpa"
+    sensor.since_last_boot:
+       friendly_name: "Uptime"
+
+
+sensor:
+  -  platform: loopenergy
+     electricity:
+       electricity_serial: !secret loop_serial
+       electricity_secret: !secret loop_secret
+  - platform: speedtest
+    minute:
+      - 0
+      - 30
+    monitored_conditions:
+      - download
+      - upload
+    server_id: 4078
+  - platform: fastdotcom
+    minute:
+      - 0
+      - 30
+  - platform: statistics
+    entity_id: sensor.power_usage
+    name: Power Stats
+    sampling_size: 25
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: !secret disk
+      - type: memory_use_percent
+      - type: processor_use
+  - platform: template
+    sensors:
+      electricity_usage:
+        friendly_name: "Electricity Usage"
+        value_template: >-
+          {%- if states("sensor.power_stats_mean") | float < 0.2 -%}
+            low
+          {%- elif states("sensor.power_stats_mean") | float < 1.0 -%}
+            moderate
+          {%- elif states("sensor.power_stats_mean") | float >= 1.0 -%}
+            high
+          {%- else -%}
+            unknown
+          {%- endif -%}
+
+group:
+  System:
+    -  sensor.cpu_use
+    -  sensor.disk_use_mediabasecampsherpa
+  Speed:
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.fastcom_download
+  Power:
+    -  sensor.power_usage
+    -  sensor.power_stats_mean
+    -  sensor.electricity_usage

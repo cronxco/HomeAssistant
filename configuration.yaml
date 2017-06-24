@@ -1,0 +1,94 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   11/06/2017 18:10
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 20:33
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Ambassadr
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret lat
+  longitude: !secret long
+  # Impacts weather/sunrise data
+  elevation: !secret elev
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  customize_glob: !include customize_glob.yaml
+  packages: !include_dir_named packages
+
+frontend:
+sun:
+history:
+zeroconf:
+config:
+
+script: !include_dir_named scripts
+
+updater:
+  reporting: no
+
+recorder:
+  db_url: !secret db_url
+
+logger:
+  default: warn
+
+zwave:
+  usb_path: /dev/ttyUSB0
+  #config_path: /usr/local/lib/python3.5/dist-packages/python_openzwave/ozw_config/
+
+http:
+  api_password: !secret http_password
+  ssl_certificate: !secret ssl_cert
+  ssl_key: !secret ssl_key
+  base_url: !secret base_url
+
+discovery:
+  ignore:
+    - apple_tv
+
+logbook:
+  exclude:
+    entities:
+       - sensor.time
+
+influxdb:
+  username: home-assistant
+  password: !secret influx
+  default_measurement: state
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  client_id: home-assistant-1
+  username: homeassist
+  password: !secret mqtt_pass
+
+# Leaving this here so that rich notifications can happen!
+ios:
+
+emulated_hue:
+  expose_by_default: false
+  exposed_domains:
+    - light
+
+group:
+  Ambassadr:
+    - sensor.mode
+    - sensor.living_room_tv_source
+    - alarm_control_panel.living_room
+  Scenes:
+    -  scene.bedroom_fade
+    -  scene.cinema
+    -  scene.landing_strip
+    -  scene.sunset1
+    -  scene.sunset2
+    -  scene.sunset3
+    -  scene.good_night
+    -  scene.light_reset
+    -  scene.will_sunrise_1
+    -  scene.dan_sunrise_1
+    -  scene.media_off

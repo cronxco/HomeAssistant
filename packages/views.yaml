@@ -1,0 +1,180 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 21:11
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 19:57
+
+# This package deals with frontend views
+
+homeassistant:
+
+  customize:
+     group.living_room:
+       icon: mdi:sofa
+     group.bedroom:
+       icon: mdi:hotel
+     group.hall:
+       icon: mdi:exit-to-app
+     group.map_room:
+       icon: mdi:earth
+     group.will_presence:
+       friendly_name: "Presence"
+     group.dan_presence:
+       friendly_name: "Presence"
+     group.default_view:
+       icon: mdi:home
+
+
+sensor:
+ - platform: template
+   sensors:
+     living_room_tv_source:
+       value_template: >-
+         {%- if states.media_player.livingroomtv.attributes["source"] is undefined -%}
+           Off
+         {%- else -%}
+           {{ states.media_player.livingroomtv.attributes["source"] }}
+         {%- endif -%}
+       friendly_name: 'Living Room TV Source'
+     mode:
+       friendly_name: "Mode"
+       value_template: >-
+         {%- if is_state('input_boolean.holiday_mode', 'on') -%}
+           Holiday
+         {%- elif is_state('input_boolean.away_mode', 'on') -%}
+           Away
+         {%- elif is_state('input_boolean.quiet_mode', 'on') -%}
+           Quiet
+         {%- elif is_state('input_boolean.party_mode', 'on') -%}
+           Party
+         {%- elif is_state('input_boolean.guest_mode', 'on') -%}
+           Guest
+         {%- elif is_state('input_boolean.romance_mode', 'on') -%}
+           Romance
+         {%- elif is_state('input_boolean.night_mode', 'on') -%}
+           Night
+         {%- elif is_state('input_boolean.evening_mode', 'on') -%}
+           Evening
+         {%- elif is_state('input_boolean.afternoon_mode', 'on') -%}
+           Afternoon
+         {%- elif is_state('input_boolean.morning_mode', 'on') -%}
+           Morning
+         {%- elif is_state('input_boolean.dawn_mode', 'on') -%}
+           Dawn
+         {%- elif is_state('input_boolean.home_mode', 'on') -%}
+           Home
+         {%- else -%}
+           Unknown
+         {%- endif -%}
+
+group:
+  default_view:
+    name: Home
+    icon: mdi:home
+    view: yes
+    entities:
+      -  group.ambassadr
+      -  group.lights
+      -  group.people
+      -  group.internal
+      -  climate.heating
+      -  group.climate
+      -  group.speed
+      -  group.power
+      -  group.system
+      -  camera.cronx
+
+  Switches:
+    icon: mdi:gesture-tap
+    view: yes
+    entities:
+      - group.manual_modes
+
+  Will:
+    view: yes
+    entities:
+      - group.will_presence
+      - group.walarmclock
+
+  Dan:
+    view: yes
+    entities:
+      - group.dan_presence
+      - group.dalarmclock
+
+  Media:
+    view: yes
+    icon: mdi:television
+    entities:
+      - media_player.living_room
+      - media_player.re5tnmcirzppsyvi
+      - media_player.spotify
+      - media_player.hall
+
+  Transport:
+    view: yes
+    icon: mdi:train
+    entities:
+      - sensor.tram_status
+
+  Settings:
+    icon: mdi:settings
+    view: yes
+    entities:
+      - group.all_scripts
+      - group.scenes
+      - group.flux
+      - configurator.plex_media_server
+      - configurator.lg_webos_tv
+      - group.all_lights
+      - group.all_automations
+      - group.time_modes
+      - group.presence_modes
+      - group.manual_modes
+      - group.dash
+      - switch.tv
+
+  Plants:
+    view: yes
+    icon: mdi:leaf
+    entities:
+      - group.aquatica
+      - group.aloe
+      - group.chilli
+
+  Cameras:
+    view: yes
+    icon: mdi:camera
+    entities:
+      - camera.cronx
+      - camera.mjpeg_camera
+      - camera.iss
+
+  Weather:
+    view: yes
+    icon: mdi:weather-lightning-rainy
+    entities:
+      - group.forecast
+      - group.bloomsky
+      - camera.cronx
+
+  Sky:
+    view: yes
+    icon: mdi:satellite-variant
+    entities:
+      - binary_sensor.iss
+      - binary_sensor.aurora_visibility
+      - camera.iss
+
+  LightPanel:
+    icon: mdi:lightbulb-outline
+    view: yes
+    entities:
+       - group.panel_bathroom
+       - group.panel_daniel
+       - group.panel_dining
+       - group.panel_main
+       - group.panel_map
+       - group.panel_sofa
+       - group.panel_utility
+       - group.panel_will

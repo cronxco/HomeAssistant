@@ -1,0 +1,83 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   11/06/2017 19:07
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 12:44
+
+# This package deals with the external climate... that thing some people call 'the world outside'...
+homeassistant:
+
+  customize:
+   sensor.dark_sky_precip_intensity:
+     friendly_name: 'Rainfall'
+    #entity_picture: https://dl.dropboxusercontent.com/u/81386/HA-Stuff/rain-icon.jpg
+     icon: mdi:weather-rainy
+   sensor.dark_sky_humidity:
+     friendly_name: 'Outdoor Humidity'
+     #entity_picture: https://dl.dropboxusercontent.com/u/81386/HA-Stuff/humidity.png
+     icon: mdi:water-percent
+   sensor.dark_sky_temperature:
+     friendly_name: 'Outdoor Temp'
+   sensor.indoor_temp:
+     icon: mdi:temperature-celsius
+   sensor.dark_sky_apparent_temperature:
+     friendly_name: 'Feels Like'
+     icon: mdi:weather-windy
+   sensor.dark_sky_summary:
+     friendly_name: 'Summary'
+     icon: mdi:weather-cloudy
+   sensor.dark_sky_cloud_coverage:
+     friendly_name: 'Cloud Cover'
+     icon: mdi:cloud
+   sensor.waqi_sutton__beddington_lane_north:
+     friendly_name: 'Air Quality'
+     icon: mdi:factory
+
+bloomsky:
+  api_key: !secret bloomsky
+
+binary_sensor:
+  - platform: bloomsky
+    monitored_conditions:
+      - Night
+      - Rain
+
+sensor:
+  - platform: darksky
+    api_key: !secret darksky
+    monitored_conditions:
+      - summary
+      - precip_intensity
+      - temperature
+      - apparent_temperature
+      - humidity
+      - cloud_cover
+  - platform: waqi
+    token: !secret waqi
+    locations:
+      - Sutton
+  - platform: template
+    sensors:
+      solar_angle:
+        value_template: '{{ states.sun.sun.attributes.elevation }}'
+        friendly_name: 'Sun Angle'
+        unit_of_measurement: 'degrees'
+
+group:
+  Bloomsky:
+    - sensor.cronx_temperature
+    - sensor.cronx_humidity
+    - sensor.cronx_pressure
+    - binary_sensor.cronx_rain
+    - binary_sensor.cronx_night
+  Climate:
+    - sensor.dark_sky_summary
+    - sensor.cronx_temperature
+    - sensor.dark_sky_apparent_temperature
+    - sensor.cronx_humidity
+    - sensor.cronx_pressure
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_cloud_coverage
+    - sensor.waqi_sutton__beddington_lane_north
+    - sun.sun
+    - sensor.solar_angle

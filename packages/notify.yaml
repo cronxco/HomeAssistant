@@ -1,0 +1,26 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   14/06/2017 21:46
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:01
+
+# This package deals with notifications - both text and speech
+
+
+notify:
+  - platform: slack
+    name: slack
+    api_key: !secret slack
+    default_channel: '#stream'
+  - platform: webostv
+    host: 10.10.1.80
+    name: livingroom_tv
+  - platform: ios
+  - platform: facebook
+    page_access_token: !secret fb
+    name: fb
+
+
+tts:
+  - platform: google
+    language: 'en-uk'

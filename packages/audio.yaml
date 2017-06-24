@@ -1,0 +1,23 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 20:34
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:01
+
+# This package deals with what I hope will become whole home audio!
+
+
+media_player:
+
+  - platform: squeezebox
+    host: 10.10.1.200
+    username: !secret squee_user
+    password: !secret squee_pass
+
+  - platform: spotify
+    client_id: !secret spot_id
+    client_secret: !secret spot_secret
+
+
+
+# Small cheat here - all of Emergency Party Mode is contained in this package

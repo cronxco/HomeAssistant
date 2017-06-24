@@ -1,0 +1,122 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 20:40
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 23:02
+
+# This package deals with making it a Secure and Stable flat ;) #Election2017
+
+
+wink:
+  email: !secret wink_user
+  password: !secret wink_pass
+  client_id: !secret wink_id
+  client_secret: !secret wink_secret
+
+camera:
+  - platform: mjpeg
+    mjpeg_url: http://10.10.1.30:2971/camera/stream
+
+automation:
+
+  - alias: 'Lockdown'
+    trigger:
+         platform: state
+         entity_id: group.people
+         from: 'on'
+         to: 'off'
+    action:
+        - service: light.turn_off
+          entity_id: group.all_lights
+        - service: notify.ios_will_iphone
+          data:
+            message: "Everyone's Away - I've switched everything off for you."
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.home_mode
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.away_mode
+
+  - alias: 'Will Home'
+    trigger:
+         platform: state
+         entity_id: input_boolean.will_home
+         from: 'off'
+         to: 'on'
+    action:
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.away_mode
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.home_mode
+
+  - alias: 'Dan Home'
+    trigger:
+         platform: state
+         entity_id: input_boolean.dan_home
+         from: 'off'
+         to: 'on'
+    action:
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.away_mode
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.home_mode
+
+  - alias: 'Occupied'
+    trigger:
+         platform: state
+         entity_id: group.people
+         from: 'off'
+         to: 'on'
+    condition:
+         - condition: numeric_state
+           entity_id: sun.sun
+           value_template: '{{ state.attributes.elevation }}'
+           below: 3.5
+         - condition: time
+           before: '23:30'
+         - condition: time
+           after: '13:00'
+    action:
+        - service: notify.ios_will_iphone
+          data:
+            message: "Lumos!"
+        - service: scene.turn_on
+          entity_id: scene.occupied
+
+  - alias: 'Auto holiday mode'
+    trigger:
+        platform: time
+        # When 'after' is used, you cannot also match on hour, minute, seconds.
+        # Military time format.
+        after: '04:30:00'
+    condition:
+      - condition: state
+        entity_id: group.people
+        state: 'off'
+      - condition: time
+        before: '06:00:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id:
+         - input_boolean.holiday_mode
+
+
+scene:
+  - name: Occupied
+    entities:
+     group.living_room:
+        state: on
+        transition: 5
+        brightness: 115
+        color_temp: 285
+     group.hall:
+        state: on
+        transition: 5
+        brightness: 25
+        color_temp: 285
+     group.bedroom:
+        state: on
+        transition: 5
+        brightness: 115
+        color_temp: 285
+     switch.flux:
+        state: on

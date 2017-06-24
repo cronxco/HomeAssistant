@@ -1,0 +1,205 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   12/06/2017 22:03
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 24/06/2017 12:52
+
+# This package deals with alarms
+
+homeassistant:
+
+  customize:
+    sensor.walarm_time:
+      icon: mdi:alarm
+
+input_slider:
+  walarmhour:
+    name: Hour
+    icon: mdi:timer
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+  walarmminutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 10
+    min: 0
+    max: 55
+    step: 5
+  dalarmhour:
+    name: Hour
+    icon: mdi:timer
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+  dalarmminutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 35
+    min: 0
+    max: 55
+    step: 5
+
+input_boolean:
+  walarmstatus:
+    name: Wake Me Up
+    initial: off
+    icon: mdi:alarm-check
+  walarmweekday:
+    name: Weekdays Only
+    initial: on
+    icon: mdi:calendar
+  dalarmstatus:
+    name: Wake Me Up
+    initial: off
+    icon: mdi:alarm-check
+  dalarmweekday:
+    name: Weekdays Only
+    initial: on
+    icon: mdi:calendar
+
+sensor:
+  - platform: template
+    sensors:
+      walarm_time:
+        friendly_name: 'Time'
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.walarmhour") | int, states("input_slider.walarmminutes") | int) }}'
+      dalarm_time:
+        friendly_name: 'Time'
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.dalarmhour") | int, states("input_slider.dalarmminutes") | int) }}'
+
+automation:
+  - alias: 'Wake Will Up'
+    trigger:
+      platform: template
+      value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
+    condition:
+      condition: or
+      conditions:
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.walarmweekday
+              state: 'on'
+            - condition: time
+              weekday:
+                - mon
+                - tue
+                - wed
+                - thu
+                - fri
+        - condition: state
+          entity_id: input_boolean.walarmweekday
+          state: 'off'
+    action:
+        - service: scene.turn_on
+          entity_id: scene.will_sunrise_1
+        - delay: 0:02
+        - service: scene.turn_on
+          entity_id: scene.will_sunrise_2
+        - delay: 0:02
+        - service: scene.turn_on
+          entity_id: scene.will_sunrise_3
+        - delay: 0:01
+        - service: notify.ios_will_iphone
+          data:
+            message: "Morning Will! It's currently {{states.sensor.dark_sky_temperature.state}}°C but indoors it's {{states.sensor.indoor_temperature.state}}°C."
+  - alias: 'Wake Dan Up'
+    trigger:
+      platform: template
+      value_template: '{{ states.sensor.time.state == states.sensor.dalarm_time.state }}'
+    condition:
+      condition: or
+      conditions:
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.dalarmweekday
+              state: 'on'
+            - condition: time
+              weekday:
+                - mon
+                - tue
+                - wed
+                - thu
+                - fri
+        - condition: state
+          entity_id: input_boolean.dalarmweekday
+          state: 'off'
+    action:
+        - service: scene.turn_on
+          entity_id: scene.dan_sunrise_1
+        - delay: 0:02
+        - service: scene.turn_on
+          entity_id: scene.dan_sunrise_2
+        - delay: 0:02
+        - service: scene.turn_on
+          entity_id: scene.dan_sunrise_3
+
+
+scene:
+    - name: Will Sunrise 1
+      entities:
+       light.will_side:
+          state: on
+          transition: 60
+          brightness: 10
+          color_temp: 200
+    - name: Dan Sunrise 1
+      entities:
+       light.daniel_side:
+          state: on
+          transition: 60
+          brightness: 10
+          color_temp: 200
+    - name: Will Sunrise 2
+      entities:
+       light.will_side:
+          state: on
+          transition: 60
+          brightness: 60
+          color_temp: 200
+    - name: Dan Sunrise 2
+      entities:
+       light.daniel_side:
+          state: on
+          transition: 60
+          brightness: 60
+          color_temp: 200
+    - name: Will Sunrise 3
+      entities:
+       light.will_side:
+          state: on
+          transition: 60
+          brightness: 120
+          color_temp: 200
+    - name: Dan Sunrise 3
+      entities:
+       light.daniel_side:
+          state: on
+          transition: 60
+          brightness: 120
+          color_temp: 200
+
+group:
+  walarmclock:
+    name: Will Alarm
+    control: hidden
+    entities:
+      - sensor.walarm_time
+      - input_slider.walarmhour
+      - input_slider.walarmminutes
+      - automation.wake_will_up
+      - input_boolean.walarmweekday
+
+  dalarmclock:
+    name: Dan Alarm
+    control: hidden
+    entities:
+      - sensor.dalarm_time
+      - input_slider.dalarmhour
+      - input_slider.dalarmminutes
+      - automation.wake_dan_up
+      - input_boolean.dalarmweekday

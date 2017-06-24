@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Ambassadr/HomeAssistant.png?label=ready&title=Ready)](https://waffle.io/Ambassadr/HomeAssistant?utm_source=badge)
 # Home Assistant Configuration for Ambassadr
 
 ## About Ambassadr

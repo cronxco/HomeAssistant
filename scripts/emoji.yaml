@@ -2,10 +2,10 @@
 # @Date:   25/06/2017 13:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 25/06/2017 15:05
+# @Last modified time: 25/06/2017 15:02
 
     alias: Emoji Test
     sequence:
     - service: notify.ios_will_iphone
       data:
-        message: "\xF0\x9F\x91\x8B Hello!"
+        message: "👋 Hello!"

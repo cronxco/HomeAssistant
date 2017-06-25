@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/Ambassadr/HomeAssistant.png?label=ready&title=Ready)](https://waffle.io/Ambassadr/HomeAssistant?utm_source=badge)
+[![Stories in Ready](https://badge.waffle.io/Ambassadr/HomeAssistant.png?label=ready&title=Ready)](https://waffle.io/Ambassadr/HomeAssistant?utm_source=badge) [![Build Status](https://travis-ci.org/Ambassadr/HomeAssistant.svg?branch=master)](https://travis-ci.org/Ambassadr/HomeAssistant)
 # Home Assistant Configuration for Ambassadr
 
 ## About Ambassadr

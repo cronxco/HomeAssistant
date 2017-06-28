@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 25/06/2017 16:45
+# @Last modified time: 28/06/2017 13:46
 
 homeassistant:
   # Name of the location where Home Assistant is running
@@ -72,7 +72,9 @@ mqtt:
 ios:
 
 emulated_hue:
-  expose_by_default: false
+  type: alexa
+  host_ip: !secret ip_addr
+  expose_by_default: True
   exposed_domains:
     - light
 

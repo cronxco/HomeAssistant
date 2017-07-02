@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 02/07/2017 19:58
+# @Last modified time: 02/07/2017 20:02
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -95,8 +95,8 @@ automation:
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.early_twilight
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.early_twilight
 
   - alias: 'Mid Twilight; Clear Skies'
     trigger:
@@ -109,8 +109,10 @@ automation:
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.mid_twilight
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.mid_twilight
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.early_twilight
 
   - alias: 'Dusk; Clear Skies'
     trigger:
@@ -123,12 +125,14 @@ automation:
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.dusk
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dusk
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.mid_twilight
 
 # And now for cloudy skies
 
-  - alias: 'Early Twilight; Clear Skies'
+  - alias: 'Early Twilight; Dark Skies'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
@@ -142,7 +146,7 @@ automation:
       service: input_boolean.turn_on
       entity_id: input_boolean.early_twilight
 
-  - alias: 'Mid Twilight; Clear Skies'
+  - alias: 'Mid Twilight; Dark Skies'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
@@ -153,10 +157,12 @@ automation:
       entity_id: sensor.dark_sky_cloud_coverage
       above: 60
     action:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.mid_twilight
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.mid_twilight
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.early_twilight
 
-  - alias: 'Dusk; Clear Skies'
+  - alias: 'Dusk; Dark Skies'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
@@ -167,8 +173,10 @@ automation:
       entity_id: sensor.dark_sky_cloud_coverage
       above: 60
     action:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.dusk
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dusk
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.mid_twilight
 
 group:
   Flux:

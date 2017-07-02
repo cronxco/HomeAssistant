@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 02/07/2017 19:53
+# @Last modified time: 02/07/2017 19:58
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -91,7 +91,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 3.5
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
@@ -105,7 +105,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 1.5
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
@@ -119,7 +119,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: -2.5
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       below: 60
     action:
@@ -135,7 +135,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 5
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       above: 60
     action:
@@ -149,7 +149,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 3
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       above: 60
     action:
@@ -163,7 +163,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 0
     condition:
-      condition: state
+      condition: numeric_state
       entity_id: sensor.dark_sky_cloud_coverage
       above: 60
     action:

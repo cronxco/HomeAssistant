@@ -1,0 +1,45 @@
+switch.philio_technology_corporation_pan11_smart_energy_plug_in_switch_switch_3_0:
+  ignored: false
+  polling_intensity: 1
+switch.philio_technology_corporation_pan11_smart_energy_plug_in_switch_switch_2_0:
+  ignored: false
+  polling_intensity: 1
+sensor.philio_technology_corporation_pan11_smart_energy_plug_in_switch_alarm_type_3_0:
+  ignored: false
+  polling_intensity: 1
+sensor.philio_technology_corporation_pan11_smart_energy_plug_in_switch_alarm_type_2_0:
+  ignored: false
+  polling_intensity: 1
+sensor.philio_technology_corporation_pan11_smart_energy_plug_in_switch_alarm_level_3_1:
+  ignored: false
+  polling_intensity: 1
+sensor.philio_technology_corporation_pan11_smart_energy_plug_in_switch_alarm_level_2_1:
+  ignored: false
+  polling_intensity: 1
+sensor.tumble_drier_alarm_level_3_1:
+  ignored: false
+  polling_intensity: 1
+sensor.tumble_drier_alarm_type_3_0:
+  ignored: false
+  polling_intensity: 1
+zwave.tumble_drier_3:
+  ignored: false
+  polling_intensity: 1
+zwave.washing_machine_2:
+  ignored: false
+  polling_intensity: 1
+zwave.aeotec_dsa02203_zstick_s2_1:
+  ignored: false
+  polling_intensity: 1
+switch.washing_machine_switch_2_0:
+  ignored: false
+  polling_intensity: 1
+switch.tumble_drier_switch_3_0:
+  ignored: false
+  polling_intensity: 1
+sensor.washing_machine_alarm_type_2_0:
+  ignored: false
+  polling_intensity: 1
+sensor.washing_machine_alarm_level_2_1:
+  ignored: false
+  polling_intensity: 1

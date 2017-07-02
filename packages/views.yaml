@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 19:57
+# @Last modified time: 02/07/2017 20:05
 
 # This package deals with frontend views
 
@@ -89,6 +89,7 @@ group:
     view: yes
     entities:
       - group.manual_modes
+      - group.sunset
 
   Will:
     view: yes

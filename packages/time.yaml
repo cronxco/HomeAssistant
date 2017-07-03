@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 02/07/2017 20:44
+# @Last modified time: 03/07/2017 20:50
 
 # This package deals with time and all time-based automations
 
@@ -139,3 +139,5 @@ automation:
         entity_id: input_boolean.evening_mode
       - service: switch.turn_off
         entity_id: switch.flux
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dusk

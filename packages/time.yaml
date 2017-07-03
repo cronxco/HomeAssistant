@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 23:02
+# @Last modified time: 03/07/2017 20:50
 
 # This package deals with time and all time-based automations
 
@@ -115,10 +115,10 @@ automation:
         entity_id: input_boolean.morning_mode
   - alias: 'Evening Mode'
     trigger:
-      platform: numeric_state
-      entity_id: sun.sun
-      value_template: '{{ state.attributes.elevation }}'
-      below: 3.5
+      platform: state
+      entity_id: input_boolean.early_twilight
+      from: 'off'
+      to: 'on'
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.afternoon_mode
@@ -139,3 +139,5 @@ automation:
         entity_id: input_boolean.evening_mode
       - service: switch.turn_off
         entity_id: switch.flux
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dusk

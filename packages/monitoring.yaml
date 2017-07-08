@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 08/07/2017 11:18
+# @Last modified time: 08/07/2017 11:24
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -67,7 +67,7 @@ sensor:
             unknown
           {%- endif -%}
   - platform: pi_hole
-    location: !secret pihole
+    host: !secret pihole
 
 group:
   System:

@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:46
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 16/07/2017 14:48
+# @Last modified by:   willscott
+# @Last modified time: 16/07/2017 18:15
 
 # This package deals with notifications - both text and speech
 # I've also added an "update available" notification in here.
@@ -19,7 +19,12 @@ notify:
   - platform: facebook
     page_access_token: !secret fb
     name: fb
-
+  - name: everyone
+    platform: group
+    services:
+      - service: ios_dan_iphone
+      - service: ios_will_iphone
+      - service: slack
 
 tts:
   - platform: google

@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 08/07/2017 11:30
+# @Last modified time: 16/07/2017 14:10
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -68,17 +68,12 @@ sensor:
           {%- else -%}
             unknown
           {%- endif -%}
-  - platform: pi_hole
-    host: !secret pihole
 
 group:
   System:
     - sensor.cpu_use
     - sensor.disk_use_mediabasecampsherpa
     - sensor.disk_use_mediabasecampdragonfly
-    - sensor.pihole_dns_queries_today
-    - sensor.pihole_ads_percentage_blocked_today
-    - sensor.pihole_ads_blocked_today
   Speed:
     - sensor.speedtest_download
     - sensor.speedtest_upload

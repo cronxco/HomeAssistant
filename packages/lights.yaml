@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 19:00
+# @Last modified time: 24/07/2017 21:19
 
 # This package sets up the lights in Ambassadr
 
@@ -15,8 +15,8 @@ homeassistant:
 light:
   - platform: lifx
 
-# IKEA Trädfri hopefully coming soon...
 
+# IKEA Trädfri now here (through autoconfig)
 
 group:
   Lights:
@@ -24,6 +24,8 @@ group:
     - group.hall
     - group.bedroom
     - group.map_room
+    - group.bathroom
+    - group.utility
   All Lights:
     - light.sofa
     - light.dining
@@ -37,25 +39,33 @@ group:
     - light.sofa
     - light.dining
   Hall:
-    - light.bathroom
-    - light.utility
+    - light.hall_a
+    - light.hall_b
   Bedroom:
     - light.main
     - light.daniel_side
     - light.will_side
   Map Room:
     - light.map
+  Bathroom:
+    - light.lf_bathroom
+    - light.lr_bathroom
+    - light.rf_bathroom
+    - light.rr_bathroom
+    - light.ro_bathroom
+  Utility:
+    - light.utility_light
 
   ### Light Panels ##
 
   panel_bathroom:
-    name: Bathroom
+    name: Hall A
     control: hidden
     entities:
-      - light.bathroom
-      - sensor.bathroom_colour
-      - sensor.bathroom_temp
-      - sensor.bathroom_brightness
+      - light.hall_a
+      - sensor.hall_a_colour
+      - sensor.hall_a_temp
+      - sensor.hall_a_brightness
 
   panel_daniel:
     name: Daniel Side
@@ -106,10 +116,10 @@ group:
     name: Utility
     control: hidden
     entities:
-      - light.utility
-      - sensor.utility_colour
-      - sensor.utility_temp
-      - sensor.utility_brightness
+      - light.hall_b
+      - sensor.hall_b_colour
+      - sensor.hall_b_temp
+      - sensor.hall_b_brightness
 
   panel_will:
     name: Will Side
@@ -123,18 +133,18 @@ group:
 sensor:
   - platform: template
     sensors:
-      bathroom_colour:
-        value_template: '{{ states.light.bathroom.attributes.rgb_color }}'
-        friendly_name: 'Bathroom Colour'
+      hall_a_colour:
+        value_template: '{{ states.light.hall_a.attributes.rgb_color }}'
+        friendly_name: 'Hall A Colour'
 
-      bathroom_temp:
-        value_template: '{{ 1000000.0 / states.light.bathroom.attributes.color_temp }}'
-        friendly_name: 'Bathroom Colour Temp'
+      hall_a_temp:
+        value_template: '{{ 1000000.0 / states.light.hall_a.attributes.color_temp }}'
+        friendly_name: 'Hall A Colour Temp'
         unit_of_measurement: 'K'
 
-      bathroom_brightness:
-        value_template: '{{ states.light.bathroom.attributes.brightness }}'
-        friendly_name: 'Bathroom Brightness'
+      hall_a_brightness:
+        value_template: '{{ states.light.hall_a.attributes.brightness }}'
+        friendly_name: 'Hall A Brightness'
         unit_of_measurement: 'n'
 
       daniel_colour:
@@ -208,18 +218,18 @@ sensor:
         friendly_name: 'Sofa Brightness'
         unit_of_measurement: 'n'
 
-      utility_colour:
-        value_template: '{{ states.light.utility.attributes.rgb_color }}'
-        friendly_name: 'Utility Colour'
+      hall_b_colour:
+        value_template: '{{ states.light.hall_b.attributes.rgb_color }}'
+        friendly_name: 'Hall B Colour'
 
-      utility_temp:
-        value_template: '{{ 1000000.0 / states.light.utility.attributes.color_temp }}'
-        friendly_name: 'Utility Colour Temp'
+      hall_b_temp:
+        value_template: '{{ 1000000.0 / states.light.hall_b.attributes.color_temp }}'
+        friendly_name: 'Hall B Colour Temp'
         unit_of_measurement: 'K'
 
-      utility_brightness:
-        value_template: '{{ states.light.utility.attributes.brightness }}'
-        friendly_name: 'Utility Brightness'
+      hall_b_brightness:
+        value_template: '{{ states.light.hall_b.attributes.brightness }}'
+        friendly_name: 'Hall B Brightness'
         unit_of_measurement: 'n'
 
       will_colour:

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 12:52
+# @Last modified time: 24/07/2017 22:14
 
 # This package deals with alarms
 
@@ -105,7 +105,7 @@ automation:
         - delay: 0:01
         - service: notify.ios_will_iphone
           data:
-            message: "Morning Will! It's currently {{states.sensor.dark_sky_temperature.state}}°C but indoors it's {{states.sensor.indoor_temperature.state}}°C."
+            message: "Morning Will! It's currently {{states.sensor.dark_sky_temperature.state}}°C but indoors it's {{states.sensor.heating_temperature.state}}°C."
   - alias: 'Wake Dan Up'
     trigger:
       platform: template

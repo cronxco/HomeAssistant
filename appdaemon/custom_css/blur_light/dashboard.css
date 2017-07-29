@@ -1,3 +1,13 @@
+/**
+ * @Author: Will Scott <willscottuk>
+ * @Date:   13/07/2017 14:22
+ * @Project: Ambassadr Home Automation
+ * @Last modified by:   willscottuk
+ * @Last modified time: 29/07/2017 21:39
+ */
+
+
+
 html {
 	font-size:100%;
 	-webkit-text-size-adjust:100%;
@@ -16,7 +26,7 @@ body {
 
 body::after
 {
-  background-image: url(/custom_css/blur1/img/tablet_background2.jpg);
+  background-image: url(/custom_css/blur_light/img/tablet_background2.jpg);
   background-size:cover;
   content: "";
   top: 0;
@@ -24,7 +34,7 @@ body::after
   bottom: 0;
   right: 0;
   position: absolute;
-  z-index: -1; 
+  z-index: -1;
 }
 
 b,strong {
@@ -80,7 +90,7 @@ h1 {
 h2 {
 	font-size:220%;
 	font-weight:400;
-/	color:#646464; 
+/	color:#646464;
 }
 
 h3 {
@@ -138,12 +148,12 @@ h3 {
 {
 	color:#646464;
 	z-index: 1;
-	/*background-color: rgba(255, 255, 255, 0.2); 
+	/*background-color: rgba(255, 255, 255, 0.2);
 	margin-top: -5px;
 	height: 35px;
 	padding-top: 5px;
 	padding-bottom: 6px; */
-  
+
 }
 
 .title2

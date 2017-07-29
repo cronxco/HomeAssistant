@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 29/07/2017 14:55
+# @Last modified time: 29/07/2017 15:14
 
 # This package deals with time and all time-based automations
 
@@ -104,7 +104,7 @@ automation:
     trigger:
         platform: time
         # You can also match on interval. This will match every 5 minutes
-        time: '12:00:00'
+        at: '12:00:00'
     condition:
       - condition: time
         before: '16:30:00'

@@ -1,5 +1,5 @@
 title: Hall Panel
-skin=blur_light
+
 layout:
     - include: top_panel
     - include: main_middle_panel

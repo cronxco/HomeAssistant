@@ -1,5 +1,5 @@
 title: Hall Panel
 layout:
   - include: top_panel
-  - include: main_middle_panel
+  - include: main_hall_panel
   - include: bottom_panel

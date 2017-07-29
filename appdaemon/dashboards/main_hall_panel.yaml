@@ -2,7 +2,7 @@
 # @Date:   13/07/2017 14:22
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 29/07/2017 21:56
+# @Last modified time: 29/07/2017 21:58
 
 
 
@@ -20,11 +20,16 @@ bathroom:
     title: Bathroom Lights
     entity: group.bathroom
 
+livingroom:
+    widget_type: group
+    title: Living Lights
+    entity: group.living_room
+
 layout:
     - empty: 120
     - spacer(20x1), media(120x120)
     - empty: 140
     - spacer(20x1), input_boolean.will_home(120x120), spacer(20x1), input_boolean.dan_home(120x120), spacer(20x1), sensor.heating_temperature(120x120), spacer(20x1), sensor.heating_humidity(120x120), spacer(20x1), mediaplayer(260x260)
     - empty: 140
-    - spacer(20x1), climate.heating(120x120), spacer(20x1),bathroom(120x120)
+    - spacer(20x1), climate.heating(120x120), spacer(20x1), bathroom(120x120), spacer(20x1), livingroom(120x120)
     - empty: 136

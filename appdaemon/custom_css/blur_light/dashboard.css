@@ -3,7 +3,7 @@
  * @Date:   13/07/2017 14:22
  * @Project: Ambassadr Home Automation
  * @Last modified by:   willscottuk
- * @Last modified time: 29/07/2017 21:39
+ * @Last modified time: 29/07/2017 22:01
  */
 
 
@@ -26,7 +26,7 @@ body {
 
 body::after
 {
-  background-image: url(/custom_css/blur_light/img/tablet_background2.jpg);
+  background-image: url('https://home.ambassadr.io/local/london_live.jpg?string=317833565');
   background-size:cover;
   content: "";
   top: 0;

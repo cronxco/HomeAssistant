@@ -1,4 +1,15 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   13/07/2017 14:22
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 30/07/2017 10:22
+
+
+
 body_includes:
+
+head_includes:
+ - <script src="/custom_css/blur_light/js/background.js"></script>
 
 #
 # Styles
@@ -104,7 +115,7 @@ input_boolean_state_text_style: "color: $white"
 switch_icon_on: fa-circle
 switch_icon_off: fa-circle-thin
 switch_icon_style_active: $style_active
-switch_icon_style_inactive: "$style_inactive; color: antiquewhite"  
+switch_icon_style_inactive: "$style_inactive; color: antiquewhite"
 switch_title_style: $style_title
 switch_title2_style: $style_title2
 switch_widget_style: $background_style

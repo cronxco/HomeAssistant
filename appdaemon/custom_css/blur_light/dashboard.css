@@ -3,7 +3,7 @@
  * @Date:   13/07/2017 14:22
  * @Project: Ambassadr Home Automation
  * @Last modified by:   willscottuk
- * @Last modified time: 30/07/2017 11:39
+ * @Last modified time: 30/07/2017 11:44
  */
 
 
@@ -17,15 +17,7 @@ html {
 
 body {
 	margin:0;
-	background-image: url('https://home.ambassadr.io/local/london_live.jpg?string=927833565');
-  background-size:cover;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
+	background-color: #000;
 	font-size:15px;
 	color:#646464;
 	padding:0;
@@ -34,11 +26,15 @@ body {
 
 body::after
 {
-	background-color: rgba(20, 20, 20, 0.4);
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+  background-image: url('https://home.ambassadr.io/local/london_live.jpg?string=967833565');
+  background-size:cover;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 b,strong {

@@ -2,7 +2,7 @@
 # @Date:   13/07/2017 14:22
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 29/07/2017 20:21
+# @Last modified time: 30/07/2017 09:46
 
 
 
@@ -16,6 +16,7 @@ clock:
     widget_style: "background-color: transparent; border-radius: 0px;"
     time_style: "font-size: 100%; color: #fff; vertical-align: top; text-align: right"
     date_style: "height: 0px;"
+    time_format: 24hr
 
 layout:
     - spacer(20x1), header(744x40), clock.clock(240x40)

@@ -2,13 +2,13 @@
 # @Date:   13/07/2017 14:22
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscottuk
-# @Last modified time: 30/07/2017 09:46
+# @Last modified time: 30/07/2017 10:04
 
 
 
 header:
     widget_type: label
-    title2: Living room
+    title2: Hall
     title2_style: "text-align: left; vertical-align: top; font-size: 150%; color: #fff; top: 6px"
 
 clock:
@@ -19,4 +19,4 @@ clock:
     time_format: 24hr
 
 layout:
-    - spacer(20x1), header(744x40), clock.clock(240x40)
+    - spacer(20x1), header(760x40), clock.clock(240x40)

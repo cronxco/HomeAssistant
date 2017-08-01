@@ -1,0 +1,22 @@
+# @Author: Will Scott <willscottuk>
+# @Date:   13/07/2017 14:22
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscottuk
+# @Last modified time: 30/07/2017 10:04
+
+
+
+header:
+    widget_type: label
+    title2: Hall
+    title2_style: "text-align: left; vertical-align: top; font-size: 150%; color: #fff; top: 6px"
+
+clock:
+    widget_type: clock
+    widget_style: "background-color: transparent; border-radius: 0px;"
+    time_style: "font-size: 100%; color: #fff; vertical-align: top; text-align: right"
+    date_style: "height: 0px;"
+    time_format: 24hr
+
+layout:
+    - spacer(20x1), header(760x40), clock.clock(240x40)

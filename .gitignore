@@ -25,3 +25,7 @@ pyozw.sqlite
 html5_push_registrations.conf
 ip_bans.yaml
 /icloud/*
+ps4-games.json
+*.pyc
+/appdaemon/compiled/*
+/appdaemon/appdaemon.yaml

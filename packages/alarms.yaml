@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/07/2017 22:14
+# @Last modified by:   willscott
+# @Last modified time: 08/08/2017 10:38
 
 # This package deals with alarms
 
@@ -90,9 +90,17 @@ automation:
                 - wed
                 - thu
                 - fri
-        - condition: state
-          entity_id: input_boolean.walarmweekday
-          state: 'off'
+            - condition: state
+              entity_id: input_boolean.will_home
+              state: 'on'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.walarmweekday
+              state: 'off'
+            - condition: state
+              entity_id: input_boolean.will_home
+              state: 'on'
     action:
         - service: scene.turn_on
           entity_id: scene.will_sunrise_1
@@ -125,9 +133,17 @@ automation:
                 - wed
                 - thu
                 - fri
-        - condition: state
-          entity_id: input_boolean.dalarmweekday
-          state: 'off'
+            - condition: state
+              entity_id: input_boolean.dan_home
+              state: 'on'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.dalarmweekday
+              state: 'off'
+            - condition: state
+              entity_id: input_boolean.dan_home
+              state: 'on'
     action:
         - service: scene.turn_on
           entity_id: scene.dan_sunrise_1

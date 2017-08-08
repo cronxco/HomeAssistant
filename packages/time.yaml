@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 29/07/2017 15:14
+# @Last modified by:   willscott
+# @Last modified time: 08/08/2017 13:50
 
 # This package deals with time and all time-based automations
 
@@ -67,8 +67,6 @@ automation:
   - alias: 'Reset additional switches'
     trigger:
         platform: time
-        # When 'after' is used, you cannot also match on hour, minute, seconds.
-        # Military time format.
         at: '04:30:00'
     condition:
       - condition: time
@@ -103,7 +101,6 @@ automation:
   - alias: "Afternoon Mode"
     trigger:
         platform: time
-        # You can also match on interval. This will match every 5 minutes
         at: '12:00:00'
     condition:
       - condition: time
@@ -127,7 +124,6 @@ automation:
   - alias: "Night Mode"
     trigger:
         platform: time
-        # You can also match on interval. This will match every 5 minutes
         at: '22:00:00'
     condition:
       - condition: time

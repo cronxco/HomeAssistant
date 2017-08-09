@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/08/2017 20:10
+# @Last modified time: 09/08/2017 21:18
 
 # This package deals with notifications - both text and speech
 # I've also added an "update available" notification in here.
@@ -52,6 +52,7 @@ automation:
       title: "\U0001f4f0 Update Available"
       message: 'A new update for Home Assistant is available.'
 
+
 script:
   notify_home:
     sequence:
@@ -85,20 +86,19 @@ script:
         data_template:
           title: "{{ notify_title }}"
           message: "{{ notify_text }}"
-
-        - service_template: >
-            {%- if is_state("input_boolean.will_home", "off") and is_state("input_boolean.dan_home", "off") -%}
-              notify.everyone
-            {%- elif is_state("input_boolean.will_home", "on") and is_state("input_boolean.dan_home", "off") -%}
-              notify.dan
-            {%- elif is_state("input_boolean.will_home", "off") and is_state("input_boolean.dan_home", "on") -%}
-              notify.will
-            {%- else -%}
-              notify.nobody
-            {%- endif -%}
-          data_template:
-            title: "{{ notify_title }}"
-            message: "{{ notify_text }}"
+      - service_template: >
+          {%- if is_state("input_boolean.will_home", "off") and is_state("input_boolean.dan_home", "off") -%}
+            notify.everyone
+          {%- elif is_state("input_boolean.will_home", "on") and is_state("input_boolean.dan_home", "off") -%}
+            notify.dan
+          {%- elif is_state("input_boolean.will_home", "off") and is_state("input_boolean.dan_home", "on") -%}
+            notify.will
+          {%- else -%}
+            notify.nobody
+          {%- endif -%}
+        data_template:
+          title: "{{ notify_title }}"
+          message: "{{ notify_text }}"
 
   notify_all:
     sequence:
@@ -124,21 +124,4 @@ script:
           title: "{{ notify_title }}"
           message: "{{ notify_text }}"
 
-ios:
-  push:
-    categories:
-      - name: Morning
-        identifier: 'MORNING'
-        actions:
-          - identifier: 'TV_ON'
-            title: 'Switch on BBC One'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: no
-            behavior: 'default'
-          - identifier: 'COFFEE_ON'
-            title: 'Brew Coffee'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: no
-            behavior: 'default'
+# iOS notification config has to be in the main config file :(

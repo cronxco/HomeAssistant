@@ -6,7 +6,7 @@
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
-
+# This connects Canary to HASS. It's not pretty but it works! Shame there's no camera access.
 wink:
   email: !secret wink_user
   password: !secret wink_pass
@@ -28,6 +28,8 @@ automation:
     action:
         - service: light.turn_off
           entity_id: group.all_lights
+        - service: alarm_control_panel.alarm_arm_away
+          entity_id: alarm_control_panel.living_room
         - service: script.notify_all
           data:
             title: "\U0001F512 Lockdown"
@@ -48,6 +50,8 @@ automation:
           entity_id: input_boolean.away_mode
         - service: input_boolean.turn_on
           entity_id: input_boolean.home_mode
+        - service: alarm_control_panel.alarm_disarm
+          entity_id: alarm_control_panel.living_room
 
   - alias: 'Auto holiday mode'
     trigger:

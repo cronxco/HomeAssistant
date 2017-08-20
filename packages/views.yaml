@@ -146,9 +146,13 @@ group:
     view: yes
     icon: mdi:leaf
     entities:
+      - group.all_plants
       - group.aquatica
       - group.aloe
       - group.chilli
+      - group.basil
+      - group.will_tree
+      - group.dan_tree
 
   Cameras:
     view: yes

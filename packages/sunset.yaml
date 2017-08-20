@@ -47,6 +47,12 @@ input_boolean:
     initial: off
     name: Dusk
 
+# Add a way for other things to trigger the lights to come on
+  light_trigger:
+    name: Light Update Trigger
+    initial: off
+    icon: mdi:light
+
 # SCENES
 
 scene:
@@ -185,11 +191,18 @@ automation:
 
   - alias: 'Sunset Lighting 1'
     trigger:
-      platform: state
-      entity_id: input_boolean.early_twilight
-      from: 'off'
-      to: 'on'
+      - platform: state
+        entity_id: input_boolean.early_twilight
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: input_boolean.light_trigger
+        from: 'off'
+        to: 'on'
     condition:
+        - condition: state
+          entity_id: input_boolean.early_twilight
+          state: 'on'
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -205,11 +218,18 @@ automation:
 
   - alias: 'Sunset Lighting 2'
     trigger:
-      platform: state
-      entity_id: input_boolean.mid_twilight
-      from: 'off'
-      to: 'on'
+      - platform: state
+        entity_id: input_boolean.mid_twilight
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: input_boolean.light_trigger
+        from: 'off'
+        to: 'on'
     condition:
+        - condition: state
+          entity_id: input_boolean.mid_twilight
+          state: 'on'
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -227,11 +247,18 @@ automation:
 
   - alias: 'Sunset Lighting 3'
     trigger:
-      platform: state
-      entity_id: input_boolean.dusk
-      from: 'off'
-      to: 'on'
+      - platform: state
+        entity_id: input_boolean.dusk
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: input_boolean.light_trigger
+        from: 'off'
+        to: 'on'
     condition:
+        - condition: state
+          entity_id: input_boolean.dusk
+          state: 'on'
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -252,6 +279,19 @@ automation:
         - delay: 0:04
         - service: switch.turn_on
           entity_id: switch.flux
+
+# Add a way for the light trigger to be reset. 
+  reset_light_trigger:
+    trigger:
+      platform: state
+      entity_id: input_boolean.light_trigger
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 1
+    action:
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.light_trigger
 
 group:
   Flux:

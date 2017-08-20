@@ -176,3 +176,67 @@ automation:
         entity_id: input_boolean.dan_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_very_away
+  - alias: 'Dan Welcome Home'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.dan_very_away
+        to: 'off'
+        from: 'on'
+    action:
+      - service: notify.dan
+        data:
+          title: "\U0001F44B Hello Dan!"
+          message: "Welcome back"
+  - alias: 'Will Welcome Home'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.will_very_away
+        to: 'off'
+        from: 'on'
+    action:
+      - service: notify.will
+        data:
+          title: "\U0001F44B Hello Will!"
+          message: "Welcome back"
+  - alias: 'Dan Safety Report'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.dan_very_away
+        to: 'off'
+        from: 'on'
+    condition:
+      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out!
+      - condition: state
+        entity_id: input_boolean.will_home
+        state: 'on'
+        for:
+          minutes: 10
+      - condition: state
+        entity_id: input_boolean.night_mode
+        state: 'on'
+    action:
+      - service: notify.will
+        data:
+          title: "\U0001F60A Safety Report"
+          message: "Dan is safely home"
+  - alias: 'Will Safety Report'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.will_very_away
+        to: 'off'
+        from: 'on'
+    condition:
+      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out!
+      - condition: state
+        entity_id: input_boolean.dan_home
+        state: 'on'
+        for:
+          minutes: 10
+      - condition: state
+        entity_id: input_boolean.night_mode
+        state: 'on'
+    action:
+      - service: notify.dan
+        data:
+          title: "\U0001F60A Safety Report"
+          message: "Will is safely home"

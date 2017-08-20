@@ -58,13 +58,13 @@ script:
     sequence:
       - service: notify.slack
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
 
       - service: notify.livingroom_tv
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
 
       - service_template: >
           {%- if is_state("input_boolean.will_home", "on") and is_state("input_boolean.dan_home", "on") -%}
@@ -77,15 +77,15 @@ script:
             notify.nobody
           {%- endif -%}
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
 
   notify_away:
     sequence:
       - service: notify.slack
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
       - service_template: >
           {%- if is_state("input_boolean.will_home", "off") and is_state("input_boolean.dan_home", "off") -%}
             notify.everyone
@@ -97,23 +97,23 @@ script:
             notify.nobody
           {%- endif -%}
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
 
   notify_all:
     sequence:
       - service: notify.will
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
       - service: notify.dan
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
       - service: notify.slack
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
       - service_template: >
           {%- if is_state("input_boolean.will_home", "on") or is_state("input_boolean.dan_home", "on") -%}
             notify.livingroom_tv
@@ -121,7 +121,7 @@ script:
             persistent_notification.create
           {%- endif -%}
         data_template:
-          title: "{{ notify_title }}"
-          message: "{{ notify_text }}"
+          title: "{{ title }}"
+          message: "{{ message }}"
 
 # iOS notification config has to be in the main config file :(

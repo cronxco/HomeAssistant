@@ -115,10 +115,10 @@ automation:
           data_template:
             title: "\U0001F305 Morning Will!"
             message: >
-              {% if states("sensor.dark_sky_daily_max_precip_intensity") | float > 0.01 -%} \U0002614 Take an umbrella - {{ states("sensor.dark_sky_hourly_summary") | lower}} {%- else -%} Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}} {%- endif %} {% if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%} It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
-              {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%} Chilly day ahead \U0002744 - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
+              "{% if states("sensor.dark_sky_daily_max_precip_intensity") | float > 0.01 -%} \U00002614 Take an umbrella - {{ states("sensor.dark_sky_hourly_summary") | lower}} {%- else -%} Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}} {%- endif %} {% if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%} It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
+              {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%} Chilly day ahead \U00002744 - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
               {%- endif %} {% if (states("sensor.heating_temperature")  | float < states("sensor.heating_set_temp") | float) and (states("sensor.heating_heating")  | float > 0 ) -%} It's only states("sensor.heating_temperature") inside but the heating is on \U0001F525.
-              {%- endif %} {% if states("sensor.tram_status") != "Good Service" %} London Trams currently has {{ states("sensor.tram_status") | lower}}. {%- endif %}
+              {%- endif %} {% if states("sensor.tram_status") != "Good Service" %} London Trams currently has {{ states("sensor.tram_status") | lower}}. {%- endif %}"
   - alias: 'Wake Dan Up'
     trigger:
       platform: template

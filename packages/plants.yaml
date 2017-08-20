@@ -306,7 +306,7 @@ plant:
       temperature: sensor.aquatica_temperature
       conductivity: sensor.aquatica_conductivity
       brightness: sensor.aquatica_brightness
-    min_moisture: 20
+    min_moisture: 10
   aloe:
     sensors:
       moisture: sensor.aloe_moisture
@@ -338,7 +338,7 @@ plant:
       temperature: sensor.will_tree_temperature
       conductivity: sensor.will_tree_conductivity
       brightness: sensor.will_tree_brightness
-    min_moisture: 20
+    min_moisture: 10
   dan_tree:
     sensors:
       moisture: sensor.dan_tree_moisture
@@ -346,4 +346,4 @@ plant:
       temperature: sensor.dan_tree_temperature
       conductivity: sensor.dan_tree_conductivity
       brightness: sensor.dan_tree_brightness
-    min_moisture: 20
+    min_moisture: 10

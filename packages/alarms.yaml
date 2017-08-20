@@ -111,9 +111,10 @@ automation:
         - service: scene.turn_on
           entity_id: scene.will_sunrise_3
         - delay: 0:01
-        - service: notify.ios_will_iphone
+        - service: notify.will
           data:
-            message: "Morning Will! It's currently {{states.sensor.dark_sky_temperature.state}}°C but indoors it's {{states.sensor.heating_temperature.state}}°C."
+            title: "\U0001F305 Morning Will!"
+            message: "It's currently {{states.sensor.dark_sky_temperature.state}}°C outside; indoors it's {{states.sensor.heating_temperature.state}}°C."
   - alias: 'Wake Dan Up'
     trigger:
       platform: template
@@ -153,6 +154,11 @@ automation:
         - delay: 0:02
         - service: scene.turn_on
           entity_id: scene.dan_sunrise_3
+        - delay: 0:01
+        - service: notify.dan
+          data:
+            title: "\U0001F305 Morning Dan!"
+            message: "It's currently {{states.sensor.dark_sky_temperature.state}}°C outside; indoors it's {{states.sensor.heating_temperature.state}}°C."
 
 
 scene:

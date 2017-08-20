@@ -88,7 +88,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/aquatica/'
       name: 'Aquatica Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/aquatica/'
@@ -114,7 +114,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/aloe/'
       name: 'Aloe Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/aloe/'
@@ -140,7 +140,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/chilli/'
       name: 'Chilli Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/chilli/'
@@ -166,7 +166,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/basil/'
       name: 'Basil Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/basil/'
@@ -192,7 +192,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/willtree/'
       name: 'Will Tree Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/willtree/'
@@ -218,7 +218,7 @@ sensor:
     - platform: mqtt
       state_topic: 'flora/my/plants/dantree/'
       name: 'Dan Tree Conductivity'
-      unit_of_measurement: 'n'
+      unit_of_measurement: 'µS/cm'
       value_template: '{{ value_json.conductivity }}'
     - platform: mqtt
       state_topic: 'flora/my/plants/dantree/'

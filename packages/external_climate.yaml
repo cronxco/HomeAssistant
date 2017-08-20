@@ -58,6 +58,8 @@ sensor:
       - apparent_temperature
       - humidity
       - cloud_cover
+      - hourly_summary
+      - temperature_max
   - platform: waqi
     token: !secret waqi
     locations:

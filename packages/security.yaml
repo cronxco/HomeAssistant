@@ -37,52 +37,17 @@ automation:
         - service: input_boolean.turn_on
           entity_id: input_boolean.away_mode
 
-  - alias: 'Will Home'
-    trigger:
-         platform: state
-         entity_id: input_boolean.will_home
-         from: 'off'
-         to: 'on'
-    action:
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.away_mode
-        - service: input_boolean.turn_on
-          entity_id: input_boolean.home_mode
-
-  - alias: 'Dan Home'
-    trigger:
-         platform: state
-         entity_id: input_boolean.dan_home
-         from: 'off'
-         to: 'on'
-    action:
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.away_mode
-        - service: input_boolean.turn_on
-          entity_id: input_boolean.home_mode
-
   - alias: 'Occupied'
     trigger:
          platform: state
          entity_id: group.people
          from: 'off'
          to: 'on'
-    condition:
-         - condition: numeric_state
-           entity_id: sun.sun
-           value_template: '{{ state.attributes.elevation }}'
-           below: 3.5
-         - condition: time
-           before: '23:30'
-         - condition: time
-           after: '13:00'
     action:
-        - service: notify.ios_will_iphone
-          data:
-            title: "\U0001F4A1 Lights on!"
-            message: ""
-        - service: scene.turn_on
-          entity_id: scene.occupied
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.away_mode
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.home_mode
 
   - alias: 'Auto holiday mode'
     trigger:
@@ -98,25 +63,3 @@ automation:
       - service: input_boolean.turn_on
         entity_id:
          - input_boolean.holiday_mode
-
-
-scene:
-  - name: Occupied
-    entities:
-     group.living_room:
-        state: on
-        transition: 5
-        brightness: 115
-        color_temp: 285
-     group.hall:
-        state: on
-        transition: 5
-        brightness: 25
-        color_temp: 285
-     group.bedroom:
-        state: on
-        transition: 5
-        brightness: 115
-        color_temp: 285
-     switch.flux:
-        state: on

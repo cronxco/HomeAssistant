@@ -60,6 +60,7 @@ sensor:
       - cloud_cover
       - hourly_summary
       - temperature_max
+      - precip_intensity_max
   - platform: waqi
     token: !secret waqi
     locations:

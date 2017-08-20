@@ -73,6 +73,10 @@ homeassistant:
        icon: mdi:flash
      sensor.dan_tree_battery:
        icon: mdi:battery-charging
+       
+     group.all_plants:
+       friendly_name: Plant Status
+       hidden: false
 
 sensor:
     - platform: mqtt

@@ -23,6 +23,10 @@ homeassistant:
 frontend:
 sun:
 history:
+  exclude:
+    entities:
+      - sensor.dark_sky_hourly_summary
+      - sensor.dark_sky_temperature_max
 zeroconf:
 config:
 

@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/08/2017 21:23
+# @Last modified time: 24/08/2017 21:54
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -251,10 +251,6 @@ automation:
         entity_id: input_boolean.dusk
         from: 'off'
         to: 'on'
-      - platform: state
-        entity_id: input_boolean.light_trigger
-        from: 'off'
-        to: 'on'
     condition:
         - condition: state
           entity_id: input_boolean.dusk
@@ -280,8 +276,41 @@ automation:
         - service: switch.turn_on
           entity_id: switch.flux
 
-# Add a way for the light trigger to be reset. 
-  reset_light_trigger:
+  - alias: 'Triggered Sunset 3'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.light_trigger
+        from: 'off'
+        to: 'on'
+    condition:
+        - condition: state
+          entity_id: input_boolean.dusk
+          state: 'on'
+        - condition: state
+          entity_id: group.people
+          state: 'on'
+        - condition: time
+          before: '22:00:00'
+        - condition: state
+          entity_id: input_boolean.quiet_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.romance_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.party_mode
+          state: 'off'
+    action:
+        - service: script.turn_on
+          entity_id: script.hall_lights
+        - service: scene.turn_on
+          entity_id: scene.sunset3
+        - delay: 0:04
+        - service: switch.turn_on
+          entity_id: switch.flux  
+
+# Add a way for the light trigger to be reset.
+  - alias: 'Reset Light Trigger'
     trigger:
       platform: state
       entity_id: input_boolean.light_trigger

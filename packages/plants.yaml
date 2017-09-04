@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:07
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 19:33
+# @Last modified by:   willscott
+# @Last modified time: 04/09/2017 20:09
 
 # Because plants are cool. And green.
 
@@ -73,7 +73,7 @@ homeassistant:
        icon: mdi:flash
      sensor.dan_tree_battery:
        icon: mdi:battery-charging
-       
+
      group.all_plants:
        friendly_name: Plant Status
        hidden: false
@@ -347,3 +347,13 @@ plant:
       conductivity: sensor.dan_tree_conductivity
       brightness: sensor.dan_tree_brightness
     min_moisture: 10
+
+# Update Plant Status
+
+automation:
+    - alias: 'Plant Update'
+      trigger:
+        - platform: state
+          entity_id: plant.aquatica, plant.aloe, plant.chilli, plant.basil, plant.will_tree, plant.dan_tree
+      action:
+        - service: python_script.plant_problems

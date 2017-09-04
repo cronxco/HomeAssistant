@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 16/07/2017 14:10
+# @Last modified by:   willscott
+# @Last modified time: 04/09/2017 21:30
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -69,6 +69,16 @@ sensor:
             unknown
           {%- endif -%}
 
+  - platform: command_line
+    name: Travis Status
+    command: /usr/bin/curl -X GET https://api.travis-ci.org/repos/Ambassadr/HomeAssistant/cc.xml\?branch\=master | grep lastBuildStatus | cut -d'"' -f2
+    scan_interval: 60
+
+  - platform: command_line
+    name: Travis Build Label
+    command: /usr/bin/curl -X GET https://api.travis-ci.org/repos/Ambassadr/HomeAssistant/cc.xml\?branch\=master | grep lastBuildLabel | cut -d'"' -f2
+    scan_interval: 60
+
 group:
   System:
     - sensor.cpu_use
@@ -82,3 +92,26 @@ group:
     -  sensor.power_usage
     -  sensor.power_stats_mean
     -  sensor.electricity_usage
+
+automation:
+  - alias: "Configuration Update"
+    trigger:
+      platform: state
+      entity_id: sensor.travis_build_label
+    condition:
+      - condition: state
+        entity_id: sensor.travis_status
+        state: 'Success'
+    action:
+      - service: script.get_latest_config
+
+script:
+  configuation_update:
+    sequence:
+      - service: shell_command.git_pull
+      - service: notify.will
+        data_template:
+          title: "\U000026A1 Restarting HomeAssistant Now"
+          message: "Restarting in 30 seconds to update to new build"
+      - delay: 00:00:30
+      - service: shell_command.restart_homeassistant

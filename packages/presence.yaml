@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscott
-# @Last modified time: 26/08/2017 08:54
+# @Last modified by:   willscottuk
+# @Last modified time: 29/07/2017 15:39
 
 # This package allows for presence detection and response to comings and goings
 
@@ -240,38 +240,3 @@ automation:
         data:
           title: "\U0001F60A Safety Report"
           message: "Will is safely home"
-  - alias: 'Presence Light Trigger'
-    trigger:
-      - platform: state
-        entity_id: group.people
-        to: 'off'
-        from: 'on'
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.light_trigger
-  - alias: 'Will Night Light Trigger'
-    trigger:
-      - platform: state
-        entity_id: input_boolean.will_very_away
-        to: 'off'
-        from: 'on'
-    condition:
-      - condition: state
-        entity_id: input_boolean.night_mode
-        state: 'on'
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.light_trigger
-  - alias: 'Dan Night Light Trigger'
-    trigger:
-      - platform: state
-        entity_id: input_boolean.dan_very_away
-        to: 'off'
-        from: 'on'
-    condition:
-      - condition: state
-        entity_id: input_boolean.night_mode
-        state: 'on'
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.light_trigger

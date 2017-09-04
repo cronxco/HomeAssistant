@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 04/09/2017 21:30
+# @Last modified time: 04/09/2017 21:50
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -115,3 +115,7 @@ script:
           message: "Restarting in 30 seconds to update to new build"
       - delay: 00:00:30
       - service: shell_command.restart_homeassistant
+
+shell_command:
+  restart_homeassistant: 'sudo service home-assistant@basecamp restart'
+  git_pull: 'bash /home/basecamp/.homeassistant/scripts/git_pull.sh'

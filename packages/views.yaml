@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/07/2017 21:30
+# @Last modified by:   willscott
+# @Last modified time: 04/09/2017 20:43
 
 # This package deals with frontend views
 
@@ -146,6 +146,7 @@ group:
     view: yes
     icon: mdi:leaf
     entities:
+      - group.plant_status
       - group.all_plants
       - group.aquatica
       - group.aloe

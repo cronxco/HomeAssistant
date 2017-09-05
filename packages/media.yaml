@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 08/08/2017 10:54
+# @Last modified time: 05/09/2017 20:14
 
 
 # This package deals with visual media
@@ -23,6 +23,8 @@ homeassistant:
      friendly_name: LR Plex
     media_player.lg_webos_tv_remote:
      friendly_name: LG TV
+    switch.tv:
+      emulated_hue: true
 
 media_player:
   - platform: plex
@@ -80,9 +82,7 @@ switch:
           entity_id: remote.living_room
           activity: "Watch TV"
       turn_off:
-        service: remote.turn_off
-        entity_id: remote.living_room
-
+        service: script.tv_off
 
 scene:
   - name: Media Off
@@ -98,3 +98,11 @@ scene:
         state: on
         transition: 10
         brightness: 35
+
+script:
+  tv_off:
+    sequence:
+      - service: media_player.turn_off
+        entity_id: media_player.livingroomtv
+      - service: remote.turn_off
+        entity_id: remote.living_room

@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:21
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 23:01
+# @Last modified by:   willscott
+# @Last modified time: 05/09/2017 18:56
 
 # This is a package for modes - a few manual, a few automated
 
@@ -44,3 +44,127 @@ group:
       - input_boolean.romance_mode
       - input_boolean.party_mode
       - input_boolean.quiet_mode
+
+# Automations to set the mode correctly at startup
+
+automation:
+  - alias: 'Auto Dawn Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '04:30:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dawn_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Morning Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '12:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        above: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.morning_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.dawn_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Afternoon Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '12:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        above: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.afternoon_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.dawn_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Evening Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '22:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.evening_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.dawn_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Night Mode PM'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '22:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.night_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.dawn_mode
+  - alias: 'Auto Night Mode AM'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '04:30:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.night_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.dawn_mode

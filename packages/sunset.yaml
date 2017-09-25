@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 17/09/2017 19:54
+# @Last modified time: 23/09/2017 08:30
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -76,15 +76,48 @@ scene:
         state: on
         transition: 180
         brightness: 115
+        color_temp: 285
      group.hall:
         state: on
         transition: 10
         brightness: 25
+        color_temp: 285
      group.bedroom:
         state: on
         transition: 180
         brightness: 115
-
+        color_temp: 285
+  - name: trigsunset1
+    entities:
+     group.living_room:
+        state: on
+        transition: 5
+        brightness: 35
+        color_temp: 285
+  - name: trigsunset2
+    entities:
+     group.living_room:
+        state: on
+        transition: 5
+        brightness: 70
+        color_temp: 285
+  - name: trigsunset3
+    entities:
+     group.living_room:
+        state: on
+        transition: 5
+        brightness: 115
+        color_temp: 285
+     group.hall:
+        state: on
+        transition: 5
+        brightness: 25
+        color_temp: 285
+     group.bedroom:
+        state: on
+        transition: 5
+        brightness: 115
+        color_temp: 285
 
 # These are now just automations to turn on the switches. First set for clear(ish)
 # skies, the second set for cloudy days...
@@ -255,6 +288,25 @@ automation:
         entity_id: input_boolean.early_twilight
         from: 'off'
         to: 'on'
+    condition:
+        - condition: state
+          entity_id: input_boolean.early_twilight
+          state: 'on'
+        - condition: state
+          entity_id: group.people
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.romance_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.party_mode
+          state: 'off'
+    action:
+      service: scene.turn_on
+      entity_id: scene.sunset1
+
+  - alias: 'Triggered Sunset 1'
+    trigger:
       - platform: state
         entity_id: input_boolean.light_trigger
         from: 'off'
@@ -274,7 +326,7 @@ automation:
           state: 'off'
     action:
       service: scene.turn_on
-      entity_id: scene.sunset1
+      entity_id: scene.trigsunset1
 
   - alias: 'Sunset Lighting 2'
     trigger:
@@ -282,6 +334,27 @@ automation:
         entity_id: input_boolean.mid_twilight
         from: 'off'
         to: 'on'
+    condition:
+        - condition: state
+          entity_id: input_boolean.mid_twilight
+          state: 'on'
+        - condition: state
+          entity_id: group.people
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.romance_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.party_mode
+          state: 'off'
+    action:
+        - service: scene.turn_on
+          entity_id: scene.sunset2
+        - service: script.turn_on
+          entity_id: script.hall_lights
+
+  - alias: 'Triggered Sunset 2'
+    trigger:
       - platform: state
         entity_id: input_boolean.light_trigger
         from: 'off'
@@ -301,7 +374,7 @@ automation:
           state: 'off'
     action:
         - service: scene.turn_on
-          entity_id: scene.sunset2
+          entity_id: scene.trigsunset2
         - service: script.turn_on
           entity_id: script.hall_lights
 
@@ -362,7 +435,7 @@ automation:
         - service: script.turn_on
           entity_id: script.hall_lights
         - service: scene.turn_on
-          entity_id: scene.sunset3
+          entity_id: scene.trigsunset3
         - delay: 0:04
         - service: switch.turn_on
           entity_id: switch.flux

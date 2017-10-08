@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 05/09/2017 20:14
+# @Last modified time: 08/10/2017 09:50
 
 
 # This package deals with visual media
@@ -24,7 +24,7 @@ homeassistant:
     media_player.lg_webos_tv_remote:
      friendly_name: LG TV
     switch.tv:
-      emulated_hue: true
+      emulated_hue_hidden: false
 
 media_player:
   - platform: plex

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 17/09/2017 19:57
+# @Last modified time: 08/10/2017 08:36
 
 # This package deals with alarms
 
@@ -12,7 +12,7 @@ homeassistant:
     sensor.walarm_time:
       icon: mdi:alarm
 
-input_slider:
+input_number:
   walarmhour:
     name: Hour
     icon: mdi:timer
@@ -65,10 +65,10 @@ sensor:
     sensors:
       walarm_time:
         friendly_name: 'Time'
-        value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.walarmhour") | int, states("input_slider.walarmminutes") | int) }}'
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.walarmhour") | int, states("input_number.walarmminutes") | int) }}'
       dalarm_time:
         friendly_name: 'Time'
-        value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.dalarmhour") | int, states("input_slider.dalarmminutes") | int) }}'
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.dalarmhour") | int, states("input_number.dalarmminutes") | int) }}'
 
 automation:
   - alias: 'Wake Will Up'
@@ -243,8 +243,8 @@ group:
     control: hidden
     entities:
       - sensor.walarm_time
-      - input_slider.walarmhour
-      - input_slider.walarmminutes
+      - input_number.walarmhour
+      - input_number.walarmminutes
       - automation.wake_will_up
       - input_boolean.walarmweekday
 
@@ -253,7 +253,7 @@ group:
     control: hidden
     entities:
       - sensor.dalarm_time
-      - input_slider.dalarmhour
-      - input_slider.dalarmminutes
+      - input_number.dalarmhour
+      - input_number.dalarmminutes
       - automation.wake_dan_up
       - input_boolean.dalarmweekday

@@ -2,11 +2,11 @@
 # @Date:   14/10/2017 14:58
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/10/2017 15:05
+# @Last modified time: 14/10/2017 23:05
 
 # Conversations intents - e.g. for Alexa
 
 intent_script:
   amzn1.ask.skill.76bad43c-950a-43c0-8727-3021eb795b24:
     speech:
-      text: "Hello! I'm Ambassadr. How can I help today?"
+      text: "Hello! I'm Ambassador. How can I help today?"

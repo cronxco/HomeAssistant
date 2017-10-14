@@ -2,11 +2,18 @@
 # @Date:   12/06/2017 20:40
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/09/2017 20:46
+# @Last modified time: 14/10/2017 14:09
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
 # This connects Canary to HASS. It's not pretty but it works! Shame there's no camera access.
+
+homeassistant:
+  customize:
+    binary_sensor.front_door_sensor:
+      friendly_name: "Front Door"
+      icon: mdi:exit-to-app
+
 wink:
   email: !secret wink_user
   password: !secret wink_pass

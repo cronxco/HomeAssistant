@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/10/2017 14:09
+# @Last modified time: 14/10/2017 14:11
 
 
 homeassistant:
@@ -19,6 +19,7 @@ homeassistant:
   time_zone: Europe/London
   customize_glob: !include customize_glob.yaml
   packages: !include_dir_named packages
+
 frontend:
 sun:
 history:
@@ -31,6 +32,8 @@ config:
 
 script: !include_dir_named scripts
 python_script:
+
+alexa:
 
 updater:
   reporting: no

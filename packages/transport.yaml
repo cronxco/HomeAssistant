@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 23:02
+# @Last modified by:   willscott
+# @Last modified time: 15/10/2017 21:14
 
 # This package deals with transport
 
@@ -13,3 +13,71 @@ sensor:
     resource: https://api.tfl.gov.uk/line/tram/status
     name: Tram Status
     value_template: '{{value_json[0].lineStatuses[0].statusSeverityDescription}}'
+
+  - platform: uk_transport
+    app_id: !secret transport_id
+    app_key: !secret transport_key
+    queries:
+      - mode: train
+        origin: ECR
+        destination: VIC
+      - mode: train
+        origin: ECR
+        destination: CTK
+
+  - platform: template
+    next_train_vic_status:
+      friendly_name: 'Next train status'
+      value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].status}}'
+    next_train_vic_origin:
+      friendly_name: 'Next train origin'
+      value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].origin_name}}'
+    next_train_vic_estimated:
+      friendly_name: 'Next train estimated'
+      value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}}'
+    next_train_vic_scheduled:
+      friendly_name: 'Next train scheduled'
+      value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].scheduled}}'
+    next_train_vic_platform:
+      friendly_name: 'Next train platform'
+      value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}'
+    next_train_ctk_status:
+      friendly_name: 'Next train status'
+      value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].status}}'
+    next_train_ctk_origin:
+      friendly_name: 'Next train origin'
+      value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].origin_name}}'
+    next_train_ctk_estimated:
+      friendly_name: 'Next train estimated'
+      value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].estimated}}'
+    next_train_ctk_scheduled:
+      friendly_name: 'Next train scheduled'
+      value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].scheduled}}'
+    next_train_ctk_platform:
+      friendly_name: 'Next train platform'
+      value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].platform}}'
+
+group:
+  tram:
+    name: Tram
+    control: hidden
+    entities:
+      - sensor.tram_status
+  vic:
+    name: VIC trains
+    control: hidden
+    entities:
+      - sensor.next_train_vic_status
+      - sensor.next_train_vic_origin
+      - sensor.next_train_vic_estimated
+      - sensor.next_train_vic_scheduled
+      - sensor.next_train_vic_platform
+  ctk:
+    name: CTK trains
+    control: hidden
+    entities:
+      - sensor.next_train_ctk_status
+      - sensor.next_train_ctk_origin
+      - sensor.next_train_ctk_estimated
+      - sensor.next_train_ctk_scheduled
+      - sensor.next_train_ctk_platform

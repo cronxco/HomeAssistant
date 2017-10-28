@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/10/2017 22:21
+# @Last modified time: 28/10/2017 23:01
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -448,7 +448,7 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.night
+          entity_id: input_boolean.night_mode
           state: 'on'
         - condition: state
           entity_id: input_boolean.quiet_mode
@@ -462,7 +462,7 @@ automation:
     action:
         - service: script.turn_on
           entity_id: script.hall_lights
-          
+
 # Add a way for the light trigger to be reset.
   - alias: 'Reset Light Trigger'
     trigger:

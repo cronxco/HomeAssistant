@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/10/2017 11:11
+# @Last modified time: 28/10/2017 11:38
 
 # This package deals with transport
 
@@ -85,7 +85,7 @@ group:
 
 zone:
   - name: ECR
-    latitude: 51.374850
-    longitude: -0.092642
-    radius: 250
+    latitude: 51.375859
+    longitude: -0.092745
+    radius: 150
     icon: mdi:train

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:40
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 15/10/2017 00:08
+# @Last modified time: 28/10/2017 17:15
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
@@ -34,6 +34,13 @@ sensor:
             open
           {% endif %}
 
+input_boolean:
+
+  front_door:
+    initial: off
+    name: Front Door
+    icon: mdi:exit-to-app
+
 automation:
 
   - alias: 'Lockdown'
@@ -55,6 +62,33 @@ automation:
           entity_id: input_boolean.home_mode
         - service: input_boolean.turn_on
           entity_id: input_boolean.away_mode
+
+  - alias: 'Front Door Opened'
+    trigger:
+      platform: state
+      entity_id: sensor.front_door
+      from: 'closed'
+      to: 'open'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.front_door
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.front_door
+      - service: script.notify_will
+        data:
+          title: "\U0001F6AA Door Open"
+          message: "#SecureByDefault"
+
+  - alias: 'Front Door Expiry'
+    trigger:
+      platform: state
+      entity_id: input_boolean.front_door
+      to: 'on'
+      for:
+        minutes: 5
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.front_door
 
   - alias: 'Occupied'
     trigger:

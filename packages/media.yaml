@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 29/10/2017 17:40
+# @Last modified time: 29/10/2017 17:50
 
 
 # This package deals with visual media
@@ -154,8 +154,8 @@ automation:
     trigger:
       - platform: state
         entity_id: input_boolean.film_mode
-        from: 'off'
-        to: 'on'
+        from: 'on'
+        to: 'off'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.light_trigger

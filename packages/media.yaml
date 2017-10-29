@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 29/10/2017 17:50
+# @Last modified time: 29/10/2017 18:29
 
 
 # This package deals with visual media
@@ -145,7 +145,7 @@ automation:
         to: 'on'
     condition:
       - condition: state
-        entity_id: input_boolean.night_mode
+        entity_id: input_boolean.evening_mode
         state: 'on'
     action:
       - service: scene.turn_on

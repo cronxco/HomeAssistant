@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/10/2017 18:54
+# @Last modified time: 04/11/2017 10:10
 
 
 homeassistant:
@@ -32,7 +32,7 @@ config:
 map:
 script: !include_dir_named scripts
 python_script:
-
+wink:
 alexa:
 
 updater:

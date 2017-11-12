@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 29/10/2017 18:29
+# @Last modified time: 12/11/2017 17:40
 
 
 # This package deals with visual media
@@ -126,14 +126,16 @@ automation:
         entity_id: input_boolean.film_mode
   - alias: 'Auto Film Mode Off'
     trigger:
-      - platform: template
-        value_template: "{% if is_state_attr('media_player.sfwk2tzxoz11c3difomifnfg', 'media_content_type', 'movie') %}false{% endif %}"
       - platform: state
         entity_id: media_player.sfwk2tzxoz11c3difomifnfg
         to: 'paused'
       - platform: state
         entity_id: media_player.sfwk2tzxoz11c3difomifnfg
         to: 'idle'
+    condition:
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.film_mode

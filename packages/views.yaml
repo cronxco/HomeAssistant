@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 15/10/2017 21:47
+# @Last modified time: 13/11/2017 21:21
 
 # This package deals with frontend views
 
@@ -123,6 +123,7 @@ group:
       - media_player.playstation_4
       - media_player.spotify
       - media_player.hall
+      - media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c
 
   Transport:
     view: yes

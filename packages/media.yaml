@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/11/2017 21:19
+# @Last modified time: 20/11/2017 21:24
 
 
 # This package deals with visual media
@@ -56,18 +56,16 @@ media_player:
       turn_on:
         service: remote.turn_on
         data:
-          - entity_id: remote.living_room
-          - activity: "Watch TV"
+          entity_id: remote.living_room
+          activity: "Watch TV"
       turn_off:
         service: remote.turn_off
         data:
-         - entity_id: remote.living_room
+          entity_id: remote.living_room
     attributes:
       state: remote.living_room
   - platform: ps4
     host: !secret ps4ip
-  - platform: snapcast
-    host: !secret ip_addr
 
 remote:
   - platform: harmony

@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 02/12/2017 09:24
+# @Last modified time: 02/12/2017 09:27
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -100,6 +100,7 @@ group:
     -  sensor.power_usage
     -  sensor.power_stats_mean
     -  sensor.electricity_usage
+    -  sensor.tumble_dryer_current
 
 automation:
   - alias: "Configuration Update"

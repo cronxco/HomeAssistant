@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 02/12/2017 09:27
+# @Last modified time: 02/12/2017 09:33
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -74,7 +74,7 @@ sensor:
           {%- endif -%}
       tumble_dryer_current:
         friendly_name: 'Tumble Dryer Current'
-        value_template: '{{ states.switch.tumble_dryer.attributes["Current consumption"].split(" ")[0] }}'
+        value_template: '{{ states.switch.tumble_dryer.attributes["current_consumption"].split(" ")[0] }}'
         unit_of_measurement: 'W'
 
   - platform: command_line

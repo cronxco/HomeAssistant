@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   12/06/2017 20:47
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 23:02
+# @Last modified by:   willscott
+# @Last modified time: 09/12/2017 17:21
 
 # This package deals with the night sky. I know the chances of seeing the aroura in London are ~0 but still...
 
@@ -16,3 +16,19 @@ camera:
 binary_sensor:
   - platform: aurora
   - platform: iss
+
+sensor:
+  - platform: template
+    sensors:
+      aurora_message:
+        value_template: '{{ states.binary_sensor.aurora_visibility.attributes.message }}'
+        friendly_name: 'Aurora Message'
+      aurora_visibility:
+        value_template: '{{ states.binary_sensor.aurora_visibility.attributes.visibility_level }}'
+        friendly_name: 'Aurora Visibility'
+      iss_people:
+        value_template: '{{ states.binary_sensor.binary_sensor.iss.attributes.number_of_people_in_space }}'
+        friendly_name: 'People in Space'
+      iss_next_rise:
+        value_template: '{{ states.binary_sensor.binary_sensor.iss.attributes.next_rise }}'
+        friendly_name: 'Next Rise'

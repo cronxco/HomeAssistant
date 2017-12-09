@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 09:27
+# @Last modified time: 09/12/2017 09:40
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -80,16 +80,6 @@ sensor:
   - platform: travisci
     api_key: !secret travisci
 
-  - platform: command_line
-    name: Travis Status
-    command: /usr/bin/curl -X GET https://api.travis-ci.org/repos/Ambassadr/HomeAssistant/cc.xml\?branch\=master | grep lastBuildStatus | cut -d'"' -f2
-    scan_interval: 60
-
-  - platform: command_line
-    name: Travis Build Label
-    command: /usr/bin/curl -X GET https://api.travis-ci.org/repos/Ambassadr/HomeAssistant/cc.xml\?branch\=master | grep lastBuildLabel | cut -d'"' -f2
-    scan_interval: 60
-
 group:
   System:
     - sensor.cpu_use
@@ -109,11 +99,11 @@ automation:
   - alias: "Configuration Update"
     trigger:
       platform: state
-      entity_id: sensor.travis_build_label
+      entity_id: sensor.ambassadrhomeassistant_last_build_id
     condition:
       - condition: state
-        entity_id: sensor.travis_status
-        state: 'Success'
+        entity_id: sensor.ambassadrhomeassistant_last_build_state
+        state: 'passed'
     action:
       - service: script.configuation_update
 

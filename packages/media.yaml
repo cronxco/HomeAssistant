@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/11/2017 21:24
+# @Last modified time: 09/12/2017 16:48
 
 
 # This package deals with visual media
@@ -91,6 +91,7 @@ scene:
     entities:
      remote.living_room:
         state: off
+# Suave cinema mode (definitely one of the coolest scenes!)
   - name: Cinema
     entities:
      light.sofa:
@@ -131,9 +132,13 @@ automation:
       - platform: state
         entity_id: media_player.sfwk2tzxoz11c3difomifnfg
         to: 'paused'
+        for:
+          seconds: 30
       - platform: state
         entity_id: media_player.sfwk2tzxoz11c3difomifnfg
         to: 'idle'
+        for:
+          seconds: 30
     condition:
       - condition: state
         entity_id: input_boolean.film_mode

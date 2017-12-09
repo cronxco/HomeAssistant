@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 09:40
+# @Last modified time: 09/12/2017 11:18
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -99,11 +99,15 @@ automation:
   - alias: "Configuration Update"
     trigger:
       platform: state
-      entity_id: sensor.ambassadrhomeassistant_last_build_id
+      entity_id: sensor.ambassadrhomeassistant_last_build_finished_at
     condition:
       - condition: state
         entity_id: sensor.ambassadrhomeassistant_last_build_state
         state: 'passed'
+      - condition: template
+        value_template: '{{states.sensor.ambassadrhomeassistant_last_build_finished_at.attributes["Commit Branch"] == "master"}}'
+      - condition: template
+        value_template: '{{states.sensor.ambassadrhomeassistant_last_build_finished_at != "unknown"}}'
     action:
       - service: script.configuation_update
 

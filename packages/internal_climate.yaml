@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 16/07/2017 15:58
+# @Last modified by:   willscott
+# @Last modified time: 10/12/2017 10:07
 
 # This package deals with the internal climate.
 
@@ -42,6 +42,7 @@ group:
   Internal:
     - sensor.heating_temperature
     - sensor.heating_humidity
+    - sensor.basecamp_living_room_air_quality
     - sensor.heating_set_temp
     - sensor.heating_heating
     - sensor.heating_link

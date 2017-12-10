@@ -1,8 +1,8 @@
 # @Author: Will Scott <willscott>
-# @Date:   11/11/2017 19:14
+# @Date:   11/11/2017 20:45
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/11/2017 19:14
+# @Last modified time: 10/12/2017 09:43
 
 
 
@@ -19,12 +19,11 @@ import voluptuous as vol
 from requests import ConnectTimeout, HTTPError
 
 import homeassistant.helpers.config_validation as cv
-from homeassistant.const import CONF_USERNAME, CONF_PASSWORD, TEMP_CELSIUS, \
-    TEMP_FAHRENHEIT, CONF_TIMEOUT
+from homeassistant.const import CONF_USERNAME, CONF_PASSWORD, CONF_TIMEOUT
 from homeassistant.helpers import discovery
 from homeassistant.util import Throttle
 
-REQUIREMENTS = ['py-canary==0.1.2']
+REQUIREMENTS = ['py-canary==0.2.3']
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -33,8 +32,8 @@ NOTIFICATION_TITLE = 'Canary Setup'
 
 DOMAIN = 'canary'
 DATA_CANARY = 'canary'
-MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)
-DEFAULT_TIMEOUT = 15
+MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
+DEFAULT_TIMEOUT = 10
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
@@ -43,6 +42,10 @@ CONFIG_SCHEMA = vol.Schema({
         vol.Optional(CONF_TIMEOUT, default=DEFAULT_TIMEOUT): cv.positive_int,
     }),
 }, extra=vol.ALLOW_EXTRA)
+
+CANARY_COMPONENTS = [
+    'alarm_control_panel', 'camera', 'sensor'
+]
 
 
 def setup(hass, config):
@@ -64,8 +67,8 @@ def setup(hass, config):
             notification_id=NOTIFICATION_ID)
         return False
 
-    discovery.load_platform(hass, 'sensor', DOMAIN, {}, config)
-    discovery.load_platform(hass, 'camera', DOMAIN, {}, config)
+    for component in CANARY_COMPONENTS:
+        discovery.load_platform(hass, component, DOMAIN, {}, config)
 
     return True
 
@@ -77,64 +80,46 @@ class CanaryData(object):
         """Init the Canary data object."""
         from canary.api import Api
         self._api = Api(username, password, timeout)
-        self._api.login()
 
         self._locations_by_id = {}
-        self._devices_by_id = {}
         self._readings_by_device_id = {}
         self._entries_by_location_id = {}
 
         self.update()
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    def update(self):
+    def update(self, **kwargs):
         """Get the latest data from py-canary."""
-        self._me = self._api.get_me()
-
         for location in self._api.get_locations():
             location_id = location.location_id
 
             self._locations_by_id[location_id] = location
             self._entries_by_location_id[location_id] = self._api.get_entries(
-                location_id)
+                location_id, entry_type="motion", limit=1)
 
             for device in location.devices:
                 if device.is_online:
-                    self._devices_by_id[device.device_id] = device
-                    self._readings_by_device_id[
-                        device.device_id] = self._api.get_readings(device)
+                    self._readings_by_device_id[device.device_id] = \
+                        self._api.get_latest_readings(device.device_id)
 
     @property
     def locations(self):
         """Return a list of locations."""
         return self._locations_by_id.values()
 
-    @property
-    def devices(self):
-        """Return a list of devices."""
-        return self._devices_by_id.values()
-
-    @property
-    def temperature_scale(self):
-        """Return temperature scale."""
-        if self._me.is_celsius:
-            return TEMP_CELSIUS
-        return TEMP_FAHRENHEIT
-
     def get_motion_entries(self, location_id):
         """Return a list of motion entries based on location_id."""
-        if location_id not in self._entries_by_location_id:
-            return []
-
-        return self._entries_by_location_id[location_id]
+        return self._entries_by_location_id.get(location_id, [])
 
     def get_location(self, location_id):
         """Return a location based on location_id."""
-        if location_id not in self._locations_by_id:
-            return []
-
-        return self._locations_by_id[location_id]
+        return self._locations_by_id.get(location_id, [])
 
     def get_readings(self, device_id):
         """Return a list of readings based on device_id."""
-        return self._readings_by_device_id[device_id]
+        return self._readings_by_device_id.get(device_id, [])
+
+    def set_location_mode(self, location_id, mode_name, is_private=False):
+        """Set location mode."""
+        self._api.set_location_mode(location_id, mode_name, is_private)
+        self.update(no_throttle=True)

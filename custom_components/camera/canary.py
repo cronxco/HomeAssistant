@@ -2,12 +2,12 @@
 # @Date:   11/11/2017 19:16
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/11/2017 19:16
+# @Last modified time: 10/12/2017 09:43
 
 
 
 """
-Support for Canary Security Cameras.
+Support for Canary camera.
 
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/camera.canary/
@@ -17,7 +17,7 @@ import logging
 import requests
 
 from homeassistant.components.camera import Camera
-from homeassistant.components.canary import DATA_CANARY
+from homeassistant.components.canary import DATA_CANARY, DEFAULT_TIMEOUT
 
 DEPENDENCIES = ['canary']
 
@@ -35,7 +35,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     for location in data.locations:
         entries = data.get_motion_entries(location.location_id)
         if entries:
-            devices.append(CanaryCamera(data, location.location_id))
+            devices.append(CanaryCamera(data, location.location_id,
+                                        DEFAULT_TIMEOUT))
 
     add_devices(devices, True)
 
@@ -43,21 +44,20 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class CanaryCamera(Camera):
     """An implementation of a Canary security camera."""
 
-    def __init__(self, data, location_id):
+    def __init__(self, data, location_id, timeout):
         """Initialize a Canary security camera."""
         super().__init__()
         self._data = data
         self._location_id = location_id
+        self._timeout = timeout
 
         self._location = None
-        self._last_entry = None
+        self._motion_entry = None
         self._image_content = None
-        self._force_update = False
-
-        self.update()
 
     def camera_image(self):
-        """Return bytes of camera image."""
+        """Update the status of the camera and return bytes of camera image."""
+        self.update()
         return self._image_content
 
     @property
@@ -68,31 +68,18 @@ class CanaryCamera(Camera):
     @property
     def is_recording(self):
         """Return true if the device is recording."""
-        return not self._location.is_private
+        return self._location.is_recording
 
     @property
     def device_state_attributes(self):
         """Return device specific state attributes."""
-        if self._last_entry is None:
+        if self._motion_entry is None:
             return None
 
         return {
-            ATTR_MOTION_START_TIME: self._last_entry.start_time,
-            ATTR_MOTION_END_TIME: self._last_entry.end_time,
+            ATTR_MOTION_START_TIME: self._motion_entry.start_time,
+            ATTR_MOTION_END_TIME: self._motion_entry.end_time,
         }
-
-    @property
-    def force_update(self) -> bool:
-        """Return True if state updates should be forced."""
-        if self._force_update:
-            self._force_update = False
-            return True
-
-        return False
-
-    def should_poll(self):
-        """Update the recording state periodically."""
-        return True
 
     def update(self):
         """Update the status of the camera."""
@@ -101,16 +88,16 @@ class CanaryCamera(Camera):
 
         entries = self._data.get_motion_entries(self._location_id)
         if entries:
-            current_entry = entries[0]
+            current = entries[0]
+            previous = self._motion_entry
 
-            if self._last_entry is None \
-                    or self._last_entry.entry_id != current_entry.entry_id:
-                thumbnail = current_entry.thumbnails[0]
-                self._image_content = requests.get(thumbnail.image_url).content
-                self._last_entry = current_entry
-                self._force_update = True
+            if previous is None or previous.entry_id != current.entry_id:
+                self._motion_entry = current
+                self._image_content = requests.get(
+                    current.thumbnails[0].image_url,
+                    timeout=self._timeout).content
 
     @property
     def motion_detection_enabled(self):
         """Return the camera motion detection status."""
-        return not self._location.is_private
+        return not self._location.is_recording

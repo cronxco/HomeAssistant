@@ -2,7 +2,7 @@
 # @Date:   04/09/2017 20:06
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/12/2017 17:16
+# @Last modified time: 10/12/2017 17:25
 
 problemPlants = 0
 allproblemPlants = []
@@ -16,7 +16,7 @@ for entity_id in hass.states.entity_ids('plant'):
     state = hass.states.get(entity_id)
     boolean_entity = entity_id.replace('plant.', 'input_boolean.plant_')
     boolean_state = hass.states.get(boolean_entity)
-    if state.state == 'problem' and switch_state.state == 'on':
+    if state.state == 'problem' and boolean_state.state == 'on':
         problemPlants = problemPlants + 1
         allproblemPlants.append(state.name)
         problem = state.attributes.get('problem') or 'none'

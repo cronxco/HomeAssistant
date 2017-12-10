@@ -2,7 +2,7 @@
 # @Date:   11/11/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/11/2017 19:15
+# @Last modified time: 10/12/2017 09:44
 
 
 
@@ -13,6 +13,7 @@ For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/sensor.canary/
 """
 from homeassistant.components.canary import DATA_CANARY
+from homeassistant.const import TEMP_FAHRENHEIT, TEMP_CELSIUS
 from homeassistant.helpers.entity import Entity
 
 DEPENDENCIES = ['canary']
@@ -37,14 +38,14 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 
 
 class CanarySensor(Entity):
-    """Representation of an Canary sensor."""
+    """Representation of a Canary sensor."""
 
     def __init__(self, data, sensor_type, location, device):
         """Initialize the sensor."""
         self._data = data
         self._sensor_type = sensor_type
         self._device_id = device.device_id
-        self._temperature_scale = self._data.temperature_scale
+        self._is_celsius = location.is_celsius
         self._sensor_value = None
 
         sensor_type_name = sensor_type.value.replace("_", " ").title()
@@ -73,7 +74,7 @@ class CanarySensor(Entity):
         """Return the unit of measurement this sensor expresses itself in."""
         from canary.api import SensorType
         if self._sensor_type == SensorType.TEMPERATURE:
-            return self._temperature_scale
+            return TEMP_CELSIUS if self._is_celsius else TEMP_FAHRENHEIT
         elif self._sensor_type == SensorType.HUMIDITY:
             return "%"
         elif self._sensor_type == SensorType.AIR_QUALITY:
@@ -83,12 +84,10 @@ class CanarySensor(Entity):
     def update(self):
         """Get the latest state of the sensor."""
         self._data.update()
-        self._temperature_scale = self._data.temperature_scale
 
         readings = self._data.get_readings(self._device_id)
-        for reading in readings:
-            if reading.sensor_type == self._sensor_type \
-                    and reading.value is not None:
-                self._sensor_value = round(float(reading.value),
-                                           SENSOR_VALUE_PRECISION)
-                break
+        value = next((
+            reading.value for reading in readings
+            if reading.sensor_type == self._sensor_type), None)
+        if value is not None:
+            self._sensor_value = round(float(value), SENSOR_VALUE_PRECISION)

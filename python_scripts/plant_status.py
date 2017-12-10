@@ -2,7 +2,7 @@
 # @Date:   04/09/2017 20:06
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 04/09/2017 20:06
+# @Last modified time: 10/12/2017 11:15
 
 problemPlants = 0
 allproblemPlants = []
@@ -14,7 +14,9 @@ whichIcon = "mdi:help-circle-outline"
 
 for entity_id in hass.states.entity_ids('plant'):
     state = hass.states.get(entity_id)
-    if state.state == 'problem':
+    boolean_entity = entity_id.replace('plant.', 'input_boolean.plant_')
+    boolean_state = ass.states.get(switch_entity)
+    if state.state == 'problem' and switch_state.state == 'on':
         problemPlants = problemPlants + 1
         allproblemPlants.append(state.name)
         problem = state.attributes.get('problem') or 'none'

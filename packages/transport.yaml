@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/11/2017 21:31
+# @Last modified time: 29/12/2017 17:43
 
 # This package deals with transport
 
@@ -13,6 +13,16 @@ sensor:
     resource: https://api.tfl.gov.uk/line/tram/status
     name: Tram Status
     value_template: '{{value_json[0].lineStatuses[0].statusSeverityDescription}}'
+
+# Add trams
+
+  - platform: rest
+    name: Eastbound_Trams
+    resource: !secret eastbound_trams
+
+  - platform: rest
+    name: Westbound_Trams
+    resource: !secret westbound_trams
 
   - platform: uk_transport
     app_id: !secret transport_id

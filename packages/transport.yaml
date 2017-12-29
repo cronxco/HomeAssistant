@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 29/12/2017 17:43
+# @Last modified time: 29/12/2017 20:09
 
 # This package deals with transport
 
@@ -17,11 +17,11 @@ sensor:
 # Add trams
 
   - platform: rest
-    name: Eastbound_Trams
+    name: Eastbound Trams
     resource: !secret eastbound_trams
 
   - platform: rest
-    name: Westbound_Trams
+    name: Westbound Trams
     resource: !secret westbound_trams
 
   - platform: uk_transport

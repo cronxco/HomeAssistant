@@ -43,17 +43,26 @@
 </dom-module>
 
 <script>
-  Polymer({
-    is: 'state-card-eastbound',
+class StateCardEastbound extends Polymer.Element {
+  static get is() { return 'state-card-eastbound'; }
 
-    properties: {
-      hass: {
-        type: Object,
+  static get properties() {
+    return {
+      // Home Assistant object
+      hass: Object,
+      // inDialog is true if shown as more-info-card
+      inDialog: {
+        type: Boolean,
+        value: false,
       },
+      // includes state, config and more information of the entity
+      stateObj: Object,
+    };
+  }
 
-      stateObj: {
-        type: Object,
-      },
-    },
-  });
+  _toStr(obj) {
+    return JSON.stringify(obj);
+  }
+}
+customElements.define(StateCardEastbound.is, StateCardEastbound);
 </script>

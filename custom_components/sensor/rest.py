@@ -2,7 +2,7 @@
 # @Date:   30/12/2017 09:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 30/12/2017 09:43
+# @Last modified time: 30/12/2017 09:45
 
 
 
@@ -11,37 +11,36 @@ Support for RESTful API sensors.
 
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/sensor.rest/
-
-Modified to parse a JSON reply and store data as attributes
 """
-import logging
-
-import voluptuous as vol
 import json
+import logging
+import voluptuous as vol
 import requests
 from requests.auth import HTTPBasicAuth, HTTPDigestAuth
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
     CONF_PAYLOAD, CONF_NAME, CONF_VALUE_TEMPLATE, CONF_METHOD, CONF_RESOURCE,
-    CONF_UNIT_OF_MEASUREMENT, STATE_UNKNOWN, STATE_ON, CONF_VERIFY_SSL,
-    CONF_USERNAME, CONF_PASSWORD, CONF_AUTHENTICATION,
-    HTTP_BASIC_AUTHENTICATION, HTTP_DIGEST_AUTHENTICATION, CONF_HEADERS)
+    CONF_UNIT_OF_MEASUREMENT, STATE_UNKNOWN, CONF_VERIFY_SSL, CONF_USERNAME,
+    CONF_PASSWORD, CONF_AUTHENTICATION, HTTP_BASIC_AUTHENTICATION,
+    HTTP_DIGEST_AUTHENTICATION, CONF_HEADERS)
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_METHOD = 'GET'
-DEFAULT_NAME = 'JSON REST Sensor'
+DEFAULT_NAME = 'REST Sensor'
 DEFAULT_VERIFY_SSL = True
+
+METHODS = ['POST', 'GET']
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_RESOURCE): cv.url,
     vol.Optional(CONF_AUTHENTICATION):
         vol.In([HTTP_BASIC_AUTHENTICATION, HTTP_DIGEST_AUTHENTICATION]),
     vol.Optional(CONF_HEADERS): {cv.string: cv.string},
-    vol.Optional(CONF_METHOD, default=DEFAULT_METHOD): vol.In(['POST', 'GET']),
+    vol.Optional(CONF_METHOD, default=DEFAULT_METHOD): vol.In(METHODS),
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Optional(CONF_PASSWORD): cv.string,
     vol.Optional(CONF_PAYLOAD): cv.string,
@@ -74,17 +73,13 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
             auth = HTTPBasicAuth(username, password)
     else:
         auth = None
-    rest = JSONRestData(method, resource, auth, headers, payload, verify_ssl)
+    rest = RestData(method, resource, auth, headers, payload, verify_ssl)
     rest.update()
 
-    if rest.data is None:
-        _LOGGER.error("Unable to fetch REST data")
-        return False
-
-    add_devices([JSONRestSensor(hass, rest, name, unit, value_template)])
+    add_devices([RestSensor(hass, rest, name, unit, value_template)], True)
 
 
-class JSONRestSensor(Entity):
+class RestSensor(Entity):
     """Implementation of a REST sensor."""
 
     def __init__(self, hass, rest, name, unit_of_measurement, value_template):
@@ -96,7 +91,6 @@ class JSONRestSensor(Entity):
         self._state = STATE_UNKNOWN
         self._unit_of_measurement = unit_of_measurement
         self._value_template = value_template
-        self.update()
 
     @property
     def name(self):
@@ -109,9 +103,19 @@ class JSONRestSensor(Entity):
         return self._unit_of_measurement
 
     @property
+    def available(self):
+        """Return if the sensor data are available."""
+        return self.rest.data is not None
+
+    @property
     def state(self):
         """Return the state of the device."""
         return self._state
+
+    @property
+    def state_attributes(self):
+        """Return the attributes of the entity."""
+        return self._attributes
 
     def update(self):
         """Get the latest data from REST API and update the state."""
@@ -124,27 +128,22 @@ class JSONRestSensor(Entity):
             value = self._value_template.render_with_possible_json_value(
                 value, STATE_UNKNOWN)
 
-        self._state = STATE_ON
+        # Limit the length of the state to less than 255 characters,
+        # otherwise HA > 0.57 complains.
+        if len(value) >= 255:
+            value = value[0:255]
 
-        """ Parse the return text as JSON and save the json as an attribute. """
+        self._state = value
+
+        """Try parsing the return text as JSON and save
+            the JSON structure as attributes."""
         try:
             self._attributes = json.loads(value)
         except json.JSONDecodeError:
             self._attributes = []
-            pass
 
 
-    @property
-    def state_attributes(self):
-        """Return the attributes of the entity.
-
-           Provide the parsed JSON data (if any).
-        """
-
-        return self._attributes
-
-
-class JSONRestData(object):
+class RestData(object):
     """Class for handling the data retrieval."""
 
     def __init__(self, method, resource, auth, headers, data, verify_ssl):

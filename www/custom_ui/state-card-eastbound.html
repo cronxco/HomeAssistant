@@ -1,0 +1,59 @@
+<dom-module id="state-card-eastbound">
+  <template>
+    <style>
+      table {
+        width: 100%;
+      }
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      tr.header {
+        background-color: #03a9f4;
+        color: #ffffff;
+        text-align:center;
+        vertical-align:middle;
+      }
+      td {
+        text-align:center;
+        vertical-align:middle;
+      }
+    </style>
+
+    <p>
+      <b>Next Train </b>
+    </p>
+
+    <table>
+      <thead>
+        <tr class="header">
+          <th>Destination</th>
+          <th>Estimated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template is="dom-repeat" items="{{stateObj.attributes.next_trains}}">
+          <tr>
+            <td>{{item.destinationName}}</td>
+            <td>{{item.timeToStationMin}}</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'state-card-eastbound',
+
+    properties: {
+      hass: {
+        type: Object,
+      },
+
+      stateObj: {
+        type: Object,
+      },
+    },
+  });
+</script>

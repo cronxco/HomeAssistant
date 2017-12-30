@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 30/12/2017 09:31
+# @Last modified time: 30/12/2017 09:55
 
 # This package deals with transport
 
@@ -22,12 +22,12 @@ sensor:
 
 # Add trams
 
-  - platform: rest
+  - platform: jsonrest
     name: Eastbound Trams
     resource: !secret eastbound_trams
     value_template: '{{value_json.status}}'
 
-  - platform: rest
+  - platform: jsonrest
     name: Westbound Trams
     resource: !secret westbound_trams
     value_template: '{{value_json.status}}'

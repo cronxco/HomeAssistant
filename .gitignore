@@ -30,3 +30,4 @@ ps4-games.json
 *.pyc
 /appdaemon/compiled/*
 /appdaemon/appdaemon.yaml
+update.sh

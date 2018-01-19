@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/11/2017 21:21
+# @Last modified time: 19/01/2018 22:26
 
 # This package deals with frontend views
 
@@ -88,7 +88,7 @@ group:
       -  group.people
       -  group.internal
       -  climate.heating
-      -  group.climate
+      -  weather.dark_sky
       -  group.speed
       -  group.power
       -  group.system
@@ -177,6 +177,7 @@ group:
       - group.forecast
       - group.bloomsky
       - camera.cronx
+      - group.climate
 
   Sky:
     view: yes

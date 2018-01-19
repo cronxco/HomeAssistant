@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 21:59
+# @Last modified time: 19/01/2018 22:00
 
 # This package deals with the external climate... that thing some people call 'the world outside'...
 homeassistant:
@@ -51,7 +51,7 @@ binary_sensor:
 weather:
   - platform: darksky
     api_key: !secret darksky
-
+    units: uk
 sensor:
   - platform: darksky
     api_key: !secret darksky

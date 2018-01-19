@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 21:36
+# @Last modified time: 19/01/2018 21:40
 
 # This package deals with transport
 
@@ -47,52 +47,6 @@ sensor:
         origin: ECR
         destination: CTK
 
-  - platform: template
-    # sensors:
-      # Deprecated sensors
-      # eastbound_trams_next:
-      #   friendly_name: 'East 1'
-      #   value_template: '{{states.sensor.eastbound_trams.attributes.trams[0].destinationName}} - {{states.sensor.eastbound_trams.attributes.trams[0].timeToStationMin}}'
-      # eastbound_trams_second:
-      #   friendly_name: 'East 2'
-      #   value_template: '{{states.sensor.eastbound_trams.attributes.trams[1].destinationName}} - {{states.sensor.eastbound_trams.attributes.trams[1].timeToStationMin}}'
-      # westbound_trams_next:
-      #   friendly_name: 'West 1'
-      #   value_template: '{{states.sensor.westbound_trams.attributes.trams[0].destinationName}} - {{states.sensor.westbound_trams.attributes.trams[0].timeToStationMin}}'
-      # westbound_trams_second:
-      #   friendly_name: 'West 2'
-      #   value_template: '{{states.sensor.westbound_trams.attributes.trams[1].destinationName}} - {{states.sensor.westbound_trams.attributes.trams[1].timeToStationMin}}'
-      # next_train_vic_status:
-      #   friendly_name: 'Next train status'
-      #   value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].status}}'
-      # next_train_vic_origin:
-      #   friendly_name: 'Next train origin'
-      #   value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].origin_name}}'
-      # next_train_vic_estimated:
-      #   friendly_name: 'Next train estimated'
-      #   value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}}'
-      # next_train_vic_scheduled:
-      #   friendly_name: 'Next train scheduled'
-      #   value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].scheduled}}'
-      # next_train_vic_platform:
-      #   friendly_name: 'Next train platform'
-      #   value_template: '{{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}'
-      # next_train_ctk_status:
-      #   friendly_name: 'Next train status'
-      #   value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].status}}'
-      # next_train_ctk_origin:
-      #   friendly_name: 'Next train origin'
-      #   value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].origin_name}}'
-      # next_train_ctk_estimated:
-      #   friendly_name: 'Next train estimated'
-      #   value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].estimated}}'
-      # next_train_ctk_scheduled:
-      #   friendly_name: 'Next train scheduled'
-      #   value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].scheduled}}'
-      # next_train_ctk_platform:
-      #   friendly_name: 'Next train platform'
-      #   value_template: '{{states.sensor.next_train_to_ctk.attributes.next_trains[0].platform}}'
-
 group:
   tram:
     name: Trams
@@ -106,22 +60,11 @@ group:
     control: hidden
     entities:
       - sensor.next_train_to_vic
-      # Deprecated sensors
-      # - sensor.next_train_vic_status
-      # - sensor.next_train_vic_origin
-      # - sensor.next_train_vic_estimated
-      # - sensor.next_train_vic_scheduled
-      # - sensor.next_train_vic_platform
   ctk:
     name: CTK trains
     control: hidden
     entities:
       - sensor.next_train_to_ctk
-      # - sensor.next_train_ctk_status
-      # - sensor.next_train_ctk_origin
-      # - sensor.next_train_ctk_estimated
-      # - sensor.next_train_ctk_scheduled
-      # - sensor.next_train_ctk_platform
 
 zone:
   - name: ECR

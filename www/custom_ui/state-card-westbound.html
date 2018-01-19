@@ -1,4 +1,4 @@
-<dom-module id="state-card-eastbound">
+<dom-module id="state-card-westbound">
   <template>
     <style>
       table {
@@ -20,7 +20,7 @@
     </style>
 
     <p>
-      <b>Eastbound Trams </b>
+      <b>Westbound Trams</b>
     </p>
 
     <table>
@@ -43,8 +43,8 @@
 </dom-module>
 
 <script>
-class StateCardEastbound extends Polymer.Element {
-  static get is() { return 'state-card-eastbound'; }
+class StateCardWestbound extends Polymer.Element {
+  static get is() { return 'state-card-westbound'; }
 
   static get properties() {
     return {
@@ -64,5 +64,5 @@ class StateCardEastbound extends Polymer.Element {
     return JSON.stringify(obj);
   }
 }
-customElements.define(StateCardEastbound.is, StateCardEastbound);
+customElements.define(StateCardWestbound.is, StateCardWestbound);
 </script>

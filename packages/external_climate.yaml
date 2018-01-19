@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 22:00
+# @Last modified time: 19/01/2018 22:10
 
 # This package deals with the external climate... that thing some people call 'the world outside'...
 homeassistant:
@@ -84,6 +84,7 @@ group:
     - binary_sensor.cronx_rain
     - binary_sensor.cronx_night
   Climate:
+    - weather.dark_sky
     - sensor.dark_sky_summary
     - sensor.cronx_temperature
     - sensor.dark_sky_apparent_temperature

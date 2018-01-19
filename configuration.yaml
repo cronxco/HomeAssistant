@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 30/12/2017 13:06
+# @Last modified time: 19/01/2018 16:58
 
 
 homeassistant:
@@ -21,9 +21,16 @@ homeassistant:
   packages: !include_dir_named packages
 
 frontend:
-  # extra_html_url:
-  #   - /local/custom_ui/state-card-eastbound.html
-  #   - /local/custom_ui/state-card-traintimes.html
+  extra_html_url:
+    - /local/custom_ui/state-card-eastbound.html
+    - /local/custom_ui/state-card-traintimes.html
+    - /local/custom_ui/state-card-custom-ui.html
+    - /local/custom_ui/state-card-tiles.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-eastbound.html
+    - /local/custom_ui/state-card-traintimes.html
+    - /local/custom_ui/state-card-custom-ui-es5.html
+    - /local/custom_ui/state-card-tiles.html
   themes:
     Moonlight:
       # MyVariables

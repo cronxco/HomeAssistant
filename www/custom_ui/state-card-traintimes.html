@@ -26,21 +26,19 @@
     <table>
       <thead>
         <tr class="header">
-          <th>Platform</th>
-          <th>Destination</th>
-          <th>Scheduled</th>
+          <th>Origin</th>
           <th>Status</th>
           <th>Estimated</th>
+          <th>Plat</th>
         </tr>
       </thead>
       <tbody>
         <template is="dom-repeat" items="{{stateObj.attributes.next_trains}}">
           <tr>
-            <td>{{item.platform}}</td>
-            <td>{{item.destination_name}}</td>
-            <td>{{item.scheduled}}</td>
+            <td>{{item.origin_name}}</td>
             <td>{{item.status}}</td>
             <td>{{item.estimated}}</td>
+            <td>{{item.platform}}</td>
           </tr>
         </template>
       </tbody>

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 18:48
+# @Last modified time: 20/01/2018 20:15
 
 # This package deals with frontend views
 
@@ -85,11 +85,13 @@ group:
     entities:
       - group.ambassadr
       - group.lights
-      - group.people
       - group.internal
       - weather.dark_sky
-      - camera.cronx
       - group.plant_status
+      - group.living_room
+      - group.spotify_card
+      - group.playstation_4
+      - group.vox_one
 
   Switches:
     icon: mdi:gesture-tap
@@ -109,18 +111,9 @@ group:
       - group.power
       - group.speed
       - group.system
-
-
-  Media:
-    view: yes
-    icon: mdi:television
-    entities:
-      - media_player.living_room
-      - media_player.re5tnmcirzppsyvi
-      - media_player.playstation_4
-      - media_player.spotify
-      - media_player.hall
-      - media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c
+      - group.bloomsky
+      - camera.cronx
+      - group.climate
 
   Transport:
     view: yes
@@ -138,15 +131,6 @@ group:
       - group.flux
       - group.all_automations
       - group.time_modes
-
-  Weather:
-    view: yes
-    icon: mdi:weather-lightning-rainy
-    entities:
-      - group.forecast
-      - group.bloomsky
-      - camera.cronx
-      - group.climate
 
   Ambassadr:
     - sensor.mode

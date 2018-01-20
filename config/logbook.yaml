@@ -2,9 +2,16 @@
 # @Date:   20/01/2018 12:56
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 18:50
+# @Last modified time: 20/01/2018 22:32
 
 exclude:
   entities:
      - sensor.time
      - automation.plant_update
+     - sensor.eastbound_trams
+     - sensor.westbound_trams
+  domains:
+     - light
+     - zwave
+     - weather
+     - zone

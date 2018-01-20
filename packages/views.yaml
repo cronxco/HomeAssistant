@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 17:09
+# @Last modified time: 20/01/2018 18:48
 
 # This package deals with frontend views
 
@@ -83,35 +83,33 @@ group:
     icon: mdi:home
     view: yes
     entities:
-      -  group.ambassadr
-      -  group.lights
-      -  group.people
-      -  group.internal
-      -  weather.dark_sky
-      -  group.speed
-      -  group.power
-      -  group.system
-      -  camera.cronx
-      -  group.plant_status
+      - group.ambassadr
+      - group.lights
+      - group.people
+      - group.internal
+      - weather.dark_sky
+      - camera.cronx
+      - group.plant_status
 
   Switches:
     icon: mdi:gesture-tap
     view: yes
     entities:
       - group.manual_modes
-      - group.sunset
+      - group.walarmclock
+      - group.dalarmclock
 
-  Will:
+  Pulse:
     view: yes
+    icon: mdi:pulse
     entities:
       - group.will_presence
-      - group.walarmclock
-
-  Dan:
-    view: yes
-    entities:
       - group.dan_presence
-      - group.dalarmclock
+      - group.plants
+      - group.power
+      - group.speed
+      - group.system
+
 
   Media:
     view: yes
@@ -136,38 +134,10 @@ group:
     icon: mdi:settings
     view: yes
     entities:
-      - group.all_scripts
       - group.scenes
       - group.flux
-      - configurator.plex_media_server
-      - configurator.lg_webos_tv
-      - group.all_lights
       - group.all_automations
       - group.time_modes
-      - group.presence_modes
-      - group.manual_modes
-      - group.dash
-      - switch.tv
-
-  Plants:
-    view: yes
-    icon: mdi:leaf
-    entities:
-      - group.all_plants
-      - group.aquatica
-      - group.aloe
-      - group.chilli
-      - group.basil
-      - group.will_tree
-      - group.dan_tree
-
-  Cameras:
-    view: yes
-    icon: mdi:camera
-    entities:
-      - camera.cronx
-      - camera.mjpeg_camera
-      - camera.iss
 
   Weather:
     view: yes
@@ -178,45 +148,11 @@ group:
       - camera.cronx
       - group.climate
 
-  Sky:
-    view: yes
-    icon: mdi:satellite-variant
-    entities:
-      - binary_sensor.iss
-      - binary_sensor.aurora_visibility
-      - camera.iss
-
   Ambassadr:
     - sensor.mode
     - sensor.living_room_tv_source
     - alarm_control_panel.basecamp
     - sensor.front_door
-
-  Scenes:
-    -  scene.bedroom_fade
-    -  scene.cinema
-    -  scene.landing_strip
-    -  scene.sunset1
-    -  scene.sunset2
-    -  scene.sunset3
-    -  scene.good_night
-    -  scene.light_reset
-    -  scene.will_sunrise_1
-    -  scene.dan_sunrise_1
-    -  scene.media_off
-
-  LightPanel:
-    icon: mdi:lightbulb-outline
-    view: yes
-    entities:
-       - group.panel_bathroom
-       - group.panel_daniel
-       - group.panel_dining
-       - group.panel_main
-       - group.panel_map
-       - group.panel_sofa
-       - group.panel_utility
-       - group.panel_will
 
 automation:
   - alias: 'Set theme at startup'

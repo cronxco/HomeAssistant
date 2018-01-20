@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 17:15
+# @Last modified time: 20/01/2018 12:26
 
 # This package allows for presence detection and response to comings and goings
 
@@ -42,18 +42,19 @@ input_boolean:
     name: Will Home
     initial: on
 
-  will_very_away:
-    name: Will Very Away
-    initial: off
-
   dan_home:
     name: Dan Home
     initial: on
+
+  will_very_away:
+    name: Will Very Away
+    initial: off
 
   dan_very_away:
     name: Dan Very Away
     initial: off
 
+  # There are two main presence-based modes. These may be removed at some point.
   away_mode:
     initial: off
     name: Away
@@ -83,39 +84,46 @@ group:
 
 automation:
   - alias: 'Will Away'
-    condition:
-      condition: state
-      entity_id: input_boolean.will_home
-      state: 'on'
     trigger:
+      # Needs to have been disconnected from the network for >3 mins
       - platform: state
         entity_id: device_tracker.b019c6b7bd11
         to: 'not_home'
         for:
           minutes: 3
+      # Or if owntracks updates as not_home
       - platform: state
         entity_id: device_tracker.will_iphone
         to: 'not_home'
+    condition:
+      # Needs to have been on in the first place - don't want this always firing!
+      condition: state
+      entity_id: input_boolean.will_home
+      state: 'on'
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_home
   - alias: 'Dan Away'
-    condition:
-      condition: state
-      entity_id: input_boolean.dan_home
-      state: 'on'
     trigger:
+      # Needs to have been disconnected from the network for >3 mins
       - platform: state
         entity_id: device_tracker.b019c6b2c14a
         to: 'not_home'
         for:
           minutes: 3
+      # Or if owntracks updates as not_home
       - platform: state
         entity_id: device_tracker.dan_iphone
         to: 'not_home'
+    condition:
+      # Needs to have been on in the first place - don't want this always firing!
+      condition: state
+      entity_id: input_boolean.dan_home
+      state: 'on'
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_home
+
 # Very away is designed to avoid giving notifications if we pop to the shops!
   - alias: 'Will Very Away'
     trigger:
@@ -142,56 +150,60 @@ automation:
 
 # This is designed to avoid setting us as home if we're just passing through
   - alias: 'Will Tracker Home'
-    condition:
-      condition: state
-      entity_id: input_boolean.will_home
-      state: 'off'
     trigger:
+      # If the device connects to the network then mark it home immediately
       - platform: state
         entity_id: device_tracker.b019c6b7bd11
         to: 'home'
+      # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
         entity_id: device_tracker.will_iphone
         to: 'home'
         for:
           minutes: 3
+    condition:
+      condition: state
+      entity_id: input_boolean.will_home
+      state: 'off'
     action:
       - service: homeassistant.turn_on
         entity_id: input_boolean.will_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_very_away
   - alias: 'Dan Tracker Home'
-    condition:
-      condition: state
-      entity_id: input_boolean.dan_home
-      state: 'off'
     trigger:
+      # If the device connects to the network then mark it home immediately
       - platform: state
         entity_id: device_tracker.b019c6b2c14a
         to: 'home'
+      # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
         entity_id: device_tracker.dan_iphone
         to: 'home'
         for:
           minutes: 3
+    condition:
+      condition: state
+      entity_id: input_boolean.dan_home
+      state: 'off'
     action:
       - service: homeassistant.turn_on
         entity_id: input_boolean.dan_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_very_away
 
-# Designed to trigger home statuses if trackers have appeared home & the door is opened
+# Designed to trigger home statuses if trackers have appeared home (even if the 3 minute rule hasn't been met) & the door is opened.
   - alias: 'Will Door Opened'
     trigger:
         platform: state
         entity_id: sensor.front_door_access_control
-        to: '22'
+        to: '22' # 22 means open
     condition:
+      # This is just a precaution - it's probably unnecessary
       - condition: state
-        entity_id: input_boolean.will_home
-        state: 'off'
-        for:
-          hours: 2
+        entity_id: input_boolean.will_very_away
+        state: 'on'
+      # So here if owntracks is home, even if the 3 minute rule hasn't been met, the individual will be marked as home.
       - condition: state
         entity_id: device_tracker.will_iphone
         state: 'home'
@@ -204,13 +216,13 @@ automation:
     trigger:
         platform: state
         entity_id: sensor.front_door_access_control
-        to: '22'
+        to: '22' # 22 means open
     condition:
+      # This is just a precaution - it's probably unnecessary
       - condition: state
-        entity_id: input_boolean.dan_home
-        state: 'off'
-        for:
-          hours: 2
+        entity_id: input_boolean.will_very_away
+        state: 'on'
+      # So here if owntracks is home, even if the 3 minute rule hasn't been met, the individual will be marked as home.
       - condition: state
         entity_id: device_tracker.dan_iphone
         state: 'home'
@@ -252,7 +264,7 @@ automation:
         to: 'off'
         from: 'on'
     condition:
-      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out!
+      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out and return home together!
       - condition: state
         entity_id: input_boolean.will_home
         state: 'on'
@@ -273,7 +285,7 @@ automation:
         to: 'off'
         from: 'on'
     condition:
-      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out!
+      # Check that the other person has been home for >10 mins to avoid cross-notification if both are out and return home together!
       - condition: state
         entity_id: input_boolean.dan_home
         state: 'on'
@@ -300,6 +312,7 @@ automation:
         entity_id: input_boolean.light_trigger
 
 # Safety lighting if one of us is back late and the flat is already in night mode
+
   - alias: 'Will Night Light Trigger'
     trigger:
       - platform: state
@@ -313,6 +326,7 @@ automation:
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.light_trigger
+
   - alias: 'Dan Night Light Trigger'
     trigger:
       - platform: state

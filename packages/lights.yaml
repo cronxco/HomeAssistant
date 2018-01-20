@@ -2,13 +2,14 @@
 # @Date:   11/06/2017 19:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 08/10/2017 09:50
+# @Last modified time: 20/01/2018 11:18
 
 # This package sets up the lights in Ambassadr
 
 homeassistant:
   customize_glob:
     "light.*":
+      # By default I don't want individual lights exposed to Alexa via emulated hue. I think this is actually slightly redundant as I could just the light domain from the emulated hue settings.
       emulated_hue_hidden: false
 
 
@@ -133,6 +134,8 @@ group:
       - sensor.will_colour
       - sensor.will_temp
       - sensor.will_brightness
+
+# Now that there's less debugging needed, I think these panels are likely to be culled in the near future.
 
 sensor:
   - platform: template

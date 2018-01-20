@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 17:37
+# @Last modified time: 20/01/2018 11:59
 
 # This package deals with notifications - both text and speech
 # I've also added an "update available" notification in here.
@@ -54,6 +54,8 @@ automation:
 
 
 script:
+
+  # This only notifies whoever is at home
   notify_home:
     sequence:
       - service: notify.slack
@@ -74,6 +76,7 @@ script:
           title: "{{ title }}"
           message: "{{ message }}"
 
+  # This only notifies whoever is away
   notify_away:
     sequence:
       - service: notify.slack
@@ -94,6 +97,7 @@ script:
           title: "{{ title }}"
           message: "{{ message }}"
 
+  # This notifies everyone (on all systems)
   notify_all:
     sequence:
       - service: notify.will

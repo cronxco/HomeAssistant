@@ -1,0 +1,23 @@
+# @Author: Will Scott <willscott>
+# @Date:   20/01/2018 12:58
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 20/01/2018 12:58
+
+push:
+  categories:
+    - name: Morning
+      identifier: 'MORNING'
+      actions:
+        - identifier: 'TV_ON'
+          title: 'Switch on BBC One'
+          activationMode: 'background'
+          authenticationRequired: no
+          destructive: no
+          behavior: 'default'
+        - identifier: 'COFFEE_ON'
+          title: 'Brew Coffee'
+          activationMode: 'background'
+          authenticationRequired: no
+          destructive: no
+          behavior: 'default'

@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 22:30
+# @Last modified time: 20/01/2018 11:14
 
 # This package deals with the external climate... that thing some people call 'the world outside'...
 homeassistant:
@@ -50,12 +50,14 @@ binary_sensor:
       - Night
       - Rain
 
+# The Weather Platform drives the summary card on the main view.
 weather:
   - platform: darksky
     api_key: !secret darksky2
     units: uk
 
 sensor:
+  # The Dark Sky sensor gives additional metrics like apparent_temperature and cloud_cover (needed for sunset automations).
   - platform: darksky
     api_key: !secret darksky
     monitored_conditions:
@@ -68,10 +70,12 @@ sensor:
       - hourly_summary
       - temperature_max
       - precip_intensity_max
+  # WAQI is an air quality sensor
   - platform: waqi
     token: !secret waqi
     locations:
       - Sutton
+  # This exposes the sun elevation value (mostly for debugging)
   - platform: template
     sensors:
       solar_angle:

@@ -1,0 +1,10 @@
+# @Author: Will Scott <willscott>
+# @Date:   20/01/2018 12:54
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 20/01/2018 12:55
+
+api_password: !secret http_password
+ssl_certificate: !secret ssl_cert
+ssl_key: !secret ssl_key
+base_url: !secret base_url

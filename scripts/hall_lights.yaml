@@ -1,25 +1,25 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   02/07/2017 20:19
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 02/07/2017 20:20
+# @Last modified by:   willscott
+# @Last modified time: 20/01/2018 12:46
+
+# This is a bodge job to get the Hall lights to turn on - no idea why, but it works!
 
     alias: Hall Lights
     sequence:
     - service: light.turn_on
       entity_id: group.hall
       data:
-        transition: 5
         brightness: 5
         color_temp: 285
     - delay: 00:00:01
     - service: light.turn_off
       entity_id: group.hall
-    - delay: 00:00:02
+    - delay: 00:00:01
     - service: light.turn_on
       entity_id: group.hall
       data:
-        transition: 10
         brightness: 10
         color_temp: 285
     - delay: 00:00:01

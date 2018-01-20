@@ -2,31 +2,32 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 16:48
+# @Last modified time: 20/01/2018 11:38
 
 
 # This package deals with visual media
 
 homeassistant:
+  # Adds some friendly names for otherwise ugly named components.
   customize:
     media_player.plex_for_sony_playstation_4_0117:
-     friendly_name: PS4
+      friendly_name: PS4
     media_player.snowdondefault:
-     friendly_name: Bedroom Plex
-    media_player.dan_iphone:
-     hidden: true
-    media_player.daniels_ipad:
-     hidden: true
-    media_player.will_iphone:
-     hidden: true
+      friendly_name: Bedroom Plex
     media_player.sfwk2tzxoz11c3difomifnfg:
-     friendly_name: LR Plex
+      friendly_name: LR Plex
     media_player.lg_webos_tv_remote:
-     friendly_name: LG TV
+      friendly_name: LG TV
+    # Ensure that the TV is exposed to Alexa. Potentially redundant.
     switch.tv:
       emulated_hue_hidden: false
-    media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c:
-      friendly_name: Vox One
+    # Hide a few media players that don't need exposing!
+    media_player.dan_iphone:
+      hidden: true
+    media_player.daniels_ipad:
+      hidden: true
+    media_player.will_iphone:
+      hidden: true
 
 media_player:
   - platform: plex
@@ -47,6 +48,7 @@ media_player:
         - itv
         - netflix
         - bbc
+  # The universal media player combines two players (here the Living Room Plex with the Living Room TV) to create one controllable entity. The ordering here means that Plex supersedes the TV if Plex is active.
   - platform: universal
     name: Living Room
     children:
@@ -64,6 +66,7 @@ media_player:
           entity_id: remote.living_room
     attributes:
       state: remote.living_room
+  # The PS4 is exposed here through a custom component: https://github.com/hmn/home-assistant-config/wiki/media_player_ps4
   - platform: ps4
     host: !secret ps4ip
 
@@ -91,6 +94,7 @@ scene:
     entities:
      remote.living_room:
         state: off
+
 # Suave cinema mode (definitely one of the coolest scenes!)
   - name: Cinema
     entities:
@@ -102,6 +106,7 @@ scene:
         transition: 10
         brightness: 35
 
+# I think that due to improvements to the speed of the Harmony component I might be able to get rid of this bit soon.
 script:
   tv_off:
     sequence:
@@ -112,6 +117,7 @@ script:
 
 automation:
   - alias: 'Auto Film Mode On'
+    # Either thing changing will trigger film mode however both need to be true for it to turn on.
     trigger:
       - platform: template
         value_template: "{% if is_state_attr('media_player.sfwk2tzxoz11c3difomifnfg', 'media_content_type', 'movie') %}true{% endif %}"
@@ -127,8 +133,10 @@ automation:
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.film_mode
+
   - alias: 'Auto Film Mode Off'
     trigger:
+      # There's a time requirement in here because sometimes buffering can cause issues!
       - platform: state
         entity_id: media_player.sfwk2tzxoz11c3difomifnfg
         to: 'paused'
@@ -146,6 +154,7 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.film_mode
+
   - alias: 'Cinema Lights'
     trigger:
       - platform: state
@@ -153,12 +162,15 @@ automation:
         from: 'off'
         to: 'on'
     condition:
+      # There's no point unless lights are already on!
       - condition: state
         entity_id: input_boolean.evening_mode
         state: 'on'
     action:
       - service: scene.turn_on
         entity_id: scene.cinema
+
+# This is one of those times when the Light Trigger is used (and useful)
   - alias: 'Reset Cinema Lights'
     trigger:
       - platform: state

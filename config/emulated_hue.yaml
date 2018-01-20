@@ -1,0 +1,12 @@
+# @Author: Will Scott <willscott>
+# @Date:   20/01/2018 12:57
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 20/01/2018 12:58
+
+host_ip: !secret ip_addr
+expose_by_default: false
+exposed_domains:
+  - light
+  - switch
+  - input_boolean

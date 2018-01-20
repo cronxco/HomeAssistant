@@ -2,199 +2,51 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 21:15
+# @Last modified time: 20/01/2018 13:33
 
 
 homeassistant:
+
   # Name of the location where Home Assistant is running
   name: Ambassadr
+
   # Location required to calculate the time the sun rises and sets
   latitude: !secret lat
   longitude: !secret long
+
   # Impacts weather/sunrise data
   elevation: !secret elev
+
   # metric for Metric, imperial for Imperial
   unit_system: metric
+
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/London
-  customize_glob: !include customize_glob.yaml
+
+  # Global customisations
+  customize_glob: !include config/customize_glob.yaml
+
+  # Most of the configuration is split into thematic packages
   packages: !include_dir_named packages
 
-frontend:
-  extra_html_url:
-    - /local/custom_ui/state-card-eastbound.html
-    - /local/custom_ui/state-card-westbound.html
-    - /local/custom_ui/state-card-traintimes.html
-    - /local/custom_ui/state-card-custom-ui.html
-    - /local/custom_ui/state-card-tiles.html
-  extra_html_url_es5:
-    - /local/custom_ui/state-card-eastbound.html
-    - /local/custom_ui/state-card-westbound.html
-    - /local/custom_ui/state-card-traintimes.html
-    - /local/custom_ui/state-card-custom-ui-es5.html
-    - /local/custom_ui/state-card-tiles.html
-  themes:
-    Moonlight:
-      # MyVariables
-      base-hue: '220' #Controls the base (and accent) color hue (0-360) | 0=Red 60=Yellow 120=Green 180=Cyan 240=Blue 300=Magenta 360=Red
-      base-sat: '16%' #Controls the saturation of the theme (0%-100%) | 0%=Grey 100%=Full Saturation
-      # MyVar
-      huesat: 'var(--base-hue), var(--base-sat),'
-      # Primary Color
-      primary-color: 'hsl(var(--huesat) 20%)'
-      # Backgrounds
-      primary-background-color: 'var(--primary-color)'
-      secondary-background-color: 'hsl(var(--huesat) 16%)'
-      paper-listbox-background-color: 'var(--primary-color)'
-      paper-card-background-color: 'hsl(var(--huesat) 12%)'
-      paper-dialog-background-color: 'var(--paper-card-background-color)'
-      table-row-background-color: 'hsl(var(--huesat) 12%)'
-      table-row-alternative-background-color: 'hsl(var(--huesat) 10%)'
-      # Devider
-      divider-color: 'hsla(0, 0%, 0%, 0)'
-      dark-divider-opacity: '0'
-      light-divider-opacity: '0'
-      # Text colors
-      primary-text-color: 'hsl(var(--huesat) 60%)'
-      text-primary-color: 'hsl(var(--huesat) 60%)'
-      secondary-text-color: 'hsl(var(--huesat) 60%)'
-      disabled-text-color: 'hsl(var(--huesat) 70%)'
-      sidebar-text_-_color: 'hsl(var(--huesat) 90%)'
-      sidebar-text-color: 'hsl(var(--huesat) 90%)'
-      paper-card-header-color: 'hsl(var(--base-hue), 90%, 50%)'
-      # Text Adjustments
-      paper-font-headline_-_letter-spacing: '-0.5px'
-      paper-font-headline_-_font-weight: '500'
-      paper-font-body1_-_font-weight: '500'
-      # Nav Menu
-      paper-listbox-color: 'hsl(var(--huesat) 50%)'
-      paper-grey-50: 'hsl(var(--huesat) 50%)'
-      paper-grey-200: 'hsla(var(--huesat) 26%)'
-      # Paper card
-      paper-item-icon-color: 'hsl(var(--huesat) 30%)'
-      paper-item-icon-active-color: 'var(--paper-item-icon-color)'
-      paper-item-icon_-_color: 'var(--paper-item-icon-color)'
-      paper-item-selected_-_background-color: 'hsla(0, 0%, 0%, 0.2)'
-      paper-tabs-selection-bar-color: 'hsla(0, 0%, 0%, 0.2)'
-      # Labels
-      label-badge-red: 'hsla(0, 0%, 0%, 0)'
-      label-badge-border-color: 'var(--label-badge-red)'
-      label-badge-background-color: 'var(--paper-card-background-color)'
-      label-badge-text-color: 'var(--primary-text-color)'
-      # Shadows
-      shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 4px hsl(var(--huesat) 18%)'
-      shadow-elevation-16dp_-_box-shadow: 'inset 0px 0px 0px 4px hsl(var(--huesat) 28%)'
-      # Switches
-      paper-toggle-button-checked-button-color: 'hsl(var(--base-hue), 90%, 50%)'
-      paper-toggle-button-checked-bar-color: 'hsl(var(--huesat) 25%)'
-      paper-toggle-button-unchecked-button-color: 'hsl(var(--huesat) 25%)'
-      paper-toggle-button-unchecked-bar-color: 'hsl(var(--huesat) 5%)'
-      # Sliders
-      paper-slider-knob-color:  'hsl(var(--base-hue), 90%, 50%)'
-      paper-slider-knob-start-color: 'hsl(var(--base-hue), 80%, 25%)'
-      paper-slider-pin-color:  'hsl(var(--base-hue), 90%, 50%)'
-      paper-slider-active-color:  'hsl(var(--base-hue), 90%, 50%)'
-      paper-slider-container-color: 'hsl(var(--huesat) 28%)'
-      paper-slider-secondary-color: 'hsl(var(--huesat) 90%)'
-      paper-slider-disabled-active-color: 'hsl(var(--base-hue), 80%, 25%)'
-      paper-slider-disabled-secondary-color: 'hsl(var(--base-hue), 80%, 25%)'
-      paper-dialog-color: 'hsl(var(--base-hue), 20%, 80%)'
 sun:
-history:
-  exclude:
-    entities:
-      - sensor.dark_sky_hourly_summary
-      - sensor.dark_sky_daily_high_temperature
 zeroconf:
 config:
 map:
-script: !include_dir_named scripts
-python_script:
 alexa:
 
-updater:
-  reporting: no
-
-recorder:
-  purge_interval: 2
-  purge_keep_days: 4
-  db_url: !secret db_url
-
-logger:
-  default: warn
-
-zwave:
-  usb_path: /dev/ttyUSB0
-  #config_path: /usr/local/lib/python3.5/dist-packages/python_openzwave/ozw_config/
-
-http:
-  api_password: !secret http_password
-  ssl_certificate: !secret ssl_cert
-  ssl_key: !secret ssl_key
-  base_url: !secret base_url
-
-discovery:
-  ignore:
-    - apple_tv
-
-logbook:
-  exclude:
-    entities:
-       - sensor.time
-
-canary:
-  username: !secret canary_user
-  password: !secret canary_pass
-
-mqtt:
-  broker: !secret mqtt_broker
-  port: !secret mqtt_port
-  client_id: home-assistant-1
-  username: homeassist
-  password: !secret mqtt_pass
-
-emulated_hue:
-  host_ip: !secret ip_addr
-  expose_by_default: false
-  exposed_domains:
-    - light
-    - switch
-    - input_boolean
-
-group:
-  Ambassadr:
-    - sensor.mode
-    - sensor.living_room_tv_source
-    - alarm_control_panel.basecamp
-    - sensor.front_door
-  Scenes:
-    -  scene.bedroom_fade
-    -  scene.cinema
-    -  scene.landing_strip
-    -  scene.sunset1
-    -  scene.sunset2
-    -  scene.sunset3
-    -  scene.good_night
-    -  scene.light_reset
-    -  scene.will_sunrise_1
-    -  scene.dan_sunrise_1
-    -  scene.media_off
-
-ios:
-  push:
-    categories:
-      - name: Morning
-        identifier: 'MORNING'
-        actions:
-          - identifier: 'TV_ON'
-            title: 'Switch on BBC One'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: no
-            behavior: 'default'
-          - identifier: 'COFFEE_ON'
-            title: 'Brew Coffee'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: no
-            behavior: 'default'
+frontend: !include config/frontend.yaml
+history: !include config/history.yaml
+script: !include_dir_named scripts
+python_script:
+updater: !include config/updater.yaml
+recorder: !include config/recorder.yaml
+logger: !include config/logger.yaml
+zwave: !include config/zwave.yaml
+http: !include config/http.yaml
+discovery: !include config/discovery.yaml
+logbook: !include config/logbook.yaml
+canary: !include config/canary.yaml
+mqtt: !include config/mqtt.yaml
+emulated_hue: !include config/emulated_hue.yaml
+ios: !include config/ios.yaml

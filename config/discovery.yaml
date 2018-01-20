@@ -1,0 +1,8 @@
+# @Author: Will Scott <willscott>
+# @Date:   20/01/2018 12:55
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 20/01/2018 12:55
+
+ignore:
+  - apple_tv

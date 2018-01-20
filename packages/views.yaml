@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 20:15
+# @Last modified time: 20/01/2018 20:37
 
 # This package deals with frontend views
 
@@ -88,7 +88,7 @@ group:
       - group.internal
       - weather.dark_sky
       - group.plant_status
-      - group.living_room
+      - group.living_room_media
       - group.spotify_card
       - group.playstation_4
       - group.vox_one

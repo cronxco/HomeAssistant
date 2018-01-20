@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 13:52
+# @Last modified time: 20/01/2018 21:25
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -31,10 +31,12 @@ switch:
     name: "Tumble Dryer"
 
 sensor:
-  -  platform: loopenergy
-     electricity:
-       electricity_serial: !secret loop_serial
-       electricity_secret: !secret loop_secret
+  - platform: version
+    name: Installed HA version
+  - platform: loopenergy
+    electricity:
+      electricity_serial: !secret loop_serial
+      electricity_secret: !secret loop_secret
   - platform: speedtest
     minute:
       - 45
@@ -57,6 +59,12 @@ sensor:
         arg: !secret disk2
       - type: memory_use_percent
       - type: processor_use
+  - platform: cpuspeed
+  - platform: rest
+    resource: https://pypi.python.org/pypi/homeassistant/json
+    name: HA upstream
+    value_template: '{{ value_json.info.version }}'
+    scan_interval: 3600
   - platform: template
     sensors:
       electricity_usage:
@@ -84,9 +92,11 @@ sensor:
 
 group:
   System:
-    - sensor.cpu_use
+    - sensor.cpu_used
     - sensor.disk_use_mediabasecampsherpa
     - sensor.disk_use_mediabasecampdragonfly
+    - sensor.ram_used
+    - sensor.cpuspeed
   Speed:
     - sensor.speedtest_download
     - sensor.speedtest_upload

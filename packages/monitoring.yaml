@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 21:25
+# @Last modified time: 20/01/2018 22:05
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -93,8 +93,8 @@ sensor:
 group:
   System:
     - sensor.cpu_used
-    - sensor.disk_use_mediabasecampsherpa
-    - sensor.disk_use_mediabasecampdragonfly
+    - sensor.disk_used_mediabasecampdragonfly
+    - sensor.disk_used_mediabasecampsherpa
     - sensor.ram_used
     - sensor.cpuspeed
   Speed:
@@ -132,8 +132,7 @@ script:
           title: "\U000026A1 Restarting HomeAssistant Now"
           message: "Restarting in 30 seconds to update to new build"
       - delay: 00:00:30
-      - service: shell_command.restart_homeassistant
+      - service: homeassistant.restart
 
 shell_command:
-  restart_homeassistant: 'sudo service home-assistant@basecamp restart'
   git_pull: 'bash /home/basecamp/.homeassistant/scripts/git_pull.sh'

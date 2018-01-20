@@ -2,13 +2,13 @@
 # @Date:   20/01/2018 12:48
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 17:29
+# @Last modified time: 20/01/2018 17:56
 
 ambassadr:
   primary-color: '#36454f'
   label-badge-red: 'var(--primary-color)'
   accent-color: '#3e7da8'
-  disabled-text-color: '#36454f'
+  disabled-text-color: '#678293'
   # Switches
   paper-toggle-button-checked-button-color: 'var(--accent-color)'
   paper-toggle-button-checked-bar-color: 'var(--accent-color)'

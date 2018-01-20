@@ -2,15 +2,18 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 16:52
+# @Last modified time: 20/01/2018 11:45
 
 # This package deals with time and all time-based automations
 
+
+# This sensor is what allows HASS to know what time it is (and date, day of week etc.)
 sensor:
   - platform: time_date
     display_options:
       - 'time'
 
+# A currently unused scene... I have ideas for how better to handle this.
 scene:
   - name: Good Night
     entities:
@@ -25,6 +28,16 @@ scene:
       group.bedroom:
         state: off
         transition: 60
+
+#    Automatic Time Modes
+#
+#    04:30 until sunrise*: Dawn
+#    Sunrise until midday: Morning
+#    Midday until sunset: Afternoon
+#    Sunset* until 22:00: Evening
+#    22:00 until 04:30: Night
+#
+#    *Note: Due to geographical location, sunrise never takes place prior to 04:30 and sunset never takes place after 22:00. These modes are therefore location appropriate. Your milage may vary...
 
 group:
   time_modes:
@@ -63,7 +76,13 @@ input_boolean:
     name: Night
     icon: mdi:weather-night
 
+# These are then the time-based automations
+
 automation:
+
+# 1: 04:30: Reset everything (but not guest_mode or holiday_mode), turn on dawn_mode and turn off night_mode.
+# Aside: this is also when the presence module checks to see if anyone is home - if not then holiday_mode is automagically switched on.
+
   - alias: 'Reset additional switches'
     trigger:
         platform: time
@@ -84,6 +103,9 @@ automation:
           - input_boolean.afternoon_mode
           - input_boolean.evening_mode
           - input_boolean.night_mode
+
+# 2: Sunrise! Turn off dawn_mode and turn on morning_mode.
+
   - alias: 'Morning Mode'
     trigger:
       platform: numeric_state
@@ -91,6 +113,7 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       above: 0.1
     condition:
+      # This is just a safety catch for when HASS restarts
       - condition: time
         before: '12:00:00'
     action:
@@ -98,42 +121,187 @@ automation:
         entity_id: input_boolean.morning_mode
       - service: input_boolean.turn_off
         entity_id: input_boolean.dawn_mode
+
+# 3: Midday: Turn off morning_mode and turn on afternoon_mode.
+
   - alias: "Afternoon Mode"
     trigger:
-        platform: time
+      - platform: time
         at: '12:00:00'
     condition:
       - condition: time
         before: '16:30:00'
+      - condition: time
+        after: '12:00:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.afternoon_mode
       - service: input_boolean.turn_off
         entity_id: input_boolean.morning_mode
+
+# 4: Sunset(ish): Turn off afternoon_mode and turn on evening_mode.
+
+# This isn't actually sunset but when the sunset automations kick in (see packages/sunset) which are weather dependent.
+
   - alias: 'Evening Mode'
     trigger:
       platform: state
       entity_id: input_boolean.early_twilight
       from: 'off'
       to: 'on'
+    condition:
+      - condition: time
+        before: '22:00:00'
+      - condition: time
+        after: '15:00:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.evening_mode
       - service: input_boolean.turn_off
         entity_id: input_boolean.afternoon_mode
+
+# 5: Night mode: Turn off evening_mode and turn on night_mode. Also turns off dusk.
+
   - alias: "Night Mode"
     trigger:
-        platform: time
+      - platform: time
         at: '22:00:00'
     condition:
       - condition: time
-        before: '23:00:00'
+        before: '23:59:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.night_mode
       - service: input_boolean.turn_off
         entity_id: input_boolean.evening_mode
-      - service: switch.turn_off
-        entity_id: switch.flux
       - service: input_boolean.turn_off
         entity_id: input_boolean.dusk
+
+# Automations to set the mode correctly at startup
+
+  - alias: 'Auto Dawn Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '04:30:00'
+      - condition: time
+        before: '12:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dawn_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Morning Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '12:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        above: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.morning_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.dawn_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Afternoon Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '12:00:00'
+      # This isn't strictly right, but as an approximation it's okay.
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        above: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.afternoon_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.dawn_mode
+          - input_boolean.evening_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Evening Mode'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '22:00:00'
+      - condition: time
+        after: '12:00:00'
+      # This isn't strictly right, but as an approximation it's okay.
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.evening_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.dawn_mode
+          - input_boolean.night_mode
+  - alias: 'Auto Night Mode PM'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        after: '22:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.night_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.dawn_mode
+  - alias: 'Auto Night Mode AM'
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: time
+        before: '04:30:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: '{{ state.attributes.elevation }}'
+        below: 0.1
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.night_mode
+      - service: input_boolean.turn_off
+        entity_id:
+          - input_boolean.morning_mode
+          - input_boolean.afternoon_mode
+          - input_boolean.evening_mode
+          - input_boolean.dawn_mode

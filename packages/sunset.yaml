@@ -2,38 +2,16 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/10/2017 23:01
+# @Last modified time: 20/01/2018 15:02
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
 
-
-switch:
-  - platform:  flux
-    lights:
-      - light.sofa
-      - light.dining
-      - light.main
-      - light.will_side
-      - light.daniel_side
-      - light.utility
-      - light.bathroom
-      - light.map
-    name: Flux
-    start_time: '06:00'
-    stop_time: '22:00'
-    start_colortemp: 5000
-    sunset_colortemp: 3500
-    stop_colortemp: 2500
-    mode: mired
-    disable_brightness_adjust: true
-
-
 input_boolean:
 
-# Comment: I know that these designations aren't actually astronomically accurate
+# I know that these designations aren't actually astronomically accurate
 # (see https://www.timeanddate.com/astronomy/different-types-twilight.html) but
-# they're useful moderately descriptive terms for what I'm trying to acheive.
+# they're useful, moderately descriptive terms for what I'm trying to acheive.
 
   early_twilight:
     initial: off
@@ -48,14 +26,17 @@ input_boolean:
     name: Dusk
 
 # Add a way for other things to trigger the lights to come on
+# This gets triggered in lots of ways including when people come home or when film mode switches off.
+
   light_trigger:
     name: Light Update Trigger
     initial: off
     icon: mdi:light
 
 # SCENES
-
 scene:
+
+# These are the phased lights at sunset - they have relatively long transitions.
   - name: Sunset1
     entities:
      group.living_room:
@@ -63,6 +44,7 @@ scene:
         transition: 90
         brightness: 35
         color_temp: 285
+# Side note: Actually the hall comes on as part of Sunset2 but is activated via a script because the bulbs are slow to respond...
   - name: Sunset2
     entities:
      group.living_room:
@@ -87,6 +69,9 @@ scene:
         transition: 180
         brightness: 115
         color_temp: 285
+
+# The triggered versions have much shorter transitions - we want the lights to come on nearly instantly if we arrive back home.
+
   - name: trigsunset1
     entities:
      group.living_room:
@@ -120,7 +105,7 @@ scene:
         color_temp: 285
 
 # These are now just automations to turn on the switches. First set for clear(ish)
-# skies, the second set for cloudy days...
+# skies, the second & third sets for cloudy days...
 
 automation:
   - alias: 'Early Twilight; Clear Skies'
@@ -130,12 +115,18 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 3.5
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      below: 60
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        below: 60
+      # I've added some extra time conditions to make sure it doesn't trigger when HASS is restarted.
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.early_twilight
+        # This also then causes Evening mode to activate
 
   - alias: 'Mid Twilight; Clear Skies'
     trigger:
@@ -144,9 +135,13 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 1.5
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      below: 60
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        below: 60
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.mid_twilight
@@ -160,16 +155,20 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: -2.5
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      below: 60
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        below: 60
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.dusk
       - service: input_boolean.turn_off
         entity_id: input_boolean.mid_twilight
 
-# And now for cloudy skies
+# And now for cloudy skies. The differences here are: a) cloud coverage >60 & <80 and b) the sun elevation thresholds are increased.
 
   - alias: 'Early Twilight; Dark Skies'
     trigger:
@@ -184,10 +183,15 @@ automation:
       - condition: numeric_state
         entity_id: sensor.dark_sky_cloud_coverage
         below: 80
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.early_twilight
-        # Changed to only notify whoever is home!
+        # This script is designed to notify people who are at home and let them know of the dark skies.
+        # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
         data:
           title: "\U00002601 Dark Skies"
@@ -206,6 +210,9 @@ automation:
       - condition: numeric_state
         entity_id: sensor.dark_sky_cloud_coverage
         below: 80
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.mid_twilight
@@ -225,11 +232,16 @@ automation:
       - condition: numeric_state
         entity_id: sensor.dark_sky_cloud_coverage
         below: 80
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.dusk
       - service: input_boolean.turn_off
         entity_id: input_boolean.mid_twilight
+
+# Same again for very dark skies. The differences here are: a) cloud coverage >80 and b) the sun elevation thresholds are increased.
 
   - alias: 'Early Twilight; Very Dark Skies'
     trigger:
@@ -238,13 +250,18 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 8
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      above: 80
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        above: 80
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.early_twilight
-        # Changed to only notify whoever is home!
+        # This script is designed to notify people who are at home and let them know of the dark skies.
+        # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
         data:
           title: "\U00002601 Very Dark Skies"
@@ -257,9 +274,12 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 4
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      above: 80
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        above: 80
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.mid_twilight
@@ -273,14 +293,21 @@ automation:
       value_template: '{{ state.attributes.elevation }}'
       below: 2
     condition:
-      condition: numeric_state
-      entity_id: sensor.dark_sky_cloud_coverage
-      above: 80
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        above: 80
+      - condition: state
+        entity_id: input_boolean.evening_mode
+        state: 'on'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.dusk
       - service: input_boolean.turn_off
         entity_id: input_boolean.mid_twilight
+
+# Here's where the lights actually get turned on. You'll notice that wherever possible things are decoupled so that while there are 3 different ways (clear skies, dark skies, very dark skies) to trigger early twilight, they converge on a single way of turning on the Sunset1 scene.
+
+# It also means that the phased states (Early, Mid, Dusk) happen whether or not someone is home and whether or not other modes disable the lights from turning on, meaning that if the modes change / or if people come home, HASS can jump straight into the right phase of lights!
 
   - alias: 'Sunset Lighting 1'
     trigger:
@@ -290,21 +317,23 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.early_twilight
-          state: 'on'
-        - condition: state
           entity_id: group.people
           state: 'on'
+        # These are two modes that will (when actually set up) have their own lighting schemes and therefore they disable sunset lights.
         - condition: state
           entity_id: input_boolean.romance_mode
           state: 'off'
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
       service: scene.turn_on
       entity_id: scene.sunset1
 
+# This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 1'
     trigger:
       - platform: state
@@ -324,6 +353,9 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
       service: scene.turn_on
       entity_id: scene.trigsunset1
@@ -336,9 +368,6 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.mid_twilight
-          state: 'on'
-        - condition: state
           entity_id: group.people
           state: 'on'
         - condition: state
@@ -347,12 +376,16 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
         - service: scene.turn_on
           entity_id: scene.sunset2
         - service: script.turn_on
           entity_id: script.hall_lights
 
+# This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 2'
     trigger:
       - platform: state
@@ -372,6 +405,9 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
         - service: scene.turn_on
           entity_id: scene.trigsunset2
@@ -386,11 +422,9 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.dusk
-          state: 'on'
-        - condition: state
           entity_id: group.people
           state: 'on'
+          # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
         - condition: state
           entity_id: input_boolean.quiet_mode
           state: 'off'
@@ -400,13 +434,14 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
         - service: scene.turn_on
           entity_id: scene.sunset3
-        - delay: 0:04
-        - service: switch.turn_on
-          entity_id: switch.flux
 
+# This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 3'
     trigger:
       - platform: state
@@ -420,8 +455,10 @@ automation:
         - condition: state
           entity_id: group.people
           state: 'on'
+          # An over-engineered safety condition as at 22:00, dusk and evening modes should have been switched off & night mode switched on.
         - condition: time
           before: '22:00:00'
+          # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
         - condition: state
           entity_id: input_boolean.quiet_mode
           state: 'off'
@@ -431,14 +468,16 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
         - service: script.turn_on
           entity_id: script.hall_lights
         - service: scene.turn_on
           entity_id: scene.trigsunset3
-        - delay: 0:04
-        - service: switch.turn_on
-          entity_id: switch.flux
+
+# If it's gone 22:00 and the flat is in "night mode" we still want some lighting if the trigger is enabled. Here it just turns on the hall lights.
 
   - alias: 'Triggered Night Light'
     trigger:
@@ -459,11 +498,14 @@ automation:
         - condition: state
           entity_id: input_boolean.party_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
     action:
         - service: script.turn_on
           entity_id: script.hall_lights
 
-# Add a way for the light trigger to be reset.
+# Add a way for the light trigger to be reset. By having it remain on for a minute, it leads to a refractory period where a faully state elsewhere cannot lead to the lights triggering every second!
   - alias: 'Reset Light Trigger'
     trigger:
       platform: state
@@ -477,11 +519,6 @@ automation:
           entity_id: input_boolean.light_trigger
 
 group:
-  Flux:
-    control: hidden
-    entities:
-      -  switch.flux
-
   Sunset:
     control: hidden
     entities:

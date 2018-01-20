@@ -2,10 +2,11 @@
 # @Date:   12/06/2017 20:47
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 09/12/2017 17:21
+# @Last modified time: 20/01/2018 12:38
 
 # This package deals with the night sky. I know the chances of seeing the aroura in London are ~0 but still...
 
+# Lots of work needed here, like audio and conversations.
 
 camera:
   - platform: generic

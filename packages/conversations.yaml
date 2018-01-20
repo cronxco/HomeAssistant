@@ -2,9 +2,10 @@
 # @Date:   14/10/2017 14:58
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/10/2017 23:27
+# @Last modified time: 20/01/2018 12:44
 
 # Conversations intents - e.g. for Alexa
+# TODO: Pretty much everything.
 
 intent_script:
   amzn1.ask.skill.76bad43c-950a-43c0-8727-3021eb795b24:

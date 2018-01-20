@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/01/2018 22:45
+# @Last modified time: 20/01/2018 11:47
 
 # This package deals with the internal climate.
 
@@ -36,7 +36,6 @@ sensor:
         value_template: '{{ states.sensor.heating_temperature.attributes.setting }}'
         friendly_name: 'Target Temperature'
         unit_of_measurement: 'ºC'
-
 
 group:
   Internal Details:

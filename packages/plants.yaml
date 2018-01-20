@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/12/2017 11:24
+# @Last modified time: 20/01/2018 12:03
 
 # Because plants are cool. And green.
 
@@ -77,6 +77,8 @@ homeassistant:
      group.all_plants:
        friendly_name: Plant Status
        hidden: false
+
+# Thanks to the plant components, I can probably get rid of these in the next update.
 
 sensor:
     - platform: mqtt
@@ -360,32 +362,26 @@ plant:
       brightness: sensor.dan_tree_brightness
     min_moisture: 10
 
-# An input_boolean for each plant
+# An input_boolean for each plant - this allows plans to be switched off from status updates during winter (/ if we accidentally kill one)
 
 input_boolean:
   plant_aquatica:
     name: Aquatica Monitoring
-    initial: on
     icon: mdi:leaf
   plant_aloe:
     name: Aloe Monitoring
-    initial: on
     icon: mdi:leaf
   plant_chilli:
     name: Chilli Monitoring
-    initial: on
     icon: mdi:leaf
   plant_basil:
     name: Basil Monitoring
-    initial: on
     icon: mdi:leaf
   plant_will_tree:
     name: Will's Tree Monitoring
-    initial: on
     icon: mdi:leaf
   plant_dan_tree:
     name: Dan's Tree Monitoring
-    initial: on
     icon: mdi:leaf
 
 # Update Plant Status

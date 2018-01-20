@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 21:56
+# @Last modified time: 20/01/2018 22:05
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -93,8 +93,8 @@ sensor:
 group:
   System:
     - sensor.cpu_used
-    - sensor.disk_use_mediabasecampsherpa
-    - sensor.disk_use_mediabasecampdragonfly
+    - sensor.disk_used_mediabasecampdragonfly
+    - sensor.disk_used_mediabasecampsherpa
     - sensor.ram_used
     - sensor.cpuspeed
   Speed:
@@ -112,8 +112,6 @@ automation:
     trigger:
       platform: state
       entity_id: sensor.ambassadrhomeassistant_last_build_finished_at
-      for:
-        seconds: 45
     condition:
       - condition: state
         entity_id: sensor.ambassadrhomeassistant_last_build_state

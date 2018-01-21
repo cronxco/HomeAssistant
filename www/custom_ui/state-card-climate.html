@@ -1,0 +1,79 @@
+<dom-module id="state-card-climate">
+  <template>
+  <style>
+      .content {
+        padding: 0 16px 16px;
+      }
+
+      .attribution {
+        color: var(--secondary-text-color);
+        text-align: right;
+      }
+      .condicon {
+        text-align: center;
+        font-size: 4em;
+      }
+      .condtemp {
+        text-align: center;
+        font-size: 4em;
+      }
+      div.cond {
+        display: inline;
+      }
+      div.conddetails {
+        float: right;
+        display: block table;
+        overflow: auto;
+        text-align: right;
+      }
+      span.line {
+        display: block;
+      }
+      .condsmall {
+        font-size: 1em;
+      }
+      .clear {
+        clear: both;
+      }
+  </style>
+
+
+  <div class='cond condtemp'>{{stateObj.attributes.current|round(1)}}°C</div>
+  <div class='cond conddetails'>
+    <div class="condsmall">
+      Target: {{stateObj.attributes.target|round(1)}}ºC
+    </div>
+    <div class="condsmall">
+      Power: {{stateObj.attributes.target|round}}%
+    </div>
+  </div>
+
+
+  </template>
+</dom-module>
+
+<script>
+class StateCardClimate extends Polymer.Element {
+  static get is() { return 'state-card-climate'; }
+
+  static get properties() {
+    return {
+      // Home Assistant object
+      hass: Object,
+      // inDialog is true if shown as more-info-card
+      inDialog: {
+        type: Boolean,
+        value: false,
+      },
+      // includes state, config and more information of the entity
+      stateObj: Object,
+    };
+  }
+
+
+  _toStr(obj) {
+    return JSON.stringify(obj);
+  }
+}
+customElements.define(StateCardClimate.is, StateCardClimate);
+</script>

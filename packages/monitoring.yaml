@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 11:51
+# @Last modified time: 21/01/2018 15:34
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -18,16 +18,16 @@ homeassistant:
       icon: mdi:cloud-download
     sensor.speedtest_upload:
       icon: mdi:cloud-upload
-    sensor.disk_use_mediabasecampsherpa:
+    sensor.disk_used_mediabasecampsherpa:
       friendly_name: "Sherpa"
-    sensor.disk_use_mediabasecampdragonfly:
+    sensor.disk_used_mediabasecampdragonfly:
       friendly_name: "Dragonfly"
     sensor.since_last_boot:
       friendly_name: "Uptime"
     sensor.electricity_usage:
       icon: mdi:flash-circle
     sensor.tumble_dryer_current:
-      icond: mdi:washing-machine
+      icon: mdi:washing-machine
     sensor.air_quality:
       icon: mdi:home-heart
 

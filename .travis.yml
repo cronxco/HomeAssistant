@@ -1,12 +1,12 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   25/06/2017 16:16
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 25/06/2017 16:18
+# @Last modified by:   willscott
+# @Last modified time: 21/01/2018 12:20
 
 language: python
 python:
-  - "3.4"
+  - "3.5"
 install:
   - pip3 install homeassistant
 script:

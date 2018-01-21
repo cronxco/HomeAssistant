@@ -2,9 +2,16 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 22:22
+# @Last modified time: 21/01/2018 09:33
 
 # This package deals with frontend views
+
+# TODO: Dynamic time of day views
+#
+# Ideas include a morning view with one touch control of lights, TV, curtains (in future), coffee (in future?) and displaying travel times quickly.
+# For day / early afternoon there could be a focus on climate and energy efficiency.
+# For late afternoon / evening it could be a focus on media & lighting
+# For late evening / night it could be ways of gracefully winding down.
 
 homeassistant:
 

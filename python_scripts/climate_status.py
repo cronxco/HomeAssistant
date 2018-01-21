@@ -2,7 +2,7 @@
 # @Date:   21/01/2018 16:54
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 20:35
+# @Last modified time: 21/01/2018 21:05
 
 ########################################
 #
@@ -24,7 +24,7 @@ if hass.states.get('sensor.heating_temperature') != 'Unknown':
 
 if show_card:
     hass.states.set('sensor.heating', target, {
-      'custom_ui_state_card': 'state-card-heating',
+      'custom_ui_state_card': 'state-card-custom-heating',
       'current': current,
       'target': target,
       'power': power

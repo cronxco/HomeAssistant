@@ -1,4 +1,4 @@
-<dom-module id="state-card-heating">
+<dom-module id="state-card-custom-heating">
   <template>
   <style>
       .content {
@@ -36,7 +36,7 @@
         clear: both;
       }
   </style>
-
+  <p>&nbsp;</p>
   <div class='cond condtemp'>{{ stateObj.attributes.current }}°C</div>
   <div class='cond conddetails'>
     <div class="condsmall">
@@ -46,14 +46,14 @@
       Power: {{ stateObj.attributes.target }}%
     </div>
   </div>
-
+  <p>&nbsp;</p>
 
   </template>
 </dom-module>
 
 <script>
-class StateCardHeating extends Polymer.Element {
-  static get is() { return 'state-card-heating'; }
+class StateCardCustomHeating extends Polymer.Element {
+  static get is() { return 'state-card-custom-heating'; }
 
   static get properties() {
     return {
@@ -74,5 +74,5 @@ class StateCardHeating extends Polymer.Element {
     return JSON.stringify(obj);
   }
 }
-customElements.define(StateCardHeating.is, StateCardHeating);
+customElements.define(StateCardCustomHeating.is, StateCardCustomHeating);
 </script>

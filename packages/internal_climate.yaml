@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 11:47
+# @Last modified time: 21/01/2018 11:53
 
 # This package deals with the internal climate.
 
@@ -48,4 +48,5 @@ group:
     - sensor.heating_tado_mode
   Internal:
     - climate.heating
-    - sensor.basecamp_living_room_air_quality
+    - sensor.air_quality
+    - sensor.electricity_usage

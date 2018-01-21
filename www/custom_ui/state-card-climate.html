@@ -1,4 +1,4 @@
-<dom-module id="state-card-climate">
+<dom-module id="state-card-heating">
   <template>
   <style>
       .content {
@@ -52,8 +52,8 @@
 </dom-module>
 
 <script>
-class StateCardClimate extends Polymer.Element {
-  static get is() { return 'state-card-climate'; }
+class StateCardHeating extends Polymer.Element {
+  static get is() { return 'state-card-heating'; }
 
   static get properties() {
     return {
@@ -74,5 +74,5 @@ class StateCardClimate extends Polymer.Element {
     return JSON.stringify(obj);
   }
 }
-customElements.define(StateCardClimate.is, StateCardClimate);
+customElements.define(StateCardHeating.is, StateCardHeating);
 </script>

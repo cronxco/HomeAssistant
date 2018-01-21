@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 20:33
+# @Last modified time: 21/01/2018 21:45
 
 # Because plants are cool. And green.
 
@@ -50,72 +50,162 @@ group:
     entities:
       - sensor.water_plants
 
-# DEPRECATED
-  aquatica:
-    name: Aquatica
-    control: hidden
-    entities:
-      - input_boolean.plant_aquatica
-      - sensor.aquatica_temperature
-      - sensor.aquatica_moisture
-      - sensor.aquatica_brightness
-      - sensor.aquatica_conductivity
-      - sensor.aquatica_battery
+sensor:
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aquatica/'
+      name: 'Aquatica Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
-  aloe:
-    name: Aloe
-    control: hidden
-    entities:
-      - input_boolean.plant_aloe
-      - sensor.aloe_temperature
-      - sensor.aloe_moisture
-      - sensor.aloe_brightness
-      - sensor.aloe_conductivity
-      - sensor.aloe_battery
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/aloe/'
+      name: 'Aloe Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
-  chilli:
-    name: Chilli
-    control: hidden
-    entities:
-      - input_boolean.plant_chilli
-      - sensor.chilli_temperature
-      - sensor.chilli_moisture
-      - sensor.chilli_brightness
-      - sensor.chilli_conductivity
-      - sensor.chilli_battery
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/chilli/'
+      name: 'Chilli Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
-  basil:
-    name: Basil
-    control: hidden
-    entities:
-      - input_boolean.plant_basil
-      - sensor.basil_temperature
-      - sensor.basil_moisture
-      - sensor.basil_brightness
-      - sensor.basil_conductivity
-      - sensor.basil_battery
+    - platform: mqtt
+      state_topic: 'flora/my/plants/basil/'
+      name: 'Basil Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/basil/'
+      name: 'Basil Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/basil/'
+      name: 'Basil Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/basil/'
+      name: 'Basil Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/basil/'
+      name: 'Basil Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
-  will_tree:
-    name: Will's Tree
-    control: hidden
-    entities:
-      - input_boolean.plant_will_tree
-      - sensor.will_tree_temperature
-      - sensor.will_tree_moisture
-      - sensor.will_tree_brightness
-      - sensor.will_tree_conductivity
-      - sensor.will_tree_battery
+    - platform: mqtt
+      state_topic: 'flora/my/plants/willtree/'
+      name: 'Will Tree Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/willtree/'
+      name: 'Will Tree Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/willtree/'
+      name: 'Will Tree Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/willtree/'
+      name: 'Will Tree Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/willtree/'
+      name: 'Will Tree Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
-  dan_tree:
-    name: Dan's Tree
-    control: hidden
-    entities:
-      - input_boolean.plant_dan_tree
-      - sensor.dan_tree_temperature
-      - sensor.dan_tree_moisture
-      - sensor.dan_tree_brightness
-      - sensor.dan_tree_conductivity
-      - sensor.dan_tree_battery
+    - platform: mqtt
+      state_topic: 'flora/my/plants/dantree/'
+      name: 'Dan Tree Temperature'
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.temperature }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/dantree/'
+      name: 'Dan Tree Moisture'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.moisture }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/dantree/'
+      name: 'Dan Tree Conductivity'
+      unit_of_measurement: 'µS/cm'
+      value_template: '{{ value_json.conductivity }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/dantree/'
+      name: 'Dan Tree Brightness'
+      unit_of_measurement: 'lux'
+      value_template: '{{ value_json.brightness }}'
+    - platform: mqtt
+      state_topic: 'flora/my/plants/dantree/'
+      name: 'Dan Tree Battery'
+      unit_of_measurement: '%'
+      value_template: '{{ value_json.battery }}'
 
 
 # Smart Plants

@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:56
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 09:56
+# @Last modified time: 21/01/2018 11:44
 
 exclude:
   entities:
@@ -12,6 +12,30 @@ exclude:
      - sensor.westbound_trams
      - sensor.tram_status
      - group.ambassadr
+     - sensor.front_door_alarm_level
+     - sensor.front_door_alarm_type
+     - sensor.front_door_burglar
+     - sensor.front_door_sourcenodeid
+     - sensor.dark_sky_hourly_summary
+     - sensor.dark_sky_summary
+     - sensor.dark_sky_apparent_temperature
+     - sensor.dark_sky_cloud_coverage
+     - sensor.dark_sky_daily_high_temperature
+     - sensor.dark_sky_daily_max_precip_intensity
+     - sensor.dark_sky_humidity
+     - sensor.dark_sky_precip_intensity
+     - sensor.dark_sky_temperature
+     - switch.tv
+     - remote.living_room
+     - sensor.bathroom_remote
+     - sensor.ensuite_remote
+     - sensor.kitchen_remote
+     - sensor.cr0nx_tado_bridge_status
+     - sensor.heating_tado_mode
+     - sensor.heating_link
+     - sensor.heating_overlay
+     - sensor.heating_power
+     - sensor.heating_temperature
   domains:
      - light
      - zwave

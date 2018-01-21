@@ -2,7 +2,7 @@
 # @Date:   21/01/2018 16:54
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 18:18
+# @Last modified time: 21/01/2018 18:50
 
 ########################################
 #
@@ -23,7 +23,7 @@ power = hass.states.get('sensor.heating_heating').state
 
 if show_card:
     hass.states.set('sensor.heating', target, {
-      'custom_ui_state_card': 'state-card-climate',
+      'custom_ui_state_card': 'state-card-heating',
       'current': current,
       'target': target,
       'power': power

@@ -2,7 +2,7 @@
 # @Date:   21/01/2018 16:54
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 17:13
+# @Last modified time: 21/01/2018 17:37
 
 ########################################
 #
@@ -13,9 +13,9 @@
 
 show_card = True
 
-current = hass.states.sensor.heating_temperature.state
-target = hass.states.sensor.heating_set_temp.state
-power = hass.states.sensor.heating_heating.state
+current = hass.states.get('sensor.heating_temperature').state
+target = hass.states.get('sensor.heating_set_temp').state
+power = hass.states.get('sensor.heating_heating').state
 
 if show_card:
     hass.states.set('sensor.heating', '', {

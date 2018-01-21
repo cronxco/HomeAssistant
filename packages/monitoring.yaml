@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 22:14
+# @Last modified time: 21/01/2018 11:36
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -13,17 +13,21 @@ homeassistant:
       friendly_name: 'Electricity'
       icon: mdi:speedometer
     sensor.speedtest_ping:
-       icon: mdi:pulse
+      icon: mdi:pulse
     sensor.speedtest_download:
-       icon: mdi:cloud-download
+      icon: mdi:cloud-download
     sensor.speedtest_upload:
-       icon: mdi:cloud-upload
+      icon: mdi:cloud-upload
     sensor.disk_use_mediabasecampsherpa:
-       friendly_name: "Sherpa"
+      friendly_name: "Sherpa"
     sensor.disk_use_mediabasecampdragonfly:
-       friendly_name: "Dragonfly"
+      friendly_name: "Dragonfly"
     sensor.since_last_boot:
-       friendly_name: "Uptime"
+      friendly_name: "Uptime"
+    sensor.electricity_usage:
+      icon: mdi:flash-circle
+    sensor.tumble_dryer_current:
+      icond: mdi:washing-machine
 
 switch:
   - platform: tplink
@@ -71,13 +75,13 @@ sensor:
         friendly_name: "Electricity Usage"
         value_template: >-
           {%- if states("sensor.power_stats_mean") | float < 0.2 -%}
-            low
+            Low
           {%- elif states("sensor.power_stats_mean") | float < 1.0 -%}
-            moderate
+            Moderate
           {%- elif states("sensor.power_stats_mean") | float >= 1.0 -%}
-            high
+            High
           {%- else -%}
-            unknown
+            Unknown
           {%- endif -%}
       tumble_dryer_current:
         friendly_name: 'Tumble Dryer Current'

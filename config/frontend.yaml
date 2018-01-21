@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 17:50
+# @Last modified time: 21/01/2018 19:51
 
 extra_html_url:
   - /local/custom_ui/state-card-eastbound.html

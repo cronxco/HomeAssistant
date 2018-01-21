@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 18:33
+# @Last modified time: 21/01/2018 19:52
 
 # This package deals with the internal climate.
 
@@ -39,7 +39,6 @@ sensor:
 
 group:
   Internal Details:
-    - climate.heating
     - sensor.heating_temperature
     - sensor.heating_humidity
     - sensor.basecamp_living_room_air_quality
@@ -59,34 +58,6 @@ automation:
       event: start
     action:
       service: python_script.climate_status
-  - alias: 'Call Service Event (Script)'
-    hide_entity: True
-    initial_state: 'on'
-    trigger:
-      - platform: event
-        event_type: call_service
-        event_data:
-          domain: script
-    action:
-      - delay: 00:00:02
-      - service: python_script.climate_status
-        data_template:
-          event: "{{ trigger.event }}"
-
-  # Call service trigger (Switch)
-  - alias: 'Call Service Event (Switch)'
-    hide_entity: True
-    initial_state: 'on'
-    trigger:
-      - platform: event
-        event_type: call_service
-        event_data:
-          domain: switch
-    action:
-      - delay: 00:00:02
-      - service: python_script.climate_status
-        data_template:
-          event: "{{ trigger.event }}"
 
   # Time interval update (each 1 minute)
   - alias: 'Time interval updates'

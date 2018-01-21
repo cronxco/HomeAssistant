@@ -37,14 +37,13 @@
       }
   </style>
 
-
-  <div class='cond condtemp'>{{stateObj.attributes.current|round(1)}}°C</div>
+  <div class='cond condtemp'>{{ stateObj.attributes.current }}°C</div>
   <div class='cond conddetails'>
     <div class="condsmall">
-      Target: {{stateObj.attributes.target|round(1)}}ºC
+      Target: {{ stateObj.attributes.target }}ºC
     </div>
     <div class="condsmall">
-      Power: {{stateObj.attributes.target|round}}%
+      Power: {{ stateObj.attributes.target }}%
     </div>
   </div>
 

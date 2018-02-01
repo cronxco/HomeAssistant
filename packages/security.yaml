@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:40
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 11:07
+# @Last modified time: 23/01/2018 21:32
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
@@ -44,6 +44,10 @@ automation:
          entity_id: group.people
          from: 'on'
          to: 'off'
+    condition:
+      - contition: state
+        entity_id: input_boolean.guest_mode
+        state: 'off'
     action:
         - service: light.turn_off
           entity_id: group.all_lights
@@ -57,6 +61,35 @@ automation:
           entity_id: input_boolean.home_mode
         - service: input_boolean.turn_on
           entity_id: input_boolean.away_mode
+
+  - alias: 'Lockdown in Guest Mode'
+    trigger:
+         platform: state
+         entity_id: group.people
+         from: 'on'
+         to: 'off'
+    condition:
+      - contition: state
+        entity_id: input_boolean.guest_mode
+        state: 'on'
+    action:
+        - service: script.notify_all
+          data:
+            title: "\U0001F513 Lockdown Pending"
+            message: "All tracked devices are away but guest mode is on. Lockdown delayed for 30 minutes."
+        - delay: 0:30
+        - service: light.turn_off
+          entity_id: group.all_lights
+        - service: alarm_control_panel.alarm_arm_away
+          entity_id: alarm_control_panel.basecamp
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.home_mode
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.away_mode
+        - service: script.notify_all
+          data:
+            title: "\U0001F512 Delayed Lockdown Activated"
+            message: "30 minutes are up! Everything is off and Canary is armed and ready!"
 
   - alias: 'Front Door Opened'
     trigger:
@@ -100,11 +133,19 @@ automation:
           entity_id: input_boolean.away_mode
         - service: input_boolean.turn_on
           entity_id: input_boolean.home_mode
-        - service: alarm_control_panel.alarm_disarm
-          entity_id: alarm_control_panel.basecamp
         - service: persistent_notification.dismiss
           data:
             notification_id: "404"
+
+  - alias: 'Disarm'
+    trigger:
+         platform: state
+         entity_id: input_boolean.home_mode
+         from: 'off'
+         to: 'on'
+    action:
+        - service: alarm_control_panel.alarm_disarm
+          entity_id: alarm_control_panel.basecamp
 
   # If at 04:30 everyone is away then automagically switch on holiday mode.
   - alias: 'Auto holiday mode'

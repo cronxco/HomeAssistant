@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:21
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 11:47
+# @Last modified time: 23/01/2018 21:47
 
 # This is a package for (mostly) manual though their effects are felt in just about every other package.
 
@@ -49,3 +49,55 @@ group:
       - input_boolean.party_mode
       - input_boolean.quiet_mode
       - input_boolean.film_mode
+
+##################################
+#
+#          GUEST MODE
+#
+##################################
+
+# If guest_mode is on, there should be an alert sent out to our devices.
+
+alert:
+  guest_mode:
+    name: Guest Mode is on
+    done_message: Guest mode is off
+    entity_id: input_boolean.guest_mode
+    state: 'on'
+    repeat:
+      - 30
+      - 90
+      - 360
+    can_acknowledge: false
+    skip_first: false
+    notifiers:
+      - notify.will
+      - notify.dan
+
+automation:
+  - alias: 'Guests Home'
+    trigger:
+      platform: state
+      entity_id: sensor.front_door_access_control
+      to: '22'
+    condition:
+      # Guest mode needs to be on
+      - condition: state
+        entity_id: input_boolean.guest_mode
+        state: 'on'
+      # Both Will and Dan need to be away
+      - condition: state
+        entity_id: device_tracker.will_iphone
+        state: 'not_home'
+      - condition: state
+        entity_id: device_tracker.dan_iphone
+        state: 'not_home'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.home_mode
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.away_mode
+      - service: script.notify_all
+        data:
+          title: "\U000026A0 Flat Occupied"
+          message: "The door just opened while in guest mode!"

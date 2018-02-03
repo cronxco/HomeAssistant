@@ -2,15 +2,11 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 18:38
+# @Last modified time: 03/02/2018 22:53
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
 
-homeassistant:
-  customize:
-    # media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c:
-    #   friendly_name: Vox One
 
 media_player:
 

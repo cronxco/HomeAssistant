@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 15:34
+# @Last modified time: 03/02/2018 21:21
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -35,6 +35,20 @@ switch:
   - platform: tplink
     host: !secret dryer_ip
     name: "Tumble Dryer"
+
+input_select:
+  log_level:
+    name: Log Level
+    options:
+      - critical
+      - fatal
+      - error
+      - warning
+      - warn
+      - info
+      - debug
+      - notset
+    initial: warn
 
 sensor:
   - platform: version
@@ -124,6 +138,8 @@ group:
     -  sensor.power_stats_mean
     -  sensor.electricity_usage
     -  sensor.tumble_dryer_current
+  Developer:
+    - input_select.log_level
 
 automation:
   - alias: "Configuration Update"
@@ -140,6 +156,15 @@ automation:
         value_template: '{{states.sensor.ambassadrhomeassistant_last_build_finished_at != "unknown"}}'
     action:
       - service: script.configuation_update
+
+  - alias: Log Level
+    trigger:
+      platform: state
+      entity_id: input_select.log_level
+    action:
+      service: logger.set_level
+      data_template:
+        homeassistant.components: "{{ trigger.to_state.state }}"
 
 script:
   configuation_update:

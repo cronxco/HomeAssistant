@@ -2,6 +2,6 @@
 # @Date:   20/01/2018 12:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 12:53
+# @Last modified time: 03/02/2018 22:05
 
-default: warn
+default: error

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 17:05
+# @Last modified time: 03/02/2018 17:54
 
 # This package deals with frontend views
 
@@ -106,14 +106,6 @@ group:
       - weather.dark_sky
       - group.plant_status
 
-  Switches:
-    icon: mdi:gesture-tap
-    view: yes
-    entities:
-      - group.manual_modes
-      - group.walarmclock
-      - group.dalarmclock
-
   Pulse:
     view: yes
     icon: mdi:pulse
@@ -150,8 +142,9 @@ group:
     icon: mdi:settings
     view: yes
     entities:
-      - group.scenes
-      - group.flux
+      - group.manual_modes
+      - group.walarmclock
+      - group.dalarmclock
       - group.all_automations
       - group.time_modes
 

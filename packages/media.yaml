@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 17:08
+# @Last modified time: 03/02/2018 17:18
 
 
 # This package deals with visual media
@@ -264,18 +264,10 @@ automation:
         visible: false
 
 group:
+  # Analagous audio groups exist in the audio package
   playstation_4:
     entities:
       - media_player.playstation_4
-  spotify_card:
-    entities:
-      - media_player.spotify
   living_room_media:
     entities:
       - media_player.living_room
-  sonos_livingroom:
-    entities:
-      - media_player.living_room_one
-  sonos_bedroom:
-    entities:
-      - media_player.bedroom_one

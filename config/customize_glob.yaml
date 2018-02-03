@@ -2,9 +2,10 @@
 # @Date:   24/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 18:32
+# @Last modified time: 03/02/2018 21:23
 
 automation.*:
+  custom_ui_state_card: state-card-custom-ui
   extra_data_template: >-
     if(!attributes.last_triggered)return null;
     var t,s=(new Date()-new Date(attributes.last_triggered))/1e3;

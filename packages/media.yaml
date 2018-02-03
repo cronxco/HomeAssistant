@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 15:28
+# @Last modified time: 03/02/2018 17:08
 
 
 # This package deals with visual media
@@ -263,33 +263,7 @@ automation:
       data:
         visible: false
 
-  - alias: VoxOne Visible
-    trigger:
-      platform: template
-      value_template: "{{ not is_state('media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c', 'off') }}"
-    action:
-      service: group.set_visibility
-      entity_id: group.vox_one
-      data:
-        visible: true
-
-  - alias: VoxOne Hidden
-    trigger:
-      - platform: homeassistant
-        event: start
-      - platform: state
-        entity_id: media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c
-        to: 'off'
-    action:
-      service: group.set_visibility
-      entity_id: group.vox_one
-      data:
-        visible: false
-
 group:
-  vox_one:
-    entities:
-      - media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c
   playstation_4:
     entities:
       - media_player.playstation_4
@@ -299,3 +273,9 @@ group:
   living_room_media:
     entities:
       - media_player.living_room
+  sonos_livingroom:
+    entities:
+      - media_player.living_room_one
+  sonos_bedroom:
+    entities:
+      - media_player.bedroom_one

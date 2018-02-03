@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 01/02/2018 21:03
+# @Last modified time: 03/02/2018 15:28
 
 
 # This package deals with visual media
@@ -67,8 +67,9 @@ media_player:
     attributes:
       state: remote.living_room
   # The PS4 is exposed here through a custom component: https://github.com/hmn/home-assistant-config/wiki/media_player_ps4
-  # - platform: ps4
-  #   host: !secret ps4ip
+  # Seeing if I can stabalise this again.
+  - platform: ps4
+    host: !secret ps4ip
 
 remote:
   - platform: harmony

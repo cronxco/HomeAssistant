@@ -1,5 +1,16 @@
 # @Author: Will Scott <willscottuk>
 # @Date:   24/06/2017 20:34
 # @Project: Ambassadr Home Automation
-# @Last modified by:   willscottuk
-# @Last modified time: 24/06/2017 20:34
+# @Last modified by:   willscott
+# @Last modified time: 03/02/2018 18:32
+
+automation.*:
+  extra_data_template: >-
+    if(!attributes.last_triggered)return null;
+    var t,s=(new Date()-new Date(attributes.last_triggered))/1e3;
+    return(
+    (t=Math.floor(s/86400))?t+(t>1?" days":" day"):
+    (t=Math.floor(s/3600))?t+(t>1?" hours":" hour"):
+    (t=Math.floor(s/60))?t+(t>1?" minutes":" minute"):
+    (t=Math.floor(s))!==1?t+" seconds":" second"
+    )+" ago";

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 17:18
+# @Last modified time: 03/02/2018 18:36
 
 
 # This package deals with visual media
@@ -204,39 +204,6 @@ automation:
     action:
       service: group.set_visibility
       entity_id: group.living_room_media
-      data:
-        visible: false
-
-  - alias: Spotify Card Visible
-    trigger:
-      platform: template
-      value_template: "{{ not is_state('media_player.spotify', 'paused') }}"
-    action:
-      service: group.set_visibility
-      entity_id: group.spotify_card
-      data:
-        visible: true
-
-  - alias: Spotify Card Hidden
-    trigger:
-      - platform: homeassistant
-        event: start
-      - platform: state
-        entity_id: media_player.spotify
-        to: 'paused'
-        for:
-          minutes: 5
-      - platform: state
-        entity_id: media_player.spotify
-        to: 'idle'
-        for:
-          minutes: 3
-      - platform: state
-        entity_id: media_player.spotify
-        to: 'off'
-    action:
-      service: group.set_visibility
-      entity_id: group.spotify_card
       data:
         visible: false
 

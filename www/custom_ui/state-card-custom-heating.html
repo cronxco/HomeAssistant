@@ -52,27 +52,17 @@
 </dom-module>
 
 <script>
-class StateCardCustomHeating extends Polymer.Element {
-  static get is() { return 'state-card-custom-heating'; }
+  Polymer({
+    is: 'state-card-custom-heating',
 
-  static get properties() {
-    return {
-      // Home Assistant object
-      hass: Object,
-      // inDialog is true if shown as more-info-card
-      inDialog: {
-        type: Boolean,
-        value: false,
+    properties: {
+      hass: {
+        type: Object,
       },
-      // includes state, config and more information of the entity
-      stateObj: Object,
-    };
-  }
 
-
-  _toStr(obj) {
-    return JSON.stringify(obj);
-  }
-}
-customElements.define(StateCardCustomHeating.is, StateCardCustomHeating);
+      stateObj: {
+        type: Object,
+      },
+    },
+  });
 </script>

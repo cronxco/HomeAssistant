@@ -2,7 +2,9 @@
 # @Date:   20/01/2018 12:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 21:05
+# @Last modified time: 08/02/2018 09:04
+
+javascript_version: es5 # Lots of frontend issues on iOS so reverting back to the old version of javascript.
 
 extra_html_url:
   - /local/custom_ui/state-card-eastbound.html

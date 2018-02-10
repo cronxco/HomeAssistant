@@ -7,10 +7,6 @@
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
 
-homeassistant:
-  customize:
-    # media_player.snapcast_client_676c68d1dd024661b816a27cea8a6b4c:
-    #   friendly_name: Vox One
 
 tts:
   - platform: google

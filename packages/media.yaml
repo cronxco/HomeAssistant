@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 18:36
+# @Last modified time: 10/02/2018 20:20
 
 
 # This package deals with visual media
@@ -31,7 +31,7 @@ homeassistant:
 
 media_player:
   - platform: plex
-    # include_non_clients: true #This was causing errors in the log
+    #include_non_clients: true #This was causing errors in the log
     scan_interval: 5
     use_custom_entity_ids: true
     use_episode_art: true

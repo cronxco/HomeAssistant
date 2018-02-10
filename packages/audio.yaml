@@ -2,11 +2,20 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 22:53
+# @Last modified time: 04/02/2018 18:23
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
 
+
+tts:
+  - platform: google
+    language: 'en-uk'
+  - platform: amazon_polly
+    aws_access_key_id: !secret aws_id
+    aws_secret_access_key: !secret aws_key
+    region_name: 'eu-west-1'
+    voice: 'Geraint'
 
 media_player:
 
@@ -17,6 +26,46 @@ media_player:
     client_secret: !secret spot_secret
 
   - platform: sonos
+
+script:
+  sonos_tts:
+    sequence:
+      - service: media_player.sonos_snapshot
+        data_template:
+          entity_id: "{{ 'media_player.' ~ where }}"
+          with_group: yes
+      - service: media_player.sonos_unjoin
+        data_template:
+          entity_id: "{{ 'media_player.' ~ where }}"
+      - service: media_player.volume_set
+        data_template:
+          entity_id: "{{ 'media_player.' ~ where }}"
+          volume_level: 0.45
+      - service: tts.amazon_polly_say
+        data_template:
+          entity_id: "{{ 'media_player.' ~ where }}"
+          message: "{{ what }}"
+      - delay:
+          seconds: 1
+      - delay: >-
+          {% set duration = states.media_player[where].attributes.media_duration %}
+          {% if duration > 0 %}
+            {% set duration = duration - 1 %}
+          {% endif %}
+          {% set seconds = duration % 60 %}
+          {% set minutes = (duration / 60)|int % 60 %}
+          {% set hours = (duration / 3600)|int %}
+          {{ [hours, minutes, seconds]|join(':') }}
+      - service: media_player.sonos_restore
+        data_template:
+          entity_id: "{{ 'media_player.' ~ where }}"
+          with_group: yes
+  tts_test:
+    sequence:
+      - service: script.sonos_tts
+        data_template:
+          what: "{{ states('input_text.what') }}"
+          where: "{{ states('input_select.where') }}"
 
 automation:
 
@@ -129,3 +178,15 @@ group:
   sonos_bedroom:
     entities:
       - media_player.bedroom_one
+
+# Add the debug inputs for the developer settings
+input_text:
+  what:
+    name: What to speak
+    initial: "Hello, world"
+input_select:
+  where:
+    name: Where to speak
+    options:
+     - bedroom_one
+     - living_room_one

@@ -2,10 +2,10 @@
 # @Date:   20/01/2018 12:57
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 12:57
+# @Last modified time: 04/02/2018 07:52
 
 broker: !secret mqtt_broker
 port: !secret mqtt_port
 client_id: home-assistant-1
-username: homeassist
+username: !secret mqtt_user
 password: !secret mqtt_pass

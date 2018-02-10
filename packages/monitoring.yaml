@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 22:05
+# @Last modified time: 04/02/2018 09:27
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -140,6 +140,9 @@ group:
     -  sensor.tumble_dryer_current
   Developer:
     - input_select.log_level
+    - input_text.what
+    - input_select.where
+    - script.tts_test
 
 automation:
   - alias: "Configuration Update"

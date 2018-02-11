@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 19:41
+# @Last modified time: 11/02/2018 19:47
 
 # This package deals with alarms
 
@@ -244,7 +244,7 @@ automation:
           command: "Number1"
 
 # B: If guest_mode is on
-  - alias: 'Alarm On'
+  - alias: 'Alarm On Guest Mode'
     trigger:
       platform: state
       entity_id: input_boolean.alarm

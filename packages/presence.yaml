@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/02/2018 17:19
+# @Last modified time: 11/02/2018 15:48
 
 # This package allows for presence detection and response to comings and goings
 
@@ -100,11 +100,16 @@ automation:
       # Or if owntracks updates as not_home
       - platform: state
         entity_id: device_tracker.will_iphone
+        from: 'home'
         to: 'not_home'
     condition:
       # Needs to have been on in the first place - don't want this always firing!
       - condition: state
         entity_id: input_boolean.will_home
+        state: 'on'
+      # Front door needs to have opened recently
+      - condition: state
+        entity_id: input_boolean.front_door_recent
         state: 'on'
     action:
       - service: homeassistant.turn_off
@@ -120,11 +125,16 @@ automation:
       # Or if owntracks updates as not_home
       - platform: state
         entity_id: device_tracker.dan_iphone
+        from: 'home'
         to: 'not_home'
     condition:
       # Needs to have been on in the first place - don't want this always firing!
       - condition: state
         entity_id: input_boolean.dan_home
+        state: 'on'
+      # Front door needs to have opened recently
+      - condition: state
+        entity_id: input_boolean.front_door_recent
         state: 'on'
     action:
       - service: homeassistant.turn_off
@@ -171,6 +181,10 @@ automation:
       - condition: state
         entity_id: input_boolean.will_home
         state: 'off'
+      # Front door needs to have opened very recently
+      - condition: state
+        entity_id: input_boolean.front_door_recent
+        state: 'on'
     action:
       - service: homeassistant.turn_on
         entity_id: input_boolean.will_home
@@ -192,6 +206,10 @@ automation:
       - condition: state
         entity_id: input_boolean.dan_home
         state: 'off'
+      # Front door needs to have opened very recently
+      - condition: state
+        entity_id: input_boolean.front_door_recent
+        state: 'on'
     action:
       - service: homeassistant.turn_on
         entity_id: input_boolean.dan_home

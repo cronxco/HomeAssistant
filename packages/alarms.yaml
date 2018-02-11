@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 21:32
+# @Last modified time: 11/02/2018 21:40
 
 # This package deals with alarms
 
@@ -250,19 +250,16 @@ script:
     sequence:
       - service: remote.turn_on
         entity_id: "remote.living_room"
-        data:
-          activity: "Watch TV"
+        activity: "Watch TV"
       - delay: 0:00:10
       - service: media_player.select_source
         entity_id: media_player.livingroomtv
-        data:
-          source: "LiveTV"
+        source: "LiveTV"
       - delay: 0:00:05
       - service: remote.send_command
         entity_id: remote.living_room
-        data:
-          device: "41500380"
-          command: "Number1"
+        device: "41500380"
+        command: "Number1"
 
 # Incremental (currently very white!) wake up scenes.
 

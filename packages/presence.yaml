@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 15:48
+# @Last modified time: 11/02/2018 16:04
 
 # This package allows for presence detection and response to comings and goings
 
@@ -165,12 +165,46 @@ automation:
         entity_id: input_boolean.dan_very_away
 
 # This is designed to avoid setting us as home if we're just passing through
-  - alias: 'Will Tracker Home'
+  - alias: 'Will Ping Home'
     trigger:
       # If the device connects to the network then mark it home immediately
       - platform: state
         entity_id: device_tracker.b019c6b7bd11
+        from: 'not_home'
         to: 'home'
+    condition:
+      - condition: state
+        entity_id: input_boolean.will_home
+        state: 'off'
+        for:
+          minutes: 3 # Prevents yo-yoing if the router mis-reports the device
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.will_home
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.will_very_away
+
+  - alias: 'Dan Ping Home'
+    trigger:
+      # If the device connects to the network then mark it home immediately
+      - platform: state
+        entity_id: device_tracker.b019c6b2c14a
+        from: 'not_home'
+        to: 'home'
+    condition:
+      - condition: state
+        entity_id: input_boolean.dan_home
+        state: 'off'
+        for:
+          minutes: 3 # Prevents yo-yoing if the router mis-reports the device
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.dan_home
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.dan_very_away
+
+  - alias: 'Will OwnTracks Home'
+    trigger:
       # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
         entity_id: device_tracker.will_iphone
@@ -190,12 +224,9 @@ automation:
         entity_id: input_boolean.will_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_very_away
-  - alias: 'Dan Tracker Home'
+
+  - alias: 'Dan OwnTracks Home'
     trigger:
-      # If the device connects to the network then mark it home immediately
-      - platform: state
-        entity_id: device_tracker.b019c6b2c14a
-        to: 'home'
       # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
         entity_id: device_tracker.dan_iphone

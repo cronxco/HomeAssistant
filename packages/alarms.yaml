@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 21:32
+# @Last modified time: 11/02/2018 21:55
 
 # This package deals with alarms
 
@@ -262,7 +262,7 @@ script:
         entity_id: remote.living_room
         data:
           device: "41500380"
-          command: "Number1"
+          command: "1"
 
 # Incremental (currently very white!) wake up scenes.
 

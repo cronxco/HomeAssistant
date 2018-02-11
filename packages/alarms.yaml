@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 11:10
+# @Last modified time: 11/02/2018 19:41
 
 # This package deals with alarms
 
@@ -62,6 +62,8 @@ input_boolean:
     name: Weekdays Only
     initial: on
     icon: mdi:calendar
+  alarm:
+    name: Alarm Active
 
 # Integrated time sensors (combines the hour and minute input sensors)
 sensor:
@@ -140,6 +142,8 @@ automation:
               {% if states("sensor.tram_status") != "Good Service" %}
               London Trams currently has {{ states("sensor.tram_status") | lower}}.
               {%- endif %}
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.alarm
 
   - alias: 'Wake Dan Up'
     trigger:
@@ -201,6 +205,61 @@ automation:
               {% if states("sensor.tram_status") != "Good Service" %}
               London Trams currently has {{ states("sensor.tram_status") | lower}}.
               {%- endif %}
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.alarm
+
+# Alarm triggers (radio, lights, tv, coffee etc.)
+# A: if guest_mode is off
+  - alias: 'Alarm On'
+    trigger:
+      platform: state
+      entity_id: input_boolean.alarm
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
+    action:
+      - service: media_player.select_source
+        entity_id: media_player.living_room_one
+        data:
+          source: "BBC Radio 4"
+      - service: homeassistant.turn_on
+        entity_id: group.kitchen
+      - delay: 0:05
+      - service: remote.turn_on
+        entity_id: "remote.living_room"
+        data:
+          activity: "Watch TV"
+      - delay: 0:00:10
+      - service: media_player.select_source
+        entity_id: media_player.livingroomtv
+        data:
+          source: "LiveTV"
+      - delay: 0:00:05
+      - service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          device: "41500380"
+          command: "Number1"
+
+# B: If guest_mode is on
+  - alias: 'Alarm On'
+    trigger:
+      platform: state
+      entity_id: input_boolean.alarm
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'on'
+    action:
+      - service: media_player.select_source
+        entity_id: media_player.living_room_one
+        data:
+          source: "BBC Radio 4"
+
+
 
 # Incremental (currently very white!) wake up scenes.
 

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 04/02/2018 18:23
+# @Last modified time: 11/02/2018 19:54
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -112,7 +112,7 @@ automation:
       data:
         visible: true
 
-  - alias: Spotify Card Hidden
+  - alias: Living Room Sonos Hidden
     trigger:
       - platform: homeassistant
         event: start
@@ -145,7 +145,7 @@ automation:
       data:
         visible: true
 
-  - alias: Spotify Card Hidden
+  - alias: Bedroom Sonos Hidden
     trigger:
       - platform: homeassistant
         event: start

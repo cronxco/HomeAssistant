@@ -2,28 +2,24 @@
 # @Date:   14/06/2017 21:07
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 21:45
+# @Last modified time: 11/02/2018 17:35
 
 # Because plants are cool. And green.
 
 homeassistant:
   customize:
     plant.aquatica:
-      friendly_name: Aquatica Status
+      friendly_name: Aquatica
     plant.aloe:
-      friendly_name: Aloe Status
+      friendly_name: Aloe
     plant.chilli:
-      friendly_name: Chilli Status
+      friendly_name: Chilli
     plant.basil:
-      friendly_name: Basil Status
+      friendly_name: Basil
     plant.dan_tree:
-      friendly_name: Dan's Tree Status
+      friendly_name: Dan's Tree
     plant.will_tree:
-      friendly_name: Will's Tree Status
-
-    group.all_plants:
-      friendly_name: Plant Status
-      hidden: false
+      friendly_name: Will's Tree
 
 group:
 
@@ -31,18 +27,23 @@ group:
     name: Plants
     control: hidden
     entities:
-      - input_boolean.plant_aquatica
       - plant.aquatica
-      - input_boolean.plant_aloe
       - plant.aloe
-      - input_boolean.plant_chilli
       - plant.chilli
-      - input_boolean.plant_basil
       - plant.basil
-      - input_boolean.plant_dan_tree
       - plant.dan_tree
-      - input_boolean.plant_will_tree
       - plant.will_tree
+
+  plant_switches:
+    name: Plant Monitoring
+    control: hidden
+    entities:
+      - input_boolean.plant_aquatica
+      - input_boolean.plant_aloe
+      - input_boolean.plant_chilli
+      - input_boolean.plant_basil
+      - input_boolean.plant_dan_tree
+      - input_boolean.plant_will_tree
 
   plant_status:
     name: Plant Status

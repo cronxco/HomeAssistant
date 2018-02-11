@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 04/02/2018 09:27
+# @Last modified time: 11/02/2018 11:34
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -124,10 +124,10 @@ sensor:
 
 group:
   System:
-    - sensor.disk_used_mediabasecampdragonfly
-    - sensor.disk_used_mediabasecampsherpa
-    - sensor.ram_used
-    - sensor.cpu_used
+    - sensor.disk_use_percent_mediabasecampdragonfly
+    - sensor.disk_use_percent_mediabasecampsherpa
+    - sensor.memory_use_percent
+    - sensor.processor_use
     - sensor.cpu_speed
   Speed:
     - sensor.speedtest_download

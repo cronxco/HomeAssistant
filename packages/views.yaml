@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 21:17
+# @Last modified time: 11/02/2018 11:31
 
 # This package deals with frontend views
 
@@ -105,6 +105,7 @@ group:
       - group.internal
       - weather.dark_sky
       - group.plant_status
+      - camera.living_room
 
   Pulse:
     view: yes

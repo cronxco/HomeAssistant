@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 19:47
+# @Last modified time: 11/02/2018 21:29
 
 # This package deals with alarms
 
@@ -221,7 +221,7 @@ automation:
       state: 'off'
     action:
       - service: media_player.select_source
-        entity_id: media_player.living_room_one
+        entity_id: media_player.bedroom_one
         data:
           source: "BBC Radio 4"
       - service: homeassistant.turn_on

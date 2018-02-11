@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 11:34
+# @Last modified time: 11/02/2018 18:50
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -18,9 +18,9 @@ homeassistant:
       icon: mdi:cloud-download
     sensor.speedtest_upload:
       icon: mdi:cloud-upload
-    sensor.disk_used_mediabasecampsherpa:
+    sensor.disk_use_percent_mediabasecampsherpa:
       friendly_name: "Sherpa"
-    sensor.disk_used_mediabasecampdragonfly:
+    sensor.disk_use_percent_mediabasecampdragonfly:
       friendly_name: "Dragonfly"
     sensor.since_last_boot:
       friendly_name: "Uptime"
@@ -30,6 +30,10 @@ homeassistant:
       icon: mdi:washing-machine
     sensor.air_quality:
       icon: mdi:home-heart
+    sensor.memory_use_percent:
+      friendly_name: Memory use
+    sensor.basecamp_living_room_air_quality:
+      friendly_name: Air Quality
 
 switch:
   - platform: tplink

@@ -53,6 +53,10 @@ input_boolean:
     initial: off
     name: Front Door
     icon: mdi:exit-to-app
+  front_door_recent:
+    initial: off
+    name: Front Door Recent
+    icon: mdi:exit-to-app
 
 automation:
 
@@ -90,8 +94,12 @@ automation:
         entity_id: input_boolean.front_door
         state: 'off'
     action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.front_door_recent # Designed to effectively reset the front-door timer if it's opened >3 mins <10 after the first opening.
       - service: input_boolean.turn_on
         entity_id: input_boolean.front_door
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.front_door_recent
       # This notification was initially just for debugging but actually I've become accustomed to it!
       - service: notify.will
         data:
@@ -109,6 +117,17 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.front_door
+
+  - alias: 'Front Door Recent Expiry'
+    trigger:
+        platform: state
+        entity_id: input_boolean.front_door_recent
+        to: 'on'
+        for:
+          minutes: 10 # Might reduce this later
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.front_door_recent
 
   # If people get back, turn off Canary, set the flat to home_mode and get rid of the lockdown notification.
   - alias: 'Occupied'

@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:56
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/01/2018 21:06
+# @Last modified time: 12/02/2018 21:44
 
 exclude:
   entities:
@@ -37,8 +37,23 @@ exclude:
      - sensor.heating_power
      - sensor.heating_temperature
      - automation.time_interval_updates
+     - sensor.basecamp_living_room_air_quality
+     - sensor.front_door_access_control
+     - input_boolean.night_mode
+     - input_boolean.dawn_mode
+     - input_boolean.morning_mode
+     - input_boolean.afternoon_mode
+     - input_boolean.evening_mode
+     - input_boolean.home_mode
+     - input_boolean.away_mode
+     - group.lights
+     - group.living_room_media
+     - group.people
+     - group.presence_sensors
+     - group.presence_modes
   domains:
      - light
      - zwave
      - weather
      - zone
+     - plant

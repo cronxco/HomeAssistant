@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 21:55
+# @Last modified time: 12/02/2018 07:24
 
 # This package deals with alarms
 
@@ -244,6 +244,17 @@ automation:
         entity_id: media_player.living_room_one
         data:
           source: "BBC Radio 4"
+
+  - alias: 'Alarm Reset'
+    trigger:
+      platform: state
+      entity_id: input_boolean.alarm
+      to: 'on'
+      for:
+        hours: 2
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.alarm
 
 script:
   morning_tv:

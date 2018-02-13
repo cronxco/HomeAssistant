@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 18:14
+# @Last modified time: 13/02/2018 21:28
 
 # This package deals with frontend views
 
@@ -78,15 +78,15 @@ sensor:
            Guest
          {%- elif is_state('input_boolean.romance_mode', 'on') -%}
            Romance
-         {%- elif is_state('input_boolean.night_mode', 'on') -%}
+         {%- elif is_state('input_select.time_mode', 'Night') -%}
            Night
-         {%- elif is_state('input_boolean.evening_mode', 'on') -%}
+         {%- elif is_state('input_select.time_mode', 'Evening') -%}
            Evening
-         {%- elif is_state('input_boolean.afternoon_mode', 'on') -%}
+         {%- elif is_state('input_select.time_mode', 'Afternoon') -%}
            Afternoon
-         {%- elif is_state('input_boolean.morning_mode', 'on') -%}
+         {%- elif is_state('input_select.time_mode', 'Morning') -%}
            Morning
-         {%- elif is_state('input_boolean.dawn_mode', 'on') -%}
+         {%- elif is_state('input_select.time_mode', 'Dawn') -%}
            Dawn
          {%- elif is_state('input_boolean.home_mode', 'on') -%}
            Home
@@ -147,7 +147,7 @@ group:
       - group.walarmclock
       - group.dalarmclock
       - group.all_automations
-      - group.time_modes
+      - group.auto_modes
       - group.plant_switches
       - group.developer
 
@@ -157,6 +157,10 @@ group:
     - alarm_control_panel.basecamp
     - sensor.front_door
 
+  Auto modes:
+    - input_select.time_mode
+    - input_select.sunset_phase
+    - input_select.cloud_cover
 automation:
   - alias: 'Set theme at startup'
     initial_state: 'on'

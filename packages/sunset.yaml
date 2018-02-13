@@ -2,31 +2,43 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/02/2018 21:33
+# @Last modified time: 13/02/2018 21:49
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
 
-input_boolean:
+
+input_select:
 
 # I know that these designations aren't actually astronomically accurate
 # (see https://www.timeanddate.com/astronomy/different-types-twilight.html) but
 # they're useful, moderately descriptive terms for what I'm trying to acheive.
 
-  early_twilight:
-    initial: off
-    name: Early Twilight
+  sunset_phase:
+    name: Sunset Phase
+    options:
+      - Unset
+      - Early Twilight
+      - Mid Twilight
+      - Dusk
 
-  mid_twilight:
-    initial: off
-    name: Mid Twilight
+# These are the three possible cloud cover options. They get selected for when
+# the sun gets to below 8.2º in the sky. This isn't perfect (what if it
+# suddenly gets darker!) But I can code for that later...
 
-  dusk:
-    initial: off
-    name: Dusk
+  cloud_cover:
+    name: Cloud Cover
+    options:
+      - Unset
+      - Clear
+      - Cloudy
+      - Overcast
+
+input_boolean:
 
 # Add a way for other things to trigger the lights to come on
-# This gets triggered in lots of ways including when people come home or when film mode switches off.
+# This gets triggered in lots of ways including when people come home or when
+# film mode switches off.
 
   light_trigger:
     name: Light Update Trigger
@@ -118,16 +130,87 @@ scene:
 # skies, the second & third sets for cloudy days...
 
 automation:
-  - alias: 'Early Twilight; Clear Skies'
+
+  - alias: 'Cloud Status: Clear'
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      below: 8.2
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        below: 60
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Unset
+    action:
+      - service: input_select.select_option
+        entity_id: input_select.cloud_cover
+        data:
+          option: Clear
+  - alias: 'Cloud Status: Cloudy'
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      below: 8.2
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        above: 59
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        below: 80
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Unset
+    action:
+      - service: input_select.select_option
+        entity_id: input_select.cloud_cover
+        data:
+          option: Cloudy
+  - alias: 'Cloud Status: Overcast'
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      below: 8.2
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_cloud_coverage
+        above: 79
+      - condition: time
+        after: '14:30:00'
+      - condition: time
+        before: '21:30:00'
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Unset
+    action:
+      - service: input_select.select_option
+        entity_id: input_select.cloud_cover
+        data:
+          option: Overcast
+
+  - alias: 'Early Twilight; Clear'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 3.5
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 60
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Clear
       # I've added some extra time conditions to make sure it doesn't trigger when HASS is restarted.
       - condition: time
         after: '14:30:00'
@@ -138,80 +221,81 @@ automation:
         value_template: '{{ state.attributes.elevation }}'
         above: 1.5
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Early Twilight
         # This also then causes Evening mode to activate
 
-  - alias: 'Mid Twilight; Clear Skies'
+  - alias: 'Mid Twilight; Clear'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 1.5
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 60
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Clear
       # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.time_mode
+        state: Evening
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
         above: -2.5
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.mid_twilight
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Mid Twilight
 
-  - alias: 'Dusk; Clear Skies'
+  - alias: 'Dusk; Clear'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: -2.5
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 60
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Clear
       # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.time_mode
+        state: Evening
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.dusk
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.mid_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Dusk
 
 # And now for cloudy skies. The differences here are: a) cloud coverage >60 & <80 and b) the sun elevation thresholds are increased.
 
-  - alias: 'Early Twilight; Dark Skies'
+  - alias: 'Early Twilight; Cloudy'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 5
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 60
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 80
-      - condition: time
-        after: '14:30:00'
-      - condition: time
-        before: '21:30:00'
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Cloudy
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
         above: 3
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Early Twilight
         # This script is designed to notify people who are at home and let them know of the dark skies.
         # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
@@ -219,77 +303,75 @@ automation:
           title: "\U00002601 Dark Skies"
           message: "It's a bit dark out so I've switched the lights on early for you!"
 
-  - alias: 'Mid Twilight; Dark Skies'
+  - alias: 'Mid Twilight; Cloudy'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 3
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 60
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 80
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.cloud_cover
+        state: Cloudy
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
         above: 0
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.mid_twilight
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Mid Twilight
 
-  - alias: 'Dusk; Dark Skies'
+  - alias: 'Dusk; Dark'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 0
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 60
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        below: 80
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.cloud_cover
+        state: Cloudy
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.dusk
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.mid_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Dusk
 
 # Same again for very dark skies. The differences here are: a) cloud coverage >80 and b) the sun elevation thresholds are increased.
 
-  - alias: 'Early Twilight; Very Dark Skies'
+  - alias: 'Early Twilight; Overcast'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 8
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 80
-      - condition: time
-        after: '14:30:00'
-      - condition: time
-        before: '21:30:00'
+      - condition: state
+        entity_id: input_select.cloud_cover
+        state: Overcast
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
         above: 4
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Early Twilight
         # This script is designed to notify people who are at home and let them know of the dark skies.
         # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
@@ -297,47 +379,49 @@ automation:
           title: "\U00002601 Very Dark Skies"
           message: "It's very dark out so I've switched the lights on early for you!"
 
-  - alias: 'Mid Twilight; Very Dark Skies'
+  - alias: 'Mid Twilight; Overcast'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 4
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 80
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.cloud_cover
+        state: Overcast
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
         above: 2
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.mid_twilight
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.early_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Mid Twilight
 
-  - alias: 'Dusk; Very Dark Skies'
+  - alias: 'Dusk; Overcast'
     trigger:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
       below: 2
     condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_cloud_coverage
-        above: 80
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.cloud_cover
+        state: Overcast
+      # Evening mode gets switched on as part of Early Twilight so we'll check that that has happened first.
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Evening
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.dusk
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.mid_twilight
+      - service: input_select.select_option
+        entity_id: input_select.sunset_phase
+        data:
+          option: Dusk
 
 # Here's where the lights actually get turned on. You'll notice that wherever possible things are decoupled so that while there are 3 different ways (clear skies, dark skies, very dark skies) to trigger early twilight, they converge on a single way of turning on the Sunset1 scene.
 
@@ -346,9 +430,8 @@ automation:
   - alias: 'Sunset Lighting 1'
     trigger:
       - platform: state
-        entity_id: input_boolean.early_twilight
-        from: 'off'
-        to: 'on'
+        entity_id: input_select.sunset_phase
+        to: Early Twilight
     condition:
         - condition: state
           entity_id: group.people
@@ -376,8 +459,8 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.early_twilight
-          state: 'on'
+          entity_id: input_select.sunset_phase
+          state: Early Twilight
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -397,9 +480,8 @@ automation:
   - alias: 'Sunset Lighting 2'
     trigger:
       - platform: state
-        entity_id: input_boolean.mid_twilight
-        from: 'off'
-        to: 'on'
+        entity_id: input_select.sunset_phase
+        to: Mid Twilight
     condition:
         - condition: state
           entity_id: group.people
@@ -426,8 +508,8 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.mid_twilight
-          state: 'on'
+          entity_id: input_select.sunset_phase
+          state: Early Twilight
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -447,9 +529,8 @@ automation:
   - alias: 'Sunset Lighting 3'
     trigger:
       - platform: state
-        entity_id: input_boolean.dusk
-        from: 'off'
-        to: 'on'
+        entity_id: input_select.sunset_phase
+        to: Dusk
     condition:
         - condition: state
           entity_id: group.people
@@ -480,8 +561,8 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.dusk
-          state: 'on'
+          entity_id: input_select.sunset_phase
+          state: Dusk
         - condition: state
           entity_id: group.people
           state: 'on'
@@ -515,8 +596,8 @@ automation:
         to: 'on'
     condition:
         - condition: state
-          entity_id: input_boolean.night_mode
-          state: 'on'
+          entity_id: input_select.time_mode
+          state: Night
         - condition: state
           entity_id: input_boolean.quiet_mode
           state: 'off'
@@ -545,12 +626,3 @@ automation:
     action:
         - service: input_boolean.turn_off
           entity_id: input_boolean.light_trigger
-
-group:
-  Sunset:
-    control: hidden
-    entities:
-      -  input_boolean.early_twilight
-      -  input_boolean.mid_twilight
-      -  input_boolean.dusk
-      -  input_boolean.light_trigger

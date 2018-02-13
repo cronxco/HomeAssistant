@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/02/2018 20:20
+# @Last modified time: 13/02/2018 21:16
 
 
 # This package deals with visual media
@@ -165,8 +165,8 @@ automation:
     condition:
       # There's no point unless lights are already on!
       - condition: state
-        entity_id: input_boolean.evening_mode
-        state: 'on'
+        entity_id: input_select.time_mode
+        state: Evening
     action:
       - service: scene.turn_on
         entity_id: scene.cinema

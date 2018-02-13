@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:38
+# @Last modified time: 13/02/2018 21:49
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -33,6 +33,8 @@ input_select:
       - Clear
       - Cloudy
       - Overcast
+
+input_boolean:
 
 # Add a way for other things to trigger the lights to come on
 # This gets triggered in lots of ways including when people come home or when

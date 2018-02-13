@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:29
+# @Last modified time: 13/02/2018 21:35
 
 # This package deals with time and all time-based automations
 
@@ -102,7 +102,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Morning
+        data:
+          option: Morning
 
 # 3: Midday: Turn off Morning and turn on Afternoon.
 
@@ -118,7 +119,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Afternoon
+        data:
+          option: Afternoon
 
 # 4: Sunset(ish): Set mode to evening.
 
@@ -137,7 +139,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Evening
+        data:
+          option: Evening
 
 # 5: Night mode: Set mode to night. Also turns off dusk.
 
@@ -151,13 +154,16 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Night
+        data:
+          option: Night
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Unset
+        data:
+          option: Unset
       - service: input_select.select_option
         entity_id: input_select.cloud_cover
-        option: Unset
+        data:
+          option: Unset
 
 # Automations to set the mode correctly at startup
 
@@ -177,7 +183,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Dawn
+        data:
+          option: Dawn
   - alias: 'Auto Morning Mode'
     trigger:
       platform: homeassistant
@@ -192,7 +199,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Morning
+        data:
+          option: Morning
   - alias: 'Auto Afternoon Mode'
     trigger:
       platform: homeassistant
@@ -208,7 +216,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Afternoon
+        data:
+          option: Afternoon
   - alias: 'Auto Evening Mode'
     trigger:
       platform: homeassistant
@@ -226,7 +235,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Evening
+        data:
+          option: Evening
   - alias: 'Auto Night Mode PM'
     trigger:
       platform: homeassistant
@@ -241,7 +251,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Night
+        data:
+          option: Night
   - alias: 'Auto Night Mode AM'
     trigger:
       platform: homeassistant
@@ -256,4 +267,5 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Night
+        data:
+          option: Night

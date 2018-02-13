@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:26
+# @Last modified time: 13/02/2018 21:38
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -149,7 +149,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.cloud_cover
-        option: Clear
+        data:
+          option: Clear
   - alias: 'Cloud Status: Cloudy'
     trigger:
       platform: numeric_state
@@ -173,7 +174,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.cloud_cover
-        option: Cloudy
+        data:
+          option: Cloudy
   - alias: 'Cloud Status: Overcast'
     trigger:
       platform: numeric_state
@@ -194,7 +196,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.cloud_cover
-        option: Overcast
+        data:
+          option: Overcast
 
   - alias: 'Early Twilight; Clear'
     trigger:
@@ -218,7 +221,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Early Twilight
+        data:
+          option: Early Twilight
         # This also then causes Evening mode to activate
 
   - alias: 'Mid Twilight; Clear'
@@ -242,7 +246,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Mid Twilight
+        data:
+          option: Mid Twilight
 
   - alias: 'Dusk; Clear'
     trigger:
@@ -261,7 +266,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Dusk
+        data:
+          option: Dusk
 
 # And now for cloudy skies. The differences here are: a) cloud coverage >60 & <80 and b) the sun elevation thresholds are increased.
 
@@ -286,7 +292,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Early Twilight
+        data:
+          option: Early Twilight
         # This script is designed to notify people who are at home and let them know of the dark skies.
         # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
@@ -315,7 +322,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Mid Twilight
+        data:
+          option: Mid Twilight
 
   - alias: 'Dusk; Dark'
     trigger:
@@ -334,7 +342,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Dusk
+        data:
+          option: Dusk
 
 # Same again for very dark skies. The differences here are: a) cloud coverage >80 and b) the sun elevation thresholds are increased.
 
@@ -359,7 +368,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Early Twilight
+        data:
+          option: Early Twilight
         # This script is designed to notify people who are at home and let them know of the dark skies.
         # Ultimately these notifcations may get switched off as the system gets smarter.
       - service: script.notify_home
@@ -388,7 +398,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Mid Twilight
+        data:
+          option: Mid Twilight
 
   - alias: 'Dusk; Overcast'
     trigger:
@@ -407,7 +418,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Dusk
+        data:
+          option: Dusk
 
 # Here's where the lights actually get turned on. You'll notice that wherever possible things are decoupled so that while there are 3 different ways (clear skies, dark skies, very dark skies) to trigger early twilight, they converge on a single way of turning on the Sunset1 scene.
 

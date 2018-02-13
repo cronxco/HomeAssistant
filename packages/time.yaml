@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:35
+# @Last modified time: 13/02/2018 21:43
 
 # This package deals with time and all time-based automations
 
@@ -66,7 +66,8 @@ automation:
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
-        option: Dawn
+        data:
+          option: Dawn
       - service: input_boolean.turn_off
         entity_id:
           - input_boolean.romance_mode
@@ -75,10 +76,12 @@ automation:
       # This should have been covered off at evening -> night but just in case
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
-        option: Unset
+        data:
+          option: Unset
       - service: input_select.select_option
         entity_id: input_select.cloud_cover
-        option: Unset
+        data:
+          option: Unset
       # Reset SONOS volumes
       - service: media_player.volume_set
         entity_id:

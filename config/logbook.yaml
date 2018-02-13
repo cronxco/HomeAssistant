@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:56
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 12/02/2018 21:44
+# @Last modified time: 13/02/2018 07:40
 
 exclude:
   entities:
@@ -46,6 +46,7 @@ exclude:
      - input_boolean.evening_mode
      - input_boolean.home_mode
      - input_boolean.away_mode
+     - group.tram
      - group.lights
      - group.living_room_media
      - group.people

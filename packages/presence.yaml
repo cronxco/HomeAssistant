@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 16/02/2018 07:19
+# @Last modified time: 16/02/2018 20:36
 
 # This package allows for presence detection and response to comings and goings
 
@@ -58,6 +58,12 @@ input_boolean:
   dan_very_away:
     name: Dan Very Away
 
+  will_presence_lock:
+    name: Will Presence Lock
+
+  dan_presence_lock:
+    name: Dan Presence Lock
+
   # There are two main presence-based modes. These may be removed at some point.
   away_mode:
     name: Away
@@ -111,6 +117,10 @@ automation:
       - condition: state
         entity_id: input_boolean.front_door_recent
         state: 'on'
+      # Let's not flip-flop between home and away
+      - condition: state
+        entity_id: input_boolean.will_presence_lock
+        state: 'off'
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_home
@@ -136,6 +146,10 @@ automation:
       - condition: state
         entity_id: input_boolean.front_door_recent
         state: 'on'
+      # Let's not flip-flop between home and away
+      - condition: state
+        entity_id: input_boolean.dan_presence_lock
+        state: 'off'
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_home
@@ -183,6 +197,8 @@ automation:
         entity_id: input_boolean.will_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.will_presence_lock
 
   - alias: 'Dan Ping Home'
     trigger:
@@ -202,6 +218,8 @@ automation:
         entity_id: input_boolean.dan_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dan_presence_lock
 
   - alias: 'Will OwnTracks Home'
     trigger:
@@ -224,6 +242,8 @@ automation:
         entity_id: input_boolean.will_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.will_presence_lock
 
   - alias: 'Dan OwnTracks Home'
     trigger:
@@ -246,6 +266,8 @@ automation:
         entity_id: input_boolean.dan_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.dan_presence_lock
 
 # Designed to trigger home statuses if trackers have appeared home (even if the 3 minute rule hasn't been met) & the door is opened.
   - alias: 'Will Door Opened'
@@ -267,6 +289,8 @@ automation:
         entity_id: input_boolean.will_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.will_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.will_presence_lock
   - alias: 'Dan Door Opened'
     trigger:
         platform: state
@@ -286,6 +310,31 @@ automation:
         entity_id: input_boolean.dan_home
       - service: homeassistant.turn_off
         entity_id: input_boolean.dan_very_away
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.will_presence_lock
+
+# Reset presence locks
+  - alias: 'Will Presence Lock Expiry'
+    trigger:
+        platform: state
+        entity_id: input_boolean.will_presence_lock
+        to: 'on'
+        for:
+          minutes: 4
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.will_presence_lock
+
+  - alias: 'Dan Presence Lock Expiry'
+    trigger:
+        platform: state
+        entity_id: input_boolean.dan_presence_lock
+        to: 'on'
+        for:
+          minutes: 4
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dan_presence_lock
 
 # Greet us only if we've been 'very' away
   - alias: 'Dan Welcome Home'

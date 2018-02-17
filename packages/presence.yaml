@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:15
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 16/02/2018 20:36
+# @Last modified time: 17/02/2018 18:44
 
 # This package allows for presence detection and response to comings and goings
 
@@ -299,7 +299,7 @@ automation:
     condition:
       # This is just a precaution - it's probably unnecessary
       - condition: state
-        entity_id: input_boolean.will_very_away
+        entity_id: input_boolean.dan_very_away
         state: 'on'
       # So here if owntracks is home, even if the 3 minute rule hasn't been met, the individual will be marked as home.
       - condition: state

@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 18:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/02/2018 16:48
+# @Last modified time: 18/02/2018 17:13
 
 
 homeassistant:
@@ -49,6 +49,6 @@ discovery: !include config/discovery.yaml
 logbook: !include config/logbook.yaml
 canary: !include config/canary.yaml
 mqtt: !include config/mqtt.yaml
-emulated_hue: !include config/emulated_hue.yaml
+# emulated_hue: !include config/emulated_hue.yaml
 ios: !include config/ios.yaml
 cloud: !include config/cloud.yaml

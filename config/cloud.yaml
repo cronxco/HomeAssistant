@@ -1,0 +1,20 @@
+# @Author: Will Scott <willscott>
+# @Date:   18/02/2018 16:49
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 18/02/2018 16:53
+
+alexa:
+  filter:
+    include_entities:
+      - group.living_room
+      - group.hall
+      - group.bedroom
+      - group.map_room
+      - group.bathroom
+      - group.utility
+      - group.kitchen
+      - group.ensuite
+    include_domains:
+      - switch
+      - input_boolean

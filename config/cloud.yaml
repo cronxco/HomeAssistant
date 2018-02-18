@@ -2,7 +2,7 @@
 # @Date:   18/02/2018 16:49
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/02/2018 17:12
+# @Last modified time: 18/02/2018 17:37
 
 alexa:
   filter:
@@ -17,3 +17,4 @@ alexa:
       - group.ensuite
     include_domains:
       - switch
+      - light

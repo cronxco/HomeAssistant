@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 21:19
+# @Last modified time: 28/02/2018 21:23
 
 # This package deals with time and all time-based automations
 
@@ -374,7 +374,7 @@ automation:
           sleep_time: 1800
       - service: script.sonos_tts
         data_template:
-          what: "Good night. Sleep tight."
+          what: "Good night."
           where: "bedroom_one"
 
 # Morning and evening switch expiry (awaiting Alexa fixes)

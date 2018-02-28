@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 21:44
+# @Last modified time: 28/02/2018 21:52
 
 # This package deals with time and all time-based automations
 
@@ -55,7 +55,7 @@ scene:
       group.hall:
         state: off
         transition: 45
-      group.map:
+      group.map_room:
         state: off
         transition: 45
       group.bedroom:

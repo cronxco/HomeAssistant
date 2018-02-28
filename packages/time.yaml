@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:43
+# @Last modified time: 28/02/2018 19:40
 
 # This package deals with time and all time-based automations
 
@@ -88,7 +88,7 @@ automation:
           - media_player.living_room_one
           - media_player.bedroom_one
         data:
-          volume_level: "0.15"
+          volume_level: "0.10"
 
 # 2: Sunrise! Turn off Danw and turn on Morning.
 

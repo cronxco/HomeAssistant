@@ -2,10 +2,15 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 19:40
+# @Last modified time: 28/02/2018 20:29
 
 # This package deals with time and all time-based automations
 
+input_boolean:
+  good_morning:
+    icon: mdi:weather-sunny
+  good_night:
+    icon: mdi:weather-night
 
 # This sensor is what allows HASS to know what time it is (and date, day of week etc.)
 sensor:
@@ -13,12 +18,9 @@ sensor:
     display_options:
       - 'time'
 
-# A currently unused scene... I have ideas for how better to handle this.
 scene:
-  - name: Good Night
+  - name: Good Night Lights
     entities:
-      switch.flux:
-        state: off
       group.living_room:
         state: off
         transition: 30
@@ -28,6 +30,31 @@ scene:
       group.bedroom:
         state: off
         transition: 60
+  - name: Good Morning Lights
+    entities:
+      group.kitchen:
+        state: on
+      group.bedroom:
+        state: on
+
+script:
+  morning_tv:
+    sequence:
+      - service: remote.turn_on
+        entity_id: "remote.living_room"
+        data:
+          activity: "Watch TV"
+      - delay: 0:00:10
+      - service: media_player.select_source
+        entity_id: media_player.livingroomtv
+        data:
+          source: "LiveTV"
+      - delay: 0:00:05
+      - service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          device: "41500380"
+          command: "1"
 
 #    Automatic Time Modes
 #
@@ -272,3 +299,58 @@ automation:
         entity_id: input_select.time_mode
         data:
           option: Night
+
+# Morning and evening switch activation (awaiting Alexa fixes)
+  - alias: 'Good Morning'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_morning
+        to: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.good_morning_lights
+      - service: script.morning_tv
+      - service: media_player.sonos_set_sleep_timer
+        entity_id:
+          - media_player.bedroom_one
+        data:
+          sleep_time: 300
+
+  - alias: 'Good Night'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_night
+        to: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.good_night_lights
+      - service: homeassistant.turn_off
+        entity_id: switch.tv
+      - service: media_player.sonos_set_sleep_timer
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+        data:
+          sleep_time: 1800
+
+# Morning and evening switch expiry (awaiting Alexa fixes)
+  - alias: 'Good Morning Expiry'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_morning
+        to: 'on'
+        for:
+          minutes: 1
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.good_morning
+  - alias: 'Good Night Expiry'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_night
+        to: 'on'
+        for:
+          minutes: 1
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.good_night

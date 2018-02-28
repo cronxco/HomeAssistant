@@ -1,0 +1,7 @@
+# @Author: Will Scott <willscott>
+# @Date:   28/02/2018 18:27
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 28/02/2018 18:28
+
+pincode: !secret homekit_pin

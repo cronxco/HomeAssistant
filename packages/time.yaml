@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 21:23
+# @Last modified time: 28/02/2018 21:44
 
 # This package deals with time and all time-based automations
 
@@ -366,17 +366,18 @@ automation:
         entity_id: scene.good_night_lights
       - service: homeassistant.turn_off
         entity_id: switch.tv
+      - service: script.sonos_tts
+        data_template:
+          what: "Good night."
+          where: "bedroom_one"
+      - delay:
+          minutes: 2
       - service: media_player.sonos_set_sleep_timer
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one
         data:
-          sleep_time: 1800
-      - service: script.sonos_tts
-        data_template:
-          what: "Good night."
-          where: "bedroom_one"
-
+          sleep_time: 1680
 # Morning and evening switch expiry (awaiting Alexa fixes)
   - alias: 'Good Morning Expiry'
     trigger:

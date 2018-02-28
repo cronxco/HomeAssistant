@@ -2,7 +2,7 @@
 # @Date:   18/02/2018 16:49
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 19:13
+# @Last modified time: 28/02/2018 20:30
 
 alexa:
   filter:
@@ -19,6 +19,9 @@ alexa:
       - light.main_bathroom
       - light.kitchen
       - light.utility
+      # only because scripts can't be properly exposed
+      - input_boolean.good_night
+      - input_boolean.good_morning
     #   - group.living_room
     #   - group.hall
     #   - group.bedroom

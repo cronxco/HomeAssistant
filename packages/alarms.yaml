@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 12/02/2018 07:24
+# @Last modified time: 28/02/2018 20:29
 
 # This package deals with alarms
 
@@ -209,41 +209,17 @@ automation:
           entity_id: input_boolean.alarm
 
 # Alarm triggers (radio, lights, tv, coffee etc.)
-# A: if guest_mode is off
   - alias: 'Alarm On'
     trigger:
       platform: state
       entity_id: input_boolean.alarm
       to: 'on'
-    condition:
-      condition: state
-      entity_id: input_boolean.guest_mode
-      state: 'off'
     action:
       - service: media_player.select_source
         entity_id: media_player.bedroom_one
         data:
           source: "BBC Radio 4"
-      - service: homeassistant.turn_on
-        entity_id: group.kitchen
-      - delay: 0:05
-      - service: script.morning_tv
-
-# B: If guest_mode is on
-  - alias: 'Alarm On Guest Mode'
-    trigger:
-      platform: state
-      entity_id: input_boolean.alarm
-      to: 'on'
-    condition:
-      condition: state
-      entity_id: input_boolean.guest_mode
-      state: 'on'
-    action:
-      - service: media_player.select_source
-        entity_id: media_player.living_room_one
-        data:
-          source: "BBC Radio 4"
+    # Remove living room automations (and guest mode option)
 
   - alias: 'Alarm Reset'
     trigger:
@@ -255,25 +231,6 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.alarm
-
-script:
-  morning_tv:
-    sequence:
-      - service: remote.turn_on
-        entity_id: "remote.living_room"
-        data:
-          activity: "Watch TV"
-      - delay: 0:00:10
-      - service: media_player.select_source
-        entity_id: media_player.livingroomtv
-        data:
-          source: "LiveTV"
-      - delay: 0:00:05
-      - service: remote.send_command
-        entity_id: remote.living_room
-        data:
-          device: "41500380"
-          command: "1"
 
 # Incremental (currently very white!) wake up scenes.
 

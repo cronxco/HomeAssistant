@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 20:46
+# @Last modified time: 28/02/2018 21:19
 
 # This package deals with time and all time-based automations
 
@@ -49,12 +49,27 @@ scene:
       group.living_room:
         state: off
         transition: 30
+      group.kitchen:
+        state: off
+        transition: 30
       group.hall:
+        state: off
+        transition: 45
+      group.map:
         state: off
         transition: 45
       group.bedroom:
         state: off
         transition: 60
+      group.ensuite:
+        state: off
+        transition: 30
+      group.bathroom:
+        state: off
+        transition: 30
+      group.utility:
+        state: off
+        transition: 30
   - name: Good Morning Lights
     entities:
       group.kitchen:
@@ -357,6 +372,10 @@ automation:
           - media_player.bedroom_one
         data:
           sleep_time: 1800
+      - service: script.sonos_tts
+        data_template:
+          what: "Good night. Sleep tight."
+          where: "bedroom_one"
 
 # Morning and evening switch expiry (awaiting Alexa fixes)
   - alias: 'Good Morning Expiry'

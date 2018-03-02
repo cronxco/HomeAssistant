@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 20:29
+# @Last modified time: 02/03/2018 17:37
 
 # This package deals with alarms
 
@@ -64,6 +64,23 @@ input_boolean:
     icon: mdi:calendar
   alarm:
     name: Alarm Active
+  stealth_mode:
+    name: Stealth Mode
+
+# Horrible duplication because of bugs (#239)
+switch:
+  - platform: template
+    switches:
+      stealth_mode:
+        value_template: "{{ is_state('input_boolean.stealth_mode', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.stealth_mode
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: input_boolean.stealth_mode
 
 # Integrated time sensors (combines the hour and minute input sensors)
 sensor:
@@ -231,6 +248,29 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.alarm
+
+# Stealth mode - basically for when one person has an early alarm, wants to get up and out of bed but turn the alarm off!
+  - alias: 'Stealth Mode Triggered'
+    trigger:
+      platform: state
+      entity_id: input_boolean.stealth_mode
+      to: 'on'
+    action:
+      # Turn off the lights in the bedroom
+      - service: homeassistant.turn_off
+        entity_id: group.bedroom
+      # Turn on the kitchen lights
+      - service: homeassistant.turn_on
+        entity_id: group.kitchen
+      # Turn off the radio
+      - service: media_player.turn_off
+        entity_id: media_player.bedroom_one
+      # Reset the alarm
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.alarm
+      # Turn stealth mode back off
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.stealth_mode
 
 # Incremental (currently very white!) wake up scenes.
 

@@ -1,0 +1,18 @@
+# @Author: Will Scott <willscott>
+# @Date:   03/03/2018 12:20
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 03/03/2018 13:11
+
+google:
+  client_id: !secret google_id
+  client_secret: !secret google_secret
+
+binary_sensor:
+  - platform: workday
+    name: workday_today
+    country: UK
+  - platform: workday
+    name: workday_tomorrow
+    country: UK
+    days_offset: 1

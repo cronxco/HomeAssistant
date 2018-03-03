@@ -2,7 +2,7 @@
 # @Date:   03/03/2018 12:20
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/03/2018 13:11
+# @Last modified time: 03/03/2018 16:24
 
 google:
   client_id: !secret google_id
@@ -16,3 +16,26 @@ binary_sensor:
     name: workday_tomorrow
     country: UK
     days_offset: 1
+
+
+sensor:
+  - platform: template
+    sensors:
+      dan_workday_today:
+        friendly_name: "Is Dan working today?"
+        value_template: "{{ (as_timestamp(now())+ (0*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.dan_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"
+      dan_workday_tomorrow:
+        friendly_name: "Is Dan working tomorrow?"
+        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.dan_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"
+      dan_workday_dayafter:
+        friendly_name: "Is Dan working the day after tomorrow?"
+        value_template: "{{ (as_timestamp(now())+ (2*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.dan_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"
+      will_workday_today:
+        friendly_name: "Is Will working today?"
+        value_template: "{{ (as_timestamp(now())+ (0*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.will_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"
+      will_workday_tomorrow:
+        friendly_name: "Is Will working tomorrow?"
+        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.will_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"
+      will_workday_dayafter:
+        friendly_name: "Is Will working the day after tomorrow?"
+        value_template: "{{ (as_timestamp(now())+ (2*86400))| timestamp_custom("%Y-%m-%d") == strptime(states.calendar.will_workday.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}}"

@@ -2,7 +2,7 @@
 # @Date:   14/10/2017 14:58
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 12:44
+# @Last modified time: 03/03/2018 10:40
 
 # Conversations intents - e.g. for Alexa
 # TODO: Pretty much everything.
@@ -11,3 +11,219 @@ intent_script:
   amzn1.ask.skill.76bad43c-950a-43c0-8727-3021eb795b24:
     speech:
       text: "Hello! I'm Ambassador. How can I help today?"
+
+input_boolean:
+  good_morning:
+    icon: mdi:weather-sunny
+  good_night:
+    icon: mdi:weather-night
+  stealth_mode:
+    name: Stealth Mode
+  goodbye:
+    name: Goodbye
+
+# Horrible duplication because of bugs (#239)
+switch:
+  - platform: template
+    switches:
+      good_morning:
+        value_template: "{{ is_state('input_boolean.good_morning', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.good_morning
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: input_boolean.good_morning
+      good_night:
+        value_template: "{{ is_state('input_boolean.good_night', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.good_night
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: input_boolean.good_night
+  - platform: template
+    switches:
+      stealth_mode:
+        value_template: "{{ is_state('input_boolean.stealth_mode', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.stealth_mode
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: input_boolean.stealth_mode
+  - platform: template
+    switches:
+      stealth_mode:
+        value_template: "{{ is_state('input_boolean.goodbye', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.goodbye
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: input_boolean.goodbye
+scene:
+  - name: Good Night Lights
+    entities:
+      group.living_room:
+        state: off
+        transition: 30
+      group.kitchen:
+        state: off
+        transition: 30
+      group.hall:
+        state: off
+        transition: 45
+      group.map_room:
+        state: off
+        transition: 45
+      group.bedroom:
+        state: off
+        transition: 60
+      group.ensuite:
+        state: off
+        transition: 30
+      group.bathroom:
+        state: off
+        transition: 30
+      group.utility:
+        state: off
+        transition: 30
+  - name: Good Morning Lights
+    entities:
+      group.kitchen:
+        state: on
+      group.bedroom:
+        state: on
+  - name: Goodbye Lights
+    entities:
+      group.living_room:
+        state: off
+        transition: 30
+      group.kitchen:
+        state: off
+      group.map_room:
+        state: off
+        transition: 45
+      group.bedroom:
+        state: off
+        transition: 60
+      group.ensuite:
+        state: off
+      group.bathroom:
+        state: off
+      group.utility:
+        state: off
+
+script:
+  morning_tv:
+    sequence:
+      - service: remote.turn_on
+        entity_id: "remote.living_room"
+        data:
+          activity: "Watch TV"
+      - delay: 0:00:10
+      - service: media_player.select_source
+        entity_id: media_player.livingroomtv
+        data:
+          source: "LiveTV"
+      - delay: 0:00:05
+      - service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          device: "41500380"
+          command: "1"
+
+automation:
+# Morning and evening switch activation (awaiting Alexa fixes)
+  - alias: 'Good Morning'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_morning
+        to: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.good_morning_lights
+      - service: script.morning_tv
+      - service: media_player.sonos_set_sleep_timer
+        entity_id:
+          - media_player.bedroom_one
+        data:
+          sleep_time: 300
+      - delay:
+          minutes: 1
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.good_morning
+
+  - alias: 'Good Night'
+    trigger:
+        platform: state
+        entity_id: input_boolean.good_night
+        to: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.good_night_lights
+      - service: homeassistant.turn_off
+        entity_id: switch.tv
+      - service: script.sonos_tts
+        data_template:
+          what: "Good night."
+          where: "bedroom_one"
+      - delay:
+          minutes: 2
+      - service: media_player.sonos_set_sleep_timer
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+        data:
+          sleep_time: 1680
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.good_night
+
+  - alias: 'Goodbye'
+    trigger:
+        platform: state
+        entity_id: input_boolean.goodbye
+        to: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.goodbye_lights
+      - service: homeassistant.turn_off
+        entity_id: switch.tv
+      - delay:
+          minutes: 1
+      - service: homeassistant.turn_off
+        entity_id: group.hall
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.goodbye
+
+# Stealth mode - basically for when one person has an early alarm, wants to get up and out of bed but turn the alarm off!
+  - alias: 'Stealth Mode Triggered'
+    trigger:
+      platform: state
+      entity_id: input_boolean.stealth_mode
+      to: 'on'
+    action:
+      # Turn off the lights in the bedroom
+      - service: homeassistant.turn_off
+        entity_id: group.bedroom
+      # Turn on the kitchen lights
+      - service: homeassistant.turn_on
+        entity_id: group.kitchen
+      # Turn off the radio
+      - service: media_player.turn_off
+        entity_id: media_player.bedroom_one
+      # Reset the alarm
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.alarm
+      # Turn stealth mode back off
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.stealth_mode

@@ -2,7 +2,7 @@
 # @Date:   14/10/2017 14:58
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/03/2018 10:40
+# @Last modified time: 03/03/2018 10:43
 
 # Conversations intents - e.g. for Alexa
 # TODO: Pretty much everything.
@@ -60,7 +60,7 @@ switch:
             entity_id: input_boolean.stealth_mode
   - platform: template
     switches:
-      stealth_mode:
+      goodbye:
         value_template: "{{ is_state('input_boolean.goodbye', 'on') }}"
         turn_on:
           service: input_boolean.turn_on

@@ -2,7 +2,7 @@
 # @Date:   03/03/2018 12:20
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/03/2018 16:30
+# @Last modified time: 04/03/2018 09:35
 
 google:
   client_id: !secret google_id
@@ -21,21 +21,27 @@ binary_sensor:
 sensor:
   - platform: template
     sensors:
+      date_tomorrow:
+        friendly_name: "Tomorrow's date"
+        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d')}}"
+      date_after:
+        friendly_name: "Day after tomorrow's date"
+        value_template: "{{ (as_timestamp(now())+ (2*86400))| timestamp_custom('%Y-%m-%d')}}"
       dan_workday_today:
         friendly_name: "Is Dan working today?"
-        value_template: "{{ (as_timestamp(now())+ (0*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       dan_workday_tomorrow:
         friendly_name: "Is Dan working tomorrow?"
-        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ (states('sensor.date_tomorrow') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       dan_workday_dayafter:
         friendly_name: "Is Dan working the day after tomorrow?"
-        value_template: "{{ (as_timestamp(now())+ (2*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ (states('sensor.date_after') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_today:
         friendly_name: "Is Will working today?"
-        value_template: "{{ (as_timestamp(now())+ (0*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_tomorrow:
         friendly_name: "Is Will working tomorrow?"
-        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ (states('sensor.date_tomorrow') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_dayafter:
         friendly_name: "Is Will working the day after tomorrow?"
-        value_template: "{{ (as_timestamp(now())+ (2*86400))| timestamp_custom('%Y-%m-%d') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ (states('sensor.date_after') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"

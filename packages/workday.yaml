@@ -2,7 +2,7 @@
 # @Date:   03/03/2018 12:20
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 04/03/2018 09:35
+# @Last modified time: 04/03/2018 09:42
 
 google:
   client_id: !secret google_id
@@ -32,16 +32,16 @@ sensor:
         value_template: "{{ states('sensor.date') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       dan_workday_tomorrow:
         friendly_name: "Is Dan working tomorrow?"
-        value_template: "{{ (states('sensor.date_tomorrow') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date_tomorrow') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       dan_workday_dayafter:
         friendly_name: "Is Dan working the day after tomorrow?"
-        value_template: "{{ (states('sensor.date_after') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date_after') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_today:
         friendly_name: "Is Will working today?"
         value_template: "{{ states('sensor.date') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_tomorrow:
         friendly_name: "Is Will working tomorrow?"
-        value_template: "{{ (states('sensor.date_tomorrow') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date_tomorrow') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_dayafter:
         friendly_name: "Is Will working the day after tomorrow?"
-        value_template: "{{ (states('sensor.date_after') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ states('sensor.date_after') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"

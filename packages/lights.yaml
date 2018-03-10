@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 18:30
+# @Last modified time: 10/03/2018 09:22
 
 # This package sets up the lights in Ambassadr
 
@@ -15,48 +15,62 @@ homeassistant:
 
 light:
   - platform: lifx
-
-
-# IKEA Trädfri now here (through autoconfig)
+  # IKEA Trädfri now here (through autoconfig)
+  - platform: group
+    name: Kitchen
+    entities:
+      - light.rf_kitchen
+      - light.lf_kitchen
+      - light.rm_kitchen
+      - light.lm_kitchen
+      - light.rr_kitchen
+      - light.lr_kitchen
+  - platform: group
+    name: Living Room
+    entities:
+      - light.sofa
+      - light.dining
+  - platform: group
+    name: Hall
+    entities:
+      - light.hall_a
+      - light.hall_b
+  - platform: group
+    name: Bedroom
+    entities:
+      - light.main
+      - light.daniel_side
+      - light.will_side
+  - platform: group
+    name: Map Room
+    entities:
+      - light.map
+  - platform: group
+    name: Bathroom
+    entities:
+      - light.lf_bathroom
+      - light.lr_bathroom
+      - light.rf_bathroom
+      - light.rr_bathroom
+      - light.ro_bathroom
+  - platform: group
+    name: Utility
+    entities:
+      - light.utility_light
+  - platform: group
+    name: Ensuite
+    entities:
+      - light.r_ensuite
+      - light.m_ensuite
+      - light.l_ensuite
 
 group:
   Lights:
-    - group.living_room
-    - group.hall
-    - group.bedroom
-    - group.map_room
-    - group.bathroom
-    - group.utility
-    - group.kitchen
-    - group.ensuite
-  Living Room:
-    - light.sofa
-    - light.dining
-  Hall:
-    - light.hall_a
-    - light.hall_b
-  Bedroom:
-    - light.main
-    - light.daniel_side
-    - light.will_side
-  Map Room:
-    - light.map
-  Bathroom:
-    - light.lf_bathroom
-    - light.lr_bathroom
-    - light.rf_bathroom
-    - light.rr_bathroom
-    - light.ro_bathroom
-  Utility:
-    - light.utility_light
-  Kitchen:
-    - light.rf_kitchen
-    - light.lf_kitchen
-    - light.rm_kitchen
-    - light.lm_kitchen
-    - light.rr_kitchen
-    - light.lr_kitchen
-  Ensuite:
-    - light.r_ensuite
-    - light.m_ensuite
-    - light.l_ensuite
+    - light.living_room
+    - light.hall
+    - light.bedroom
+    - light.map_room
+    - light.bathroom
+    - light.utility
+    - light.kitchen
+    - light.ensuite

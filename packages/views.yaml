@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:43
+# @Last modified time: 10/03/2018 09:23
 
 # This package deals with frontend views
 
@@ -16,21 +16,21 @@
 homeassistant:
 
   customize:
-    group.living_room:
+    light.living_room:
      icon: mdi:sofa
-    group.bedroom:
+    light.bedroom:
      icon: mdi:hotel
-    group.hall:
+    light.hall:
      icon: mdi:door-closed
-    group.map_room:
+    light.map_room:
      icon: mdi:earth
-    group.bathroom:
+    light.bathroom:
      icon: mdi:hot-tub
-    group.utility:
+    light.utility:
      icon: mdi:screwdriver
-    group.kitchen:
+    light.kitchen:
       icon: mdi:fridge
-    group.ensuite:
+    light.ensuite:
       icon: mdi:water-pump
     group.presence_sensors:
      friendly_name: "Presence"

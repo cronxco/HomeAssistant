@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 01/03/2018 20:46
+# @Last modified time: 10/03/2018 16:08
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -126,6 +126,14 @@ sensor:
   - platform: travisci
     api_key: !secret travisci
 
+  - platform: pi_hole
+    host: !secret pihole
+  - platform: cert_expiry
+    host: !secret base_url
+
+linode:
+  access_token: !secret linode
+
 group:
   System:
     - sensor.disk_use_percent_mediabasecampdragonfly
@@ -143,6 +151,8 @@ group:
     -  sensor.electricity_usage
     -  sensor.tumble_dryer_current
   Developer:
+  control: hidden
+  entities:
     - input_select.log_level
     - input_text.what
     - input_select.where

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/03/2018 09:23
+# @Last modified time: 10/03/2018 10:12
 
 # This package deals with frontend views
 
@@ -17,21 +17,37 @@ homeassistant:
 
   customize:
     light.living_room:
-     icon: mdi:sofa
+      icon: mdi:sofa
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.bedroom:
-     icon: mdi:hotel
+      icon: mdi:hotel
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.hall:
-     icon: mdi:door-closed
+      icon: mdi:door-closed
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.map_room:
-     icon: mdi:earth
+      icon: mdi:earth
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.bathroom:
-     icon: mdi:hot-tub
+      icon: mdi:hot-tub
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.utility:
-     icon: mdi:screwdriver
+      icon: mdi:screwdriver
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.kitchen:
       icon: mdi:fridge
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     light.ensuite:
       icon: mdi:water-pump
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: hide-slider
     group.presence_sensors:
      friendly_name: "Presence"
     group.default_view:

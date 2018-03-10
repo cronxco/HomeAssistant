@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 19/02/2018 17:14
+# @Last modified time: 10/03/2018 17:33
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -51,7 +51,7 @@ scene:
 # These are the phased lights at sunset - they have relatively long transitions.
   - name: Sunset1
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 90
         brightness: 35
@@ -59,29 +59,29 @@ scene:
 # Side note: Actually the hall comes on as part of Sunset2 but is activated via a script because the bulbs are slow to respond...
   - name: Sunset2
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 90
         brightness: 70
         color_temp: 285
-     group.hall:
+     light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
   - name: Sunset3
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 180
         brightness: 115
         color_temp: 285
-     group.hall:
+     light.hall:
         state: on
         transition: 10
         brightness: 25
         color_temp: 285
-     group.bedroom:
+     light.bedroom:
         state: on
         transition: 180
         brightness: 115
@@ -91,36 +91,36 @@ scene:
 
   - name: trigsunset1
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 5
         brightness: 35
         color_temp: 285
   - name: trigsunset2
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 5
         brightness: 70
         color_temp: 285
-     group.hall:
+     light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
   - name: trigsunset3
     entities:
-     group.living_room:
+     light.living_room:
         state: on
         transition: 5
         brightness: 115
         color_temp: 285
-     group.hall:
+     light.hall:
         state: on
         transition: 5
         brightness: 25
         color_temp: 285
-     group.bedroom:
+     light.bedroom:
         state: on
         transition: 5
         brightness: 115

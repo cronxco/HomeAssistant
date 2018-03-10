@@ -2,7 +2,7 @@
 # @Date:   14/10/2017 14:58
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 07/03/2018 09:49
+# @Last modified time: 10/03/2018 17:34
 
 # Conversations intents - e.g. for Alexa
 # TODO: Pretty much everything.
@@ -72,54 +72,54 @@ scene:
       light.main:
         state: off
         transition: 5
-      group.living_room:
+      light.living_room:
         state: off
         transition: 30
-      group.kitchen:
+      light.kitchen:
         state: off
         transition: 30
-      group.hall:
+      light.hall:
         state: off
         transition: 45
-      group.map_room:
+      light.map_room:
         state: off
         transition: 45
-      group.bedroom:
+      light.bedroom:
         state: off
         transition: 60
-      group.ensuite:
+      light.ensuite:
         state: off
         transition: 30
-      group.bathroom:
+      light.bathroom:
         state: off
         transition: 30
-      group.utility:
+      light.utility:
         state: off
         transition: 30
   - name: Good Morning Lights
     entities:
-      group.kitchen:
+      light.kitchen:
         state: on
-      group.bedroom:
+      light.bedroom:
         state: on
   - name: Goodbye Lights
     entities:
-      group.living_room:
+      light.living_room:
         state: off
         transition: 30
-      group.kitchen:
+      light.kitchen:
         state: off
-      group.map_room:
+      light.map_room:
         state: off
         transition: 45
-      group.bedroom:
+      light.bedroom:
         state: off
         transition: 60
-      group.ensuite:
+      light.ensuite:
         state: off
-      group.bathroom:
+      light.bathroom:
         state: off
-      group.utility:
+      light.utility:
         state: off
 
 script:
@@ -211,7 +211,7 @@ automation:
       - delay:
           minutes: 1
       - service: homeassistant.turn_off
-        entity_id: group.hall
+        entity_id: light.hall
       - service: input_boolean.turn_off
         entity_id: input_boolean.goodbye
 
@@ -224,10 +224,10 @@ automation:
     action:
       # Turn off the lights in the bedroom
       - service: homeassistant.turn_off
-        entity_id: group.bedroom
+        entity_id: light.bedroom
       # Turn on the kitchen lights
       - service: homeassistant.turn_on
-        entity_id: group.kitchen
+        entity_id: light.kitchen
       # Turn off the radio
       - service: media_player.turn_off
         entity_id: media_player.bedroom_one

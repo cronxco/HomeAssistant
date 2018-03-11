@@ -2,7 +2,7 @@
 # @Date:   24/08/2017 14:32
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 17:17
+# @Last modified time: 11/03/2018 16:30
 
 
 
@@ -29,7 +29,9 @@ from homeassistant.util.json import load_json, save_json
 REQUIREMENTS = [
     'https://github.com/hmn/python-ps4/archive/master.zip'
     '#pyps4==dev']
-# REQUIREMENTS = ['pyps4==0.1.2']
+#    'https://github.com/hthiery/python-ps4/archive/master.zip'
+#    '#pyps4==dev']
+# REQUIREMENTS = ['pyps4==0.1.3']
 
 _CONFIGURING = {}
 _LOGGER = logging.getLogger(__name__)
@@ -201,8 +203,9 @@ class PS4Device(MediaPlayerDevice):
         self._games_filename = games_filename
         self._media_content_id = None
         self._media_title = None
-        self._current_source = None
-        self._current_source_id = None
+        self._source = None
+        self._source_selected = None
+        self._source_list = []
         self._games = {}
         self._load_games()
 
@@ -213,11 +216,6 @@ class PS4Device(MediaPlayerDevice):
             data = self.ps4.get_status()
             _LOGGER.debug("ps4 get_status, %s", data)
 
-            self._media_title = data.get('running-app-name')
-            self._media_content_id = data.get('running-app-titleid')
-            self._current_source = data.get('running-app-name')
-            self._current_source_id = data.get('running-app-titleid')
-
             # save current game running.
             if data.get('running-app-titleid'):
                 if data.get('running-app-titleid') not in self._games.keys():
@@ -227,6 +225,32 @@ class PS4Device(MediaPlayerDevice):
                     self._save_games()
 
             if data.get('status') == 'Ok':
+                if self._source_selected is None:
+                    _LOGGER.debug(
+                        "updating source, selected:%s current:%s running:%s",
+                        self._source_selected,
+                        self._source,
+                        data.get('running-app-name'))
+                    self._media_title = data.get('running-app-name')
+                    self._media_content_id = data.get('running-app-titleid')
+                    self._source = data.get('running-app-name')
+                elif self._source_selected == data.get('running-app-name'):
+                    _LOGGER.debug(
+                        "selected source, selected:%s current:%s running:%s",
+                        self._source_selected,
+                        self._source,
+                        data.get('running-app-name'))
+                    self._media_title = data.get('running-app-name')
+                    self._media_content_id = data.get('running-app-titleid')
+                    self._source = data.get('running-app-name')
+                    self._source_selected = None
+                else:
+                    _LOGGER.debug(
+                        "selecting source, selected:%s current:%s running:%s",
+                        self._source_selected,
+                        self._source,
+                        data.get('running-app-name'))
+
                 if self._media_content_id is not None:
                     self._state = STATE_PLAYING
                     # Check if cover art is in the gamesmap
@@ -237,14 +261,15 @@ class PS4Device(MediaPlayerDevice):
                 self._state = STATE_OFF
                 self._media_title = None
                 self._media_content_id = None
-                self._current_source = None
-                self._current_source_id = None
-        except socket.timeout as ex:
+                self._source = None
+                self._source_selected = None
+        except socket.timeout as error:
+            _LOGGER.debug("PS4 socket timed out, %s", error)
             self._state = STATE_OFF
             self._media_title = None
             self._media_content_id = None
-            self._current_source = None
-            self._current_source_id = None
+            self._source = None
+            self._source_selected = None
 
     def check_gamesmap(self):
         """Check games map for coverart."""
@@ -282,8 +307,13 @@ class PS4Device(MediaPlayerDevice):
             if 'attributes' in item:
                 game = item['attributes']
                 if 'game-content-type' in game and \
-                   game['game-content-type'] in ['App', 'Game', 'Full Game']:
+                   game['game-content-type'] in \
+                   ['App', 'Game', 'Full Game', 'PSN Game']:
                     if 'thumbnail-url-base' in game:
+                        _LOGGER.debug("Found cover art for %s, %s %s",
+                                      self._media_content_id,
+                                      game['game-content-type'],
+                                      game['thumbnail-url-base'])
                         cover_art = game['thumbnail-url-base']
                         cover_art += '?w=512&h=512'
                         self._gamesmap[self._media_content_id] = cover_art
@@ -356,12 +386,12 @@ class PS4Device(MediaPlayerDevice):
     @property
     def source(self):
         """Return the current input source."""
-        return self._current_source
+        return self._source
 
     @property
     def source_list(self):
         """List of available input sources."""
-        return sorted(self._games.values())
+        return self._source_list
 
     def turn_off(self):
         """Turn off media player."""
@@ -373,27 +403,38 @@ class PS4Device(MediaPlayerDevice):
 
     def media_pause(self):
         """Send keypress ps to return to menu."""
-        self.ps4.remote('ps')
+        self.ps4.remote_control('ps')
 
     def media_stop(self):
         """Send keypress ps to return to menu."""
-        self.ps4.remote('ps')
+        self.ps4.remote_control('ps')
 
     def select_source(self, source):
         """Select input source."""
+        if self._source_selected is not None:
+            _LOGGER.debug(
+                'Application %s is already in the process of starting (%s)',
+                self._source_selected, source)
+            return
+
         for title_id, game in self._games.items():
             if source == game:
-                self.ps4.start_title(title_id)
-                self._current_source_id = title_id
-                self._current_source = game
-                self._media_content_id = title_id
+                _LOGGER.debug(
+                    'Starting PS4 game %s (%s) using source %s',
+                    game, title_id, source)
+                self._source_selected = source
+                self._source = source
                 self._media_title = game
+                self._media_content_id = title_id
+                self.ps4.start_title(title_id)
+                return
 
     def _load_games(self):
         _LOGGER.debug('_load_games: %s', self._games_filename)
         try:
             with open(self._games_filename, 'r') as file:
                 self._games = json.load(file)
+                self._source_list = list(sorted(self._games.values()))
         except FileNotFoundError:
             self._save_games()
         except ValueError as error:
@@ -404,5 +445,6 @@ class PS4Device(MediaPlayerDevice):
         try:
             with open(self._games_filename, 'w') as file:
                 json.dump(self._games, file)
+                self._source_list = list(sorted(self._games.values()))
         except FileNotFoundError:
             pass

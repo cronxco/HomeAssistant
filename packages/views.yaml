@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/03/2018 10:12
+# @Last modified time: 18/03/2018 10:54
 
 # This package deals with frontend views
 
@@ -165,6 +165,7 @@ group:
       - group.all_automations
       - group.auto_modes
       - group.plant_switches
+      - group.docker
       - group.developer
 
   Ambassadr:

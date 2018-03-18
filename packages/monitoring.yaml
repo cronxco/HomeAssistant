@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:02
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 10:53
+# @Last modified time: 18/03/2018 11:23
 
 # This package deals with internal monitoring - both inside the flat and inside the server
 
@@ -42,25 +42,25 @@ switch:
 
 # Docker switches
   - platform: rest
-    resource: http://127.0.0.1:8126/container/portainer
+    resource: !secret portainer
     name: Portainer
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
   - platform: rest
-    resource: http://127.0.0.1:8126/container/influxdb
+    resource: !secret influxdb
     name: InfluxDB
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
   - platform: rest
-    resource: http://127.0.0.1:8126/container/tautuli
+    resource: !secret tautuli
     name: Tautuli
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
   - platform: rest
-    resource: http://127.0.0.1:8126/container/openvpn-as
+    resource: !secret openvpn
     name: OpenVPN
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'

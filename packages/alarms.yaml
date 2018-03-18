@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 17:48
+# @Last modified time: 18/03/2018 18:03
 
 # This package deals with alarms
 
@@ -15,8 +15,6 @@ homeassistant:
       icon: mdi:alarm
 
 # Inputs for Will & Dan's alarms
-# TODO: Switch to using https://home-assistant.io/components/input_datetime/
-
 input_number:
   walarmhour:
     name: Hour
@@ -50,18 +48,6 @@ input_number:
     min: 0
     max: 55
     step: 5
-
-# Switching to use input_datetime
-
-input_datetime:
-  walarm_time:
-      name: Time
-      has_date: false
-      has_time: true
-  dalarm_time:
-      name: Time
-      has_date: false
-      has_time: true
 
 # Now workday based! 2018-03-18
 
@@ -97,8 +83,6 @@ automation:
       # Temporarily dual triggering for testing! TODO: Remove the old one!
       - platform: template
         value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
-      - platform: template
-        value_template: "{{ states('sensor.time') == (states.input_datetime.walarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
     condition:
       condition: or
       # Either the weekday only switch is on and it's a weekday
@@ -161,8 +145,6 @@ automation:
       # Temporarily dual triggering for testing! TODO: Remove the old one!
       - platform: template
         value_template: '{{ states.sensor.time.state == states.sensor.dalarm_time.state }}'
-      - platform: template
-        value_template: "{{ states('sensor.time') == (states.input_datetime.dalarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
     condition:
       condition: or
       conditions:
@@ -297,7 +279,6 @@ group:
     name: Will Alarm
     control: hidden
     entities:
-      - input_datetime.walarm_time
       - sensor.walarm_time
       - input_number.walarmhour
       - input_number.walarmminutes
@@ -311,7 +292,6 @@ group:
     name: Dan Alarm
     control: hidden
     entities:
-      - input_datetime.dalarm_time
       - sensor.dalarm_time
       - input_number.dalarmhour
       - input_number.dalarmminutes

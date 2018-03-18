@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 17:47
+# @Last modified time: 18/03/2018 17:48
 
 # This package deals with alarms
 
@@ -160,9 +160,9 @@ automation:
     trigger:
       # Temporarily dual triggering for testing! TODO: Remove the old one!
       - platform: template
-        value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
+        value_template: '{{ states.sensor.time.state == states.sensor.dalarm_time.state }}'
       - platform: template
-        value_template: "{{ states('sensor.time') == (states.input_datetime.walarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+        value_template: "{{ states('sensor.time') == (states.input_datetime.dalarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
     condition:
       condition: or
       conditions:

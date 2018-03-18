@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 20:00
+# @Last modified time: 18/03/2018 20:02
 
 # This package deals with transport
 
@@ -80,9 +80,7 @@ script:
       - service: notify.will
         data:
           title: "ECR \u27a1 VIC"
-          message: "\ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}. \r
-          \ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}. \r
-          \ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[2].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[2].platform}}.
+          message: "\ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}.\r\ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r\ud83d\ude86 {{states.sensor.next_train_to_vic.attributes.next_trains[2].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[2].platform}}.
           "
 
 # BETA: Next train notifications

@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/01/2018 12:43
+# @Last modified time: 18/03/2018 21:31
 
 # This package deals with transport
 
@@ -74,6 +74,20 @@ zone:
     radius: 190
     icon: mdi:train
 
+script:
+  ecr_will:
+    sequence:
+      - service: notify.will
+        data:
+          title: "\ud83d\ude89 ECR to VIC"
+          message: "{% if (states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower != 'no report') %} {{states.sensor.next_train_to_vic.attributes.next_trains[0].scheduled}}{% if (states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower == 'late') %} ({{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}: {{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}}){% endif %} on {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower != 'no report') %}{{states.sensor.next_train_to_vic.attributes.next_trains[1].scheduled}}{% if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower == 'late') %} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}: {{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}}){% endif %} on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower != 'no report') %}{{states.sensor.next_train_to_vic.attributes.next_trains[2].scheduled}}{% if (states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower == 'late') %} ({{states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower}}: {{states.sensor.next_train_to_vic.attributes.next_trains[2].estimated}}){% endif %} on {{states.sensor.next_train_to_vic.attributes.next_trains[2].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower == 'no report' and states.sensor.next_train_to_vic.attributes.next_trains[3].status | lower != 'no report') %}{{states.sensor.next_train_to_vic.attributes.next_trains[3].scheduled}}{% if (states.sensor.next_train_to_vic.attributes.next_trains[3].status | lower == 'late') %} ({{states.sensor.next_train_to_vic.attributes.next_trains[3].status | lower}}: {{states.sensor.next_train_to_vic.attributes.next_trains[3].estimated}}){% endif %} on {{states.sensor.next_train_to_vic.attributes.next_trains[3].platform}}.\r{% endif %}"
+  ecr_dan:
+    sequence:
+      - service: notify.everyone
+        data:
+          title: "\ud83d\ude89 ECR to CTK"
+          message: "{% if (states.sensor.next_train_to_ctk.attributes.next_trains[0].status | lower != 'no report') %} {{states.sensor.next_train_to_ctk.attributes.next_trains[0].scheduled}}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[0].status | lower == 'late') %} ({{states.sensor.next_train_to_ctk.attributes.next_trains[0].status | lower}}: {{states.sensor.next_train_to_ctk.attributes.next_trains[0].estimated}}){% endif %} on {{states.sensor.next_train_to_ctk.attributes.next_trains[0].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[1].status | lower != 'no report') %}{{states.sensor.next_train_to_ctk.attributes.next_trains[1].scheduled}}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[1].status | lower == 'late') %} ({{states.sensor.next_train_to_ctk.attributes.next_trains[1].status | lower}}: {{states.sensor.next_train_to_ctk.attributes.next_trains[1].estimated}}){% endif %} on {{states.sensor.next_train_to_ctk.attributes.next_trains[1].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[2].status | lower != 'no report') %}{{states.sensor.next_train_to_ctk.attributes.next_trains[2].scheduled}}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[2].status | lower == 'late') %} ({{states.sensor.next_train_to_ctk.attributes.next_trains[2].status | lower}}: {{states.sensor.next_train_to_ctk.attributes.next_trains[2].estimated}}){% endif %} on {{states.sensor.next_train_to_ctk.attributes.next_trains[2].platform}}.\r{% endif %}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[2].status | lower == 'no report' and states.sensor.next_train_to_ctk.attributes.next_trains[3].status | lower != 'no report') %}{{states.sensor.next_train_to_ctk.attributes.next_trains[3].scheduled}}{% if (states.sensor.next_train_to_ctk.attributes.next_trains[3].status | lower == 'late') %} ({{states.sensor.next_train_to_ctk.attributes.next_trains[3].status | lower}}: {{states.sensor.next_train_to_ctk.attributes.next_trains[3].estimated}}){% endif %} on {{states.sensor.next_train_to_ctk.attributes.next_trains[3].platform}}.\r{% endif %}"
+
 # BETA: Next train notifications
 automation:
   - alias: 'Will at ECR'
@@ -96,12 +110,7 @@ automation:
       - condition: time
         after: '05:30:00'
     action:
-        - service: notify.will
-          data:
-            title: "\U0001F689 Next 3 trains to VIC"
-            message: "1: {{states.sensor.next_train_to_vic.attributes.next_trains[0].scheduled}} from {{states.sensor.next_train_to_vic.attributes.next_trains[0].origin_name}} is {{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}. Plat {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}} at {{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}}.
-            2: {{states.sensor.next_train_to_vic.attributes.next_trains[1].scheduled}} from {{states.sensor.next_train_to_vic.attributes.next_trains[1].origin_name}} is {{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}. Plat {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}} at {{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}}.
-            3: {{states.sensor.next_train_to_vic.attributes.next_trains[2].scheduled}} from {{states.sensor.next_train_to_vic.attributes.next_trains[2].origin_name}} is {{states.sensor.next_train_to_vic.attributes.next_trains[2].status | lower}}. Plat {{states.sensor.next_train_to_vic.attributes.next_trains[2].platform}} at {{states.sensor.next_train_to_vic.attributes.next_trains[2].estimated}}."
+        - service: script.ecr_will
 
   - alias: 'Dan at ECR'
     trigger:
@@ -123,10 +132,4 @@ automation:
       - condition: time
         after: '05:30:00'
     action:
-        # Currently in test mode, so just notifying me, not Dan.
-        - service: notify.will
-          data:
-            title: "\U0001F689 Next 3 trains to CTK"
-            message: "1: {{states.sensor.next_train_to_ctk.attributes.next_trains[0].scheduled}} from {{states.sensor.next_train_to_ctk.attributes.next_trains[0].origin_name}} is {{states.sensor.next_train_to_ctk.attributes.next_trains[0].status | lower}}. Plat {{states.sensor.next_train_to_ctk.attributes.next_trains[0].platform}} at {{states.sensor.next_train_to_ctk.attributes.next_trains[0].estimated}}.
-            2: {{states.sensor.next_train_to_ctk.attributes.next_trains[1].scheduled}} from {{states.sensor.next_train_to_ctk.attributes.next_trains[1].origin_name}} is {{states.sensor.next_train_to_ctk.attributes.next_trains[1].status | lower}}. Plat {{states.sensor.next_train_to_ctk.attributes.next_trains[1].platform}} at {{states.sensor.next_train_to_ctk.attributes.next_trains[1].estimated}}.
-            3: {{states.sensor.next_train_to_ctk.attributes.next_trains[2].scheduled}} from {{states.sensor.next_train_to_ctk.attributes.next_trains[2].origin_name}} is {{states.sensor.next_train_to_ctk.attributes.next_trains[2].status | lower}}. Plat {{states.sensor.next_train_to_ctk.attributes.next_trains[2].platform}} at {{states.sensor.next_train_to_ctk.attributes.next_trains[2].estimated}}."
+        - service: script.ecr_dan

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 15:45
+# @Last modified time: 18/03/2018 17:47
 
 # This package deals with alarms
 
@@ -51,6 +51,18 @@ input_number:
     max: 55
     step: 5
 
+# Switching to use input_datetime
+
+input_datetime:
+  walarm_time:
+      name: Time
+      has_date: false
+      has_time: true
+  dalarm_time:
+      name: Time
+      has_date: false
+      has_time: true
+
 # Now workday based! 2018-03-18
 
 input_boolean:
@@ -82,8 +94,11 @@ sensor:
 automation:
   - alias: 'Wake Will Up'
     trigger:
-      platform: template
-      value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
+      # Temporarily dual triggering for testing! TODO: Remove the old one!
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
+      - platform: template
+        value_template: "{{ states('sensor.time') == (states.input_datetime.walarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
     condition:
       condition: or
       # Either the weekday only switch is on and it's a weekday
@@ -127,24 +142,27 @@ automation:
               {%- else -%}
               Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}}
               {%- endif -%}
-              {% if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
+              {%- if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
               It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
               {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%}
               Chilly day ahead - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
-              {%- endif %}
+              {%- endif -%}
               {%- if (states("sensor.heating_temperature")  | float < states("sensor.heating_set_temp") | float) and (states("sensor.heating_heating")  | float > 0 ) -%}
               It's only {{states("sensor.heating_temperature")}} inside but the heating is on.
-              {%- endif %}
-              {% if states("sensor.tram_status") != "Good Service" %}
+              {%- endif -%}
+              {%- if states("sensor.tram_status") != "Good Service" -%}
               London Trams currently has {{ states("sensor.tram_status") | lower}}.
-              {%- endif %}
+              {%- endif -%}
         - service: input_boolean.turn_on
           entity_id: input_boolean.alarm
 
   - alias: 'Wake Dan Up'
     trigger:
-      platform: template
-      value_template: '{{ states.sensor.time.state == states.sensor.dalarm_time.state }}'
+      # Temporarily dual triggering for testing! TODO: Remove the old one!
+      - platform: template
+        value_template: '{{ states.sensor.time.state == states.sensor.walarm_time.state }}'
+      - platform: template
+        value_template: "{{ states('sensor.time') == (states.input_datetime.walarm_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
     condition:
       condition: or
       conditions:
@@ -186,17 +204,17 @@ automation:
               {%- else -%}
               Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}}
               {%- endif -%}
-              {% if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
+              {%- if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
               It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
               {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%}
               Chilly day ahead - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
-              {%- endif %}
+              {%- endif -%}
               {%- if (states("sensor.heating_temperature")  | float < states("sensor.heating_set_temp") | float) and (states("sensor.heating_heating")  | float > 0 ) -%}
               It's only {{states("sensor.heating_temperature")}} inside but the heating is on.
-              {%- endif %}
-              {% if states("sensor.tram_status") != "Good Service" %}
+              {%- endif -%}
+              {%- if states("sensor.tram_status") != "Good Service" -%}
               London Trams currently has {{ states("sensor.tram_status") | lower}}.
-              {%- endif %}
+              {%- endif -%}
         - service: input_boolean.turn_on
           entity_id: input_boolean.alarm
 
@@ -279,6 +297,7 @@ group:
     name: Will Alarm
     control: hidden
     entities:
+      - input_datetime.walarm_time
       - sensor.walarm_time
       - input_number.walarmhour
       - input_number.walarmminutes
@@ -292,6 +311,7 @@ group:
     name: Dan Alarm
     control: hidden
     entities:
+      - input_datetime.dalarm_time
       - sensor.dalarm_time
       - input_number.dalarmhour
       - input_number.dalarmminutes

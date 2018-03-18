@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/03/2018 10:45
+# @Last modified time: 18/03/2018 15:45
 
 # This package deals with alarms
 
@@ -51,15 +51,15 @@ input_number:
     max: 55
     step: 5
 
-# Weekday only switches (on by default)
-# Ultimately this might become *workday only*
+# Now workday based! 2018-03-18
+
 input_boolean:
-  walarmweekday:
-    name: Weekdays Only
+  walarmworkday:
+    name: Workdays Only
     initial: on
     icon: mdi:calendar
-  dalarmweekday:
-    name: Weekdays Only
+  dalarmworkday:
+    name: Workdays Only
     initial: on
     icon: mdi:calendar
   alarm:
@@ -78,7 +78,6 @@ sensor:
         value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.dalarmhour") | int, states("input_number.dalarmminutes") | int) }}'
 
 # Alarm logic - checks if set time is now and if its an appropriate day
-# TODO: Add calendar logic for days off / bank holidays etc.
 
 automation:
   - alias: 'Wake Will Up'
@@ -92,15 +91,11 @@ automation:
         - condition: and
           conditions:
             - condition: state
-              entity_id: input_boolean.walarmweekday
+              entity_id: input_boolean.walarmworkday
               state: 'on'
-            - condition: time
-              weekday:
-                - mon
-                - tue
-                - wed
-                - thu
-                - fri
+            - condition: state
+              entity_id: sensor.will_workday_today
+              state: 'True'
             - condition: state
               entity_id: input_boolean.will_home
               state: 'on'
@@ -108,7 +103,7 @@ automation:
         - condition: and
           conditions:
             - condition: state
-              entity_id: input_boolean.walarmweekday
+              entity_id: input_boolean.walarmworkday
               state: 'off'
             - condition: state
               entity_id: input_boolean.will_home
@@ -156,22 +151,18 @@ automation:
         - condition: and
           conditions:
             - condition: state
-              entity_id: input_boolean.dalarmweekday
+              entity_id: input_boolean.dalarmworkday
               state: 'on'
-            - condition: time
-              weekday:
-                - mon
-                - tue
-                - wed
-                - thu
-                - fri
+            - condition: state
+              entity_id: sensor.dan_workday_today
+              state: 'True'
             - condition: state
               entity_id: input_boolean.dan_home
               state: 'on'
         - condition: and
           conditions:
             - condition: state
-              entity_id: input_boolean.dalarmweekday
+              entity_id: input_boolean.dalarmworkday
               state: 'off'
             - condition: state
               entity_id: input_boolean.dan_home
@@ -293,7 +284,9 @@ group:
       - input_number.walarmminutes
       # Turns the entire alarm off
       - automation.wake_will_up
-      - input_boolean.walarmweekday
+      - input_boolean.walarmworkday
+      - sensor.will_workday_today
+      - sensor.will_workday_tomorrow
 
   dalarmclock:
     name: Dan Alarm
@@ -304,4 +297,6 @@ group:
       - input_number.dalarmminutes
       # Turns the entire alarm off
       - automation.wake_dan_up
-      - input_boolean.dalarmweekday
+      - input_boolean.dalarmworkday
+      - sensor.dan_workday_today
+      - sensor.dan_workday_tomorrow

@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 20:56
+# @Last modified time: 18/03/2018 20:59
 
 # This package deals with transport
 
@@ -80,7 +80,7 @@ script:
       - service: notify.will
         data:
           title: "\ud83d\ude89 ECR to VIC"
-          message: "{%- if (states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}.\r{%- endif -%}{%- if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r{%- endif -%}{%- endif -%}{%- if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r{%- endif -%}"
+          message: "{%- if (states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[0].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[0].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[0].platform}}.\r{%- endif -%}{%- if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r{%- endif -%}{%- if (states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower != 'no report') -%}{{states.sensor.next_train_to_vic.attributes.next_trains[1].estimated}} ({{states.sensor.next_train_to_vic.attributes.next_trains[1].status | lower}}) on {{states.sensor.next_train_to_vic.attributes.next_trains[1].platform}}.\r{%- endif -%}"
   ecr_dan:
     sequence:
       - service: notify.will

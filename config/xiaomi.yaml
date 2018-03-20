@@ -2,8 +2,10 @@
 # @Date:   20/03/2018 20:23
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 20/03/2018 20:24
+# @Last modified time: 20/03/2018 20:38
 
 discovery_retry: 5
 gateways:
-  - key: !secret xiaomi
+  - host: !secret xiaomi_ip
+    key: !secret xiaomi
+

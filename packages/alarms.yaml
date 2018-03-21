@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 18:03
+# @Last modified time: 21/03/2018 22:11
 
 # This package deals with alarms
 
@@ -62,6 +62,7 @@ input_boolean:
     icon: mdi:calendar
   alarm:
     name: Alarm Active
+    initial: off
 
 
 # Integrated time sensors (combines the hour and minute input sensors)

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/03/2018 14:24
+# @Last modified time: 21/03/2018 22:11
 
 # This package deals with time and all time-based automations
 
@@ -59,6 +59,7 @@ automation:
           - input_boolean.romance_mode
           - input_boolean.party_mode
           - input_boolean.quiet_mode
+          - input_boolean.alarm
       # This should have been covered off at evening -> night but just in case
       - service: input_select.select_option
         entity_id: input_select.sunset_phase

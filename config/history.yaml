@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:49
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/03/2018 18:05
+# @Last modified time: 24/03/2018 18:26
 
 exclude:
   entities:
@@ -17,3 +17,6 @@ exclude:
     - group
     - automation
     - zone
+    - history_graph
+    - zwave
+    - script

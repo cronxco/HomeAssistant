@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:40
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 11/02/2018 18:12
+# @Last modified time: 24/03/2018 18:14
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
@@ -42,10 +42,10 @@ sensor:
       front_door:
         friendly_name: "Front Door"
         value_template: >-
-          {% if is_state('sensor.front_door_access_control', '23') %}
-            Closed
-          {% else %}
+          {% if is_state('sensor.front_door_access_control', '22') %}
             Open
+          {% else %}
+            Closed
           {% endif %}
 
 input_boolean:
@@ -155,11 +155,15 @@ automation:
     trigger:
       - platform: homeassistant
         event: start
+    condition:
+      - condition: state
+        entity_id: input_boolean.away_mode
+        state: 'off'
     action:
         - service: group.set_visibility
           entity_id: group.canary
           data:
-            visible: false      
+            visible: false
 
   # If at 04:30 everyone is away then automagically switch on holiday mode.
   - alias: 'Auto holiday mode'

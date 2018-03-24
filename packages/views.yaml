@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 18/03/2018 10:54
+# @Last modified time: 24/03/2018 17:51
 
 # This package deals with frontend views
 
@@ -62,6 +62,7 @@ homeassistant:
       icon: mdi:home-alert
     group.all_automations:
       hidden: false
+      friendly_name: All Automations
     group.all_lights:
       hidden: false
 

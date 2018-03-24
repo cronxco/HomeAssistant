@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/03/2018 15:11
+# @Last modified time: 24/03/2018 15:21
 
 # This package deals with the internal climate.
 
@@ -37,6 +37,20 @@ history_graph:
       - sensor.temperature_158d00022b584d
       - sensor.temperature_158d00022cb6b0
       - sensor.temperature_158d00022cbd07
+  internal_humidity:
+    entities:
+      - sensor.humidity_158d00022b5707
+      - sensor.humidity_158d00022b5806
+      - sensor.humidity_158d00022b584d
+      - sensor.humidity_158d00022cb6b0
+      - sensor.humidity_158d00022cbd07
+  internal_pressure:
+    entities:
+      - sensor.pressure_158d00022b5707
+      - sensor.pressure_158d00022b5806
+      - sensor.pressure_158d00022b584d
+      - sensor.pressure_158d00022cb6b0
+      - sensor.pressure_158d00022cbd07
 
 sensor:
   - platform: template

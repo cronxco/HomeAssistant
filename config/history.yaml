@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:49
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/03/2018 18:03
+# @Last modified time: 24/03/2018 18:05
 
 exclude:
   entities:
@@ -13,7 +13,7 @@ exclude:
     - sensor.time
     - sensor.eastbound_trams
     - sensor.westbound_trams
-  domain:
+  domains:
     - group
     - automation
     - zone

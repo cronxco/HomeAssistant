@@ -2,11 +2,18 @@
 # @Date:   20/01/2018 12:49
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 07:40
+# @Last modified time: 24/03/2018 18:03
 
 exclude:
   entities:
     - sensor.dark_sky_hourly_summary
+    - sensor.dark_sky_summary
     - sensor.dark_sky_daily_high_temperature
-    - group.tram
     - sensor.front_door_access_control
+    - sensor.time
+    - sensor.eastbound_trams
+    - sensor.westbound_trams
+  domain:
+    - group
+    - automation
+    - zone

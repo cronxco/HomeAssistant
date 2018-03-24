@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 13/02/2018 21:25
+# @Last modified time: 24/03/2018 15:11
 
 # This package deals with the internal climate.
 
@@ -29,6 +29,15 @@ tado:
   username: !secret tado_user
   password: !secret tado_pass
 
+history_graph:
+  internal_temperatures:
+    entities:
+      - sensor.temperature_158d00022b5707
+      - sensor.temperature_158d00022b5806
+      - sensor.temperature_158d00022b584d
+      - sensor.temperature_158d00022cb6b0
+      - sensor.temperature_158d00022cbd07
+
 sensor:
   - platform: template
     sensors:
@@ -47,6 +56,7 @@ group:
     - sensor.heating_heating
     - sensor.heating_link
     - sensor.heating_tado_mode
+    - history_graph.internal_temperatures
   Internal:
     - sensor.heating
     - sensor.air_quality

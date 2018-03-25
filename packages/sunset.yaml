@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 10/03/2018 17:33
+# @Last modified time: 24/03/2018 18:36
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -558,7 +558,6 @@ automation:
         - condition: state
           entity_id: group.people
           state: 'on'
-          # An over-engineered safety condition as at 22:00, dusk and evening modes should have been switched off & night mode switched on.
         - condition: time
           before: '22:00:00'
           # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.

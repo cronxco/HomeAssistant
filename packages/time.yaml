@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/03/2018 22:11
+# @Last modified time: 25/03/2018 19:37
 
 # This package deals with time and all time-based automations
 
@@ -76,6 +76,9 @@ automation:
           - media_player.bedroom_one
         data:
           volume_level: "0.10"
+      - service: script.stream
+        data:
+          message: "\ud83d\udca1 Morning reset has completed successfully."
 
 # 2: Sunrise! Turn off Danw and turn on Morning.
 
@@ -94,6 +97,9 @@ automation:
         entity_id: input_select.time_mode
         data:
           option: Morning
+      - service: script.stream
+        data:
+          message: "\ud83d\udd56 Morning mode."
 
 # 3: Midday: Turn off Morning and turn on Afternoon.
 
@@ -111,6 +117,9 @@ automation:
         entity_id: input_select.time_mode
         data:
           option: Afternoon
+      - service: script.stream
+        data:
+          message: "\ud83d\udd5b Afternoon mode."
 
 # 4: Sunset(ish): Set mode to evening.
 
@@ -131,6 +140,9 @@ automation:
         entity_id: input_select.time_mode
         data:
           option: Evening
+      - service: script.stream
+        data:
+          message: "\ud83d\udd55 Evening mode."
 
 # 5: Night mode: Set mode to night. Also turns off dusk.
 
@@ -154,6 +166,9 @@ automation:
         entity_id: input_select.cloud_cover
         data:
           option: Unset
+      - service: script.stream
+        data:
+          message: "\ud83d\udd59 Night mode."
 
 # Automations to set the mode correctly at startup
 

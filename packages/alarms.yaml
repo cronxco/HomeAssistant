@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 21/03/2018 22:11
+# @Last modified time: 25/03/2018 18:30
 
 # This package deals with alarms
 
@@ -109,6 +109,9 @@ automation:
               entity_id: input_boolean.will_home
               state: 'on'
     action:
+        - service: script.stream
+          data:
+            message: "\u23f0 Dan's alarm has triggered"
         - service: scene.turn_on
           entity_id: scene.will_sunrise_1
         - delay: 0:02
@@ -140,6 +143,9 @@ automation:
               {%- endif -%}
         - service: input_boolean.turn_on
           entity_id: input_boolean.alarm
+        - service: script.stream
+          data:
+            message: "\u23f0 I've finished waking Dan up"
 
   - alias: 'Wake Dan Up'
     trigger:
@@ -169,6 +175,9 @@ automation:
               entity_id: input_boolean.dan_home
               state: 'on'
     action:
+        - service: script.stream
+          data:
+            message: "\u23f0 Dan's alarm has triggered"
         - service: scene.turn_on
           entity_id: scene.dan_sunrise_1
         - delay: 0:02
@@ -200,6 +209,9 @@ automation:
               {%- endif -%}
         - service: input_boolean.turn_on
           entity_id: input_boolean.alarm
+        - service: script.stream
+          data:
+            message: "\u23f0 I've finished waking Dan up"
 
 # Alarm triggers (radio, lights, tv, coffee etc.)
   - alias: 'Alarm On'
@@ -212,6 +224,9 @@ automation:
         entity_id: media_player.bedroom_one
         data:
           source: "BBC Radio 4"
+      - service: script.stream
+        data:
+          message: "\ud83d\udcfb I've switched Radio 4 on"
     # Remove living room automations (and guest mode option)
 
   - alias: 'Alarm Reset'
@@ -224,7 +239,6 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.alarm
-
 
 # Incremental (currently very white!) wake up scenes.
 

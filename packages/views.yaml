@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/03/2018 17:51
+# @Last modified time: 25/03/2018 20:16
 
 # This package deals with frontend views
 
@@ -173,7 +173,7 @@ group:
     - sensor.mode
     - sensor.living_room_tv_source
     - alarm_control_panel.basecamp
-    - sensor.front_door
+    - binary_sensor.front_door
 
   Auto modes:
     - input_select.time_mode

@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 18:22
+# @Last modified time: 26/03/2018 10:00
 
 # This package deals with text-based Notifications
 # For audio notifications (inc text to speech) see the audio package
@@ -108,5 +108,17 @@ script:
       - service: notify.slack
         data_template:
           message: "{{ message }}"
+
+  slack_emoji_test_1:
+    sequence:
+      - service: notify.slack
+        data_template:
+          message: "\U0001F512 Lockdown"
+
+  slack_emoji_test_1:
+    sequence:
+      - service: notify.slack
+        data_template:
+          message: "\ud83d\udd12 Lockdown! I've switched the lights off and turned Canary on."    
 
 # iOS notification config has to be in the main config file :(

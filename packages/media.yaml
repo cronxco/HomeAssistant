@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:30
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 18:40
+# @Last modified time: 26/03/2018 14:08
 
 
 # This package deals with visual media
@@ -137,7 +137,7 @@ automation:
         entity_id: input_boolean.film_mode
       - service: script.stream
         data:
-          message: "\ud83c\udfa5 Film mode triggered"
+          message: "\U0001f3a5 Film mode triggered"
 
   - alias: 'Auto Film Mode Off'
     trigger:

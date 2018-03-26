@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 18:30
+# @Last modified time: 26/03/2018 13:43
 
 # This package deals with alarms
 
@@ -111,7 +111,7 @@ automation:
     action:
         - service: script.stream
           data:
-            message: "\u23f0 Dan's alarm has triggered"
+            message: "\U000023f0 Dan's alarm has triggered"
         - service: scene.turn_on
           entity_id: scene.will_sunrise_1
         - delay: 0:02
@@ -145,7 +145,7 @@ automation:
           entity_id: input_boolean.alarm
         - service: script.stream
           data:
-            message: "\u23f0 I've finished waking Dan up"
+            message: "\U000023f0 I've finished waking Dan up"
 
   - alias: 'Wake Dan Up'
     trigger:
@@ -177,7 +177,7 @@ automation:
     action:
         - service: script.stream
           data:
-            message: "\u23f0 Dan's alarm has triggered"
+            message: "\U000023f0 Dan's alarm has triggered"
         - service: scene.turn_on
           entity_id: scene.dan_sunrise_1
         - delay: 0:02
@@ -211,7 +211,7 @@ automation:
           entity_id: input_boolean.alarm
         - service: script.stream
           data:
-            message: "\u23f0 I've finished waking Dan up"
+            message: "\U000023f0 I've finished waking Dan up"
 
 # Alarm triggers (radio, lights, tv, coffee etc.)
   - alias: 'Alarm On'
@@ -226,7 +226,7 @@ automation:
           source: "BBC Radio 4"
       - service: script.stream
         data:
-          message: "\ud83d\udcfb I've switched Radio 4 on"
+          message: "\U0001f4fb I've switched Radio 4 on"
     # Remove living room automations (and guest mode option)
 
   - alias: 'Alarm Reset'

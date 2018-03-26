@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:40
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 20:33
+# @Last modified time: 26/03/2018 14:11
 
 # This package deals with making it a Secure and Stable flat ;) #Election2017
 
@@ -79,7 +79,7 @@ automation:
             visible: true
         - service: script.stream
           data:
-            message: "\ud83d\udd12 Lockdown! I've switched the lights off and turned Canary on."
+            message: "\U0001F512 Lockdown! I've switched the lights off and turned Canary on."
 
   - alias: 'Front Door Opened'
     trigger:

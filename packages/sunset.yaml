@@ -2,7 +2,7 @@
 # @Date:   11/06/2017 19:10
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 19:21
+# @Last modified time: 26/03/2018 14:13
 
 # This package enables the evening light transitions
 # @Dependencies: packages/lights, packages/presence
@@ -155,7 +155,7 @@ automation:
           option: Clear
       - service: script.stream
         data:
-          message: "\u2601 Cloud status set to clear"
+          message: "\U00002601 Cloud status set to clear"
   - alias: 'Cloud Status: Cloudy'
     trigger:
       platform: numeric_state
@@ -183,7 +183,7 @@ automation:
           option: Cloudy
       - service: script.stream
         data:
-          message: "\u2601 Cloud status set to cloudy"
+          message: "\U00002601 Cloud status set to cloudy"
   - alias: 'Cloud Status: Overcast'
     trigger:
       platform: numeric_state
@@ -208,7 +208,7 @@ automation:
           option: Overcast
       - service: script.stream
         data:
-          message: "\u2601 Cloud status set to overcast"
+          message: "\U00002601 Cloud status set to overcast"
 
   - alias: 'Early Twilight; Clear'
     trigger:
@@ -452,7 +452,7 @@ automation:
         entity_id: scene.sunset1
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Phase 1 lights have come on"
+          message: "\U0001f4a1 Phase 1 lights have come on"
 
 # This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 1'
@@ -482,7 +482,7 @@ automation:
         entity_id: scene.trigsunset1
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Lights have been tiggered"
+          message: "\U0001f4a1 Lights have been tiggered"
 
   - alias: 'Sunset Lighting 2'
     trigger:
@@ -507,7 +507,7 @@ automation:
         entity_id: scene.sunset2
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Phase 2 lights have come on"
+          message: "\U0001f4a1 Phase 2 lights have come on"
 
 # This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 2'
@@ -537,7 +537,7 @@ automation:
         entity_id: scene.trigsunset2
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Lights have been tiggered"
+          message: "\U0001f4a1 Lights have been tiggered"
 
   - alias: 'Sunset Lighting 3'
     trigger:
@@ -566,7 +566,7 @@ automation:
         entity_id: scene.sunset3
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Phase 3 lights have come on"
+          message: "\U0001f4a1 Phase 3 lights have come on"
 
 # This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 3'
@@ -602,7 +602,7 @@ automation:
         entity_id: scene.trigsunset3
       - service: script.stream
         data:
-          message: "\ud83d\udca1 Lights have been tiggered"
+          message: "\U0001f4a1 Lights have been tiggered"
 
 # If it's gone 22:00 and the flat is in "night mode" we still want some lighting if the trigger is enabled. Here it just turns on the hall lights.
 
@@ -633,7 +633,7 @@ automation:
         entity_id: light.hall
       - service: script.stream
         data:
-          message: "\ud83d\udca1 The hall lights have been tiggered"
+          message: "\U0001f4a1 The hall lights have been tiggered"
 
 # Add a way for the light trigger to be reset. By having it remain on for a minute, it leads to a refractory period where a faully state elsewhere cannot lead to the lights triggering every second!
   - alias: 'Reset Light Trigger'

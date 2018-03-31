@@ -2,6 +2,8 @@
 # @Date:   20/01/2018 12:52
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 03/02/2018 22:05
+# @Last modified time: 31/03/2018 07:54
 
 default: error
+logs:
+  homeassistant.components.homekit: debug

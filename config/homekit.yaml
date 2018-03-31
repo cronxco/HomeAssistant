@@ -2,6 +2,6 @@
 # @Date:   28/02/2018 18:27
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 28/02/2018 18:28
+# @Last modified time: 31/03/2018 07:34
 
-pincode: !secret homekit_pin
+auto_start: false

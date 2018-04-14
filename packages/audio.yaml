@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 26/03/2018 13:44
+# @Last modified time: 14/04/2018 10:59
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -60,9 +60,9 @@ script:
         data_template:
           entity_id: "{{ 'media_player.' ~ where }}"
           with_group: yes
-      - service: script.stream
+      - service: notify.slack
         data:
-          message: "\U0001f4e2 {{where}}: {{what}}"
+          message: "{{'\U0001f4e2 ' ~ where ~': ' ~ what }}"
   tts_test:
     sequence:
       - service: script.sonos_tts

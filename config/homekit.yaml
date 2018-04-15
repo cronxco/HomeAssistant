@@ -2,9 +2,17 @@
 # @Date:   28/02/2018 18:27
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 15/04/2018 20:20
+# @Last modified time: 15/04/2018 20:37
 
 auto_start: false
 filter:
-  include_domains:
-    - light
+  include_entities:
+    # Include the grouped lights
+    - light.living_room
+    - light.hall
+    - light.bedroom
+    - light.map_room
+    - light.bathroom
+    - light.utility
+    - light.kitchen
+    - light.ensuite

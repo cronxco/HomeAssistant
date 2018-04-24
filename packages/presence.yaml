@@ -377,8 +377,8 @@ automation:
     trigger:
       - platform: state
         entity_id: input_boolean.will_home
-        to: 'off'
-        from: 'on'
+        to: 'on'
+        from: 'off'
     action:
       - service: script.stream
         data:
@@ -387,8 +387,8 @@ automation:
     trigger:
       - platform: state
         entity_id: input_boolean.dan_home
-        to: 'off'
-        from: 'on'
+        to: 'on'
+        from: 'off'
     action:
       - service: script.stream
         data:

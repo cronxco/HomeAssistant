@@ -75,7 +75,7 @@ sensor:
          {%- if states.media_player.livingroomtv.attributes["source"] is undefined -%}
            Off
          {%- elif states.media_player.livingroomtv.attributes["source"] == "LiveTV" -%}
-           {{ states.media_player.livingroomtv.attributes["media_channel"] }}
+           {{ states.media_player.livingroomtv.attributes["media_title"] }}
          {%- else -%}
            {{ states.media_player.livingroomtv.attributes["source"] }}
          {%- endif -%}

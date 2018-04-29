@@ -65,6 +65,12 @@ switch:
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: !secret plex
+    name: OpenVPN
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
 
 input_select:
   log_level:
@@ -162,8 +168,8 @@ linode:
 
 group:
   System:
-    - sensor.disk_use_percent_mediabasecampdragonfly
-    - sensor.disk_use_percent_mediabasecampsherpa
+    - sensor.disk_use_percent_mediadragonfly
+    - sensor.disk_use_percent_mediabumblebee
     - sensor.memory_use_percent
     - sensor.processor_use
     - sensor.cpu_speed
@@ -191,6 +197,7 @@ group:
       - switch.influxdb
       - switch.tautuli
       - switch.openvpn
+      - switch.plex
 
 automation:
   - alias: "Configuration Update"
@@ -236,4 +243,4 @@ script:
       - service: homeassistant.restart
 
 shell_command:
-  git_pull: 'bash /home/basecamp/.homeassistant/scripts/git_pull.sh'
+  git_pull: 'bash /home/homeassistant/.homeassistant/scripts/git_pull.sh'

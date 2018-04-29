@@ -118,6 +118,17 @@ script:
         entity_id: remote.living_room
 
 automation:
+
+  - alias: 'TV Off'
+    trigger:
+      - platform: state
+        entity_id: remote.living_room
+        from: 'on'
+        to: 'off'
+    action:
+      - service: media_player.turn_off
+        entity_id: media_player.livingroomtv    
+
   - alias: 'Auto Film Mode On'
     # Either thing changing will trigger film mode however both need to be true for it to turn on.
     trigger:

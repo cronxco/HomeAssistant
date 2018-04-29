@@ -243,4 +243,4 @@ script:
       - service: homeassistant.restart
 
 shell_command:
-  git_pull: 'bash /home/basecamp/.homeassistant/scripts/git_pull.sh'
+  git_pull: 'bash /home/homeassistant/.homeassistant/scripts/git_pull.sh'

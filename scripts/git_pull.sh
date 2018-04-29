@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd "/home/basecamp/.homeassistant/"
+cd "/home/homeassistant/.homeassistant/"
 git checkout master
 git pull

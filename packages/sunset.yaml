@@ -301,12 +301,6 @@ automation:
         entity_id: input_select.sunset_phase
         data:
           option: Early Twilight
-        # This script is designed to notify people who are at home and let them know of the dark skies.
-        # Ultimately these notifcations may get switched off as the system gets smarter.
-      - service: script.notify_home
-        data:
-          title: "\U00002601 Dark Skies"
-          message: "It's a bit dark out so I've switched the lights on early for you!"
 
   - alias: 'Mid Twilight; Cloudy'
     trigger:
@@ -373,12 +367,6 @@ automation:
         entity_id: input_select.sunset_phase
         data:
           option: Early Twilight
-        # This script is designed to notify people who are at home and let them know of the dark skies.
-        # Ultimately these notifcations may get switched off as the system gets smarter.
-      - service: script.notify_home
-        data:
-          title: "\U00002601 Very Dark Skies"
-          message: "It's very dark out so I've switched the lights on early for you!"
 
   - alias: 'Mid Twilight; Overcast'
     trigger:

@@ -38,6 +38,7 @@ history_graph:
       - sensor.temperature_158d00022b584d
       - sensor.temperature_158d00022cb6b0
       - sensor.temperature_158d00022cbd07
+      - sensor.heating_temperature
   internal_humidity:
     name: Internal Humidity
     entities:
@@ -46,6 +47,7 @@ history_graph:
       - sensor.humidity_158d00022b584d
       - sensor.humidity_158d00022cb6b0
       - sensor.humidity_158d00022cbd07
+      - sensor.heating_humidity
 
 sensor:
   - platform: template

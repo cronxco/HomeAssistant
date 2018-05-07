@@ -292,3 +292,22 @@ automation:
           entity_id: plant.aquatica, plant.aloe, plant.chilli, plant.basil, plant.will_tree, plant.dan_tree
       action:
         - service: python_script.plant_status
+    - alias: 'Plant Watering'
+      trigger:
+        - platform: state
+          entity_id: group.people
+          from: 'off'
+          to: 'on'
+          for:
+            minutes: 2
+      condition:
+        - condition: numeric_state
+          entity_id: sensor.water_plants
+          above: 0.1
+        - condition: time
+          after: '12:00:00'
+      action:
+        - service: script.notify_home
+          data_template:
+            title: "\U0001f331 Water me please!"
+            message: "The following need water: {{ state_attr('sensor.water_plants', 'water') }}"

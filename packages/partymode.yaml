@@ -2,7 +2,7 @@
 # @Date:   12/05/2018 12:53
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 12/05/2018 14:09
+# @Last modified time: 12/05/2018 14:23
 
 automation:
   - alias: 'Emergency Party Mode'
@@ -18,10 +18,10 @@ automation:
           - light.sofa
           - light.dining
         data:
-            period: "15"
-            brightness: "160"
-            change: "90"
-            spread: "45"
+            period: 2
+            brightness: 160
+            change: 90
+            spread: 45
       # Music
       - service: media_player.sonos_join
         data:

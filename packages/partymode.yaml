@@ -2,7 +2,7 @@
 # @Date:   12/05/2018 12:53
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 12/05/2018 13:43
+# @Last modified time: 12/05/2018 13:53
 
 automation:
   - alias: 'Emergency Party Mode'
@@ -23,7 +23,7 @@ automation:
             change: "90"
             spread: "45"
       # Music
-      - service: sonos_join
+      - service: media_player.sonos_join
         data:
           master: media_player.living_room_one
           entity_id: media_player.bedroom_one
@@ -45,7 +45,7 @@ automation:
       - service: media_player.media_stop
         data:
           entity_id: media_player.living_room_one
-      - service: sonos_unjoin
+      - service: media_player.sonos_unjoin
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one

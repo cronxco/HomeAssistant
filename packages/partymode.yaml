@@ -1,0 +1,51 @@
+# @Author: Will Scott <willscott>
+# @Date:   12/05/2018 12:53
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 12/05/2018 13:53
+
+automation:
+  - alias: 'Emergency Party Mode'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.party_mode
+        from: 'off'
+        to: 'on'
+    action:
+      # Lights
+      - service: light.lifx_effect_colorloop
+        entity_id:
+          - light.sofa
+          - light.dining
+        data:
+            period: "15"
+            brightness: "160"
+            change: "90"
+            spread: "45"
+      # Music
+      - service: media_player.sonos_join
+        data:
+          master: media_player.living_room_one
+          entity_id: media_player.bedroom_one
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.living_room_one
+          source: "Emergency Party Mode"
+
+  - alias: 'EPM off'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.party_mode
+        from: 'on'
+        to: 'off'
+    action:
+      # Lights
+      - service: light.lifx_effect_stop
+      # Music
+      - service: media_player.media_stop
+        data:
+          entity_id: media_player.living_room_one
+      - service: media_player.sonos_unjoin
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one

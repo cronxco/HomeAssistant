@@ -2,7 +2,7 @@
 # @Date:   12/05/2018 12:53
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 12/05/2018 13:53
+# @Last modified time: 12/05/2018 14:09
 
 automation:
   - alias: 'Emergency Party Mode'
@@ -49,3 +49,17 @@ automation:
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one
+
+switch:
+  - platform: template
+    switches:
+      emergency_party_mode:
+        value_template: "{{ is_state('input_boolean.party_mode', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.party_mode
+        turn_off:
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.party_mode

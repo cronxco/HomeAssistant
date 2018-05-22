@@ -28,12 +28,13 @@ sensor:
     value_template: '{{value_json[0].lineStatuses[0].statusSeverityDescription}}'
 
   # I've written some PHP scripts which spit out JSON of the next east and westbound trams.
-  - platform: jsonrest
-    name: Eastbound Trams
-    resource: !secret eastbound_trams
-  - platform: jsonrest
-    name: Westbound Trams
-    resource: !secret westbound_trams
+  # TEMPORARILY REMOVED DUE TO ERRORS
+  # - platform: jsonrest
+  #   name: Eastbound Trams
+  #   resource: !secret eastbound_trams
+  # - platform: jsonrest
+  #   name: Westbound Trams
+  #   resource: !secret westbound_trams
 
   # Live train times from ECR come courtesy of the uk_transport component.
   - platform: uk_transport
@@ -53,8 +54,8 @@ group:
     control: hidden
     entities:
       - sensor.tram_status
-      - sensor.eastbound_trams
-      - sensor.westbound_trams
+      # - sensor.eastbound_trams
+      # - sensor.westbound_trams
   vic:
     name: VIC trains
     control: hidden

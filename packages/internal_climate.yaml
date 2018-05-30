@@ -56,7 +56,15 @@ sensor:
         value_template: '{{ states.sensor.heating_temperature.attributes.setting }}'
         friendly_name: 'Target Temperature'
         unit_of_measurement: 'ºC'
-
+  # This takes the average humidity in "living" rooms - excluding bathrooms and utility.
+  - platform: min_max
+    name: Average Humidity
+    type: mean
+    entity_ids:
+      - sensor.humidity_158d00022b5707 # Map Room
+      - sensor.humidity_158d00022b5806 # Bedroom
+      - sensor.humidity_158d00022cbd07 # Hall
+      - sensor.basecamp_living_room_humidity # Living Room
 group:
   Internal Details:
     - climate.heating

@@ -64,7 +64,7 @@ sensor:
       - sensor.humidity_158d00022b5707 # Map Room
       - sensor.humidity_158d00022b5806 # Bedroom
       - sensor.humidity_158d00022cbd07 # Hall
-      - sensor.basecamp_living_room_humidity # Living Room
+      - sensor.heating_humidity # Living Room
 group:
   Internal Details:
     - climate.heating

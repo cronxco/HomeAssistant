@@ -19,7 +19,7 @@ homeassistant:
     sensor.speedtest_upload:
       icon: mdi:cloud-upload
     sensor.disk_use_percent_mediabumblebee:
-      friendly_name: "Bumbelbee"
+      friendly_name: "Bumblebee"
     sensor.disk_use_percent_mediadragonfly:
       friendly_name: "Dragonfly"
     sensor.since_last_boot:
@@ -108,14 +108,6 @@ sensor:
     name: Power Stats
     max_age:
       minutes: 5
-  # This takes the average humidity in "living" rooms - excluding bathrooms and utility.
-  - platform: min_max
-    name: Average Humidity
-    type: mean
-    entity_ids:
-      - sensor.kitchen_temperature
-      - sensor.living_room_temperature
-      - sensor.office_temperature
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
@@ -240,6 +232,15 @@ automation:
     action:
       - service: homekit.start
 
+  - alias: 'Stream on Start'
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: script.stream
+      data:
+        message: "\u267b Home Assistant restarted"
+
 script:
   configuation_update:
     sequence:
@@ -248,6 +249,9 @@ script:
         data_template:
           title: "\U000026A1 Restarting HomeAssistant Now"
           message: "Restarting in 30 seconds to update to new build"
+      - service: script.stream
+        data:
+          message: "\U000026A1 Config update installing..."
       - delay: 00:00:30
       - service: homeassistant.restart
 

@@ -93,7 +93,7 @@ script:
       - delay:
           seconds: 1
       - delay: >-
-          {% set duration = states.media_player[where].attributes.media_duration %}
+          {% set duration = states.media_player.living_room_one.attributes.media_duration %}
           {% if duration > 0 %}
             {% set duration = duration - 1 %}
           {% endif %}
@@ -109,7 +109,7 @@ script:
           with_group: yes
       - service: script.stream
         data_template:
-          message: "{{'\U0001f4e2 Broadcast: ' ~ what }}"
+          message: "{{'\U0001f4e2 Broadcast: '~ what}}"
 
   tts_test:
     sequence:

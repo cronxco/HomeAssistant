@@ -153,7 +153,12 @@ sensor:
           {%- else -%}
             Unknown
           {%- endif -%}
-
+      shower_on:
+        friendly_name: "Shower Status"
+        value_template: "{{ states('sensor.humidity_158d00022cb6b0')|float > (states('sensor.average_humidity')|float + 7) }}"
+      bath_on:
+        friendly_name: "Bath Status"
+        value_template: "{{ states('sensor.humidity_158d00022b584d')|float > (states('sensor.average_humidity')|float + 7) }}"
   # This monitors the continuous integration status of Ambassadr.
   # Automations using this are down below: Configuration Update.
   - platform: travisci

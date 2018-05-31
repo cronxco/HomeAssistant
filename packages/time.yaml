@@ -49,6 +49,9 @@ automation:
     condition:
       - condition: time
         before: '06:00:00'
+      # No point in setting the mode if it's already set!
+      - condition: template
+        value_template: "{% if not is_state('input_select.time_mode', 'Dawn') %}true{% endif %}"
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
@@ -92,6 +95,9 @@ automation:
       # This is just a safety catch for when HASS restarts
       - condition: time
         before: '12:00:00'
+      # No point in setting the mode if it's already set!
+      - condition: template
+        value_template: "{% if not is_state('input_select.time_mode', 'Morning') %}true{% endif %}"
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
@@ -112,6 +118,9 @@ automation:
         before: '16:30:00'
       - condition: time
         after: '12:00:00'
+      # No point in setting the mode if it's already set!
+      - condition: template
+        value_template: "{% if not is_state('input_select.time_mode', 'Afternoon') %}true{% endif %}"
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
@@ -135,6 +144,9 @@ automation:
         before: '22:00:00'
       - condition: time
         after: '15:00:00'
+      # No point in setting the mode if it's already set!
+      - condition: template
+        value_template: "{% if not is_state('input_select.time_mode', 'Evening') %}true{% endif %}"
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
@@ -153,6 +165,9 @@ automation:
     condition:
       - condition: time
         before: '23:59:00'
+      # No point in setting the mode if it's already set!
+      - condition: template
+        value_template: "{% if not is_state('input_select.time_mode', 'Night') %}true{% endif %}"
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode
@@ -232,11 +247,11 @@ automation:
         before: '22:00:00'
       - condition: time
         after: '12:00:00'
-      # This isn't strictly right, but as an approximation it's okay.
+      # Changed 31/05 - it's better if Evening mode comes on a bit too early than for it to not come on at all.
       - condition: numeric_state
         entity_id: sun.sun
         value_template: '{{ state.attributes.elevation }}'
-        below: 0.1
+        below: 8.2
     action:
       - service: input_select.select_option
         entity_id: input_select.time_mode

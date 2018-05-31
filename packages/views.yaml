@@ -117,7 +117,7 @@ group:
     icon: mdi:home
     view: yes
     entities:
-      - group.ambassadr
+      - group.cronx
       - group.canary
       - group.lights
       - group.internal
@@ -169,7 +169,7 @@ group:
       - group.docker
       - group.developer
 
-  Ambassadr:
+  Cronx:
     - sensor.mode
     - sensor.living_room_tv_source
     - alarm_control_panel.basecamp

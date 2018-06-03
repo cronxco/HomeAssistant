@@ -143,11 +143,11 @@ group:
     icon: mdi:cast
     entities:
       - group.living_room_media
-      - group.sonos
+      - group.audio_control
       - group.spotify_card
       - group.playstation_4
-      - group.sonos_livingroom
-      - group.sonos_bedroom
+      # - group.sonos_livingroom
+      # - group.sonos_bedroom
 
   Transport:
     view: yes

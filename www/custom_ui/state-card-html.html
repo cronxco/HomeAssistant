@@ -1,0 +1,104 @@
+<script>
+{
+  const _NAME = 'HTML custom state card';
+  const _URL = 'https://github.com/c727/home-assistant-html';
+  const _VERSION = '20180601';
+
+  if (!window.CUSTOM_UI_LIST) window.CUSTOM_UI_LIST = [];
+  window.CUSTOM_UI_LIST.push({
+    name: _NAME,
+    url: _URL,
+    version: _VERSION
+  });
+}
+</script>
+
+<dom-module id='state-card-html'>
+  <template>
+    <div id='content' on-click='cardClicked'></div>
+  </template>
+</dom-module>
+
+<script>
+class StateCardHTML extends Polymer.Element {
+  static get is() { return 'state-card-html'; }
+  static get properties() {
+    return {
+      hass: Object,
+      stateObj: Object,
+      config: {
+        type: Object,
+        computed: 'computeConfig(stateObj)',
+      },
+    };
+  }
+  static get observers() {
+    return [
+      'contentChanged(hass.states.*, config)'
+    ]
+  }
+
+  computeConfig(stateObj) {
+    return stateObj && stateObj.attributes && stateObj.attributes.config;
+  }
+
+  contentChanged(states, config) {
+    if (config && config.html && Array.isArray(config.html)) {
+      let content = '';
+      config.html.forEach(item => {
+        if ('code' in item || 'c' in item) {
+          content += item.code || item.c;
+        } else if ('state' in item || 's' in item) {
+          const entity = item.state || item.s;
+          content += this.computeState(states.value, entity);
+        } else if ('mixed' in item || 'm' in item) {
+          const mixed = item.mixed || item.m;
+          content += mixed.replace(/\${(.+)}/g, this.mixedReplacer.bind(this));
+        }
+      });
+      this.$.content.innerHTML = content;
+    } else {
+      this.$.content.innerHTML = '(config error)';
+    }
+  }
+
+  ready() {
+    super.ready();
+    if (this.config && this.config.stylesheet) {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('href', this.config.stylesheet);
+      Polymer.dom(this.root).appendChild(link);
+    }
+  }
+
+  computeState(states, entity) {
+    return states[entity] && states[entity].state ? states[entity].state : '';
+  }
+
+  mixedReplacer(match, entity) {
+    return this.computeState(this.hass.states, entity);
+  }
+
+  cardClicked(ev) {
+    if (this.config && this.config.dialog) {
+      this.fire('hass-more-info', { entityId: this.config.dialog });
+    }
+    ev.stopPropagation();
+  }
+
+  fire(type, detail = {}, options = {}) {
+      const event = new Event(type, {
+        bubbles: options.bubbles === undefined ? true : options.bubbles,
+        cancelable: Boolean(options.cancelable),
+        composed: options.composed === undefined ? true : options.composed
+      });
+      event.detail = detail;
+      const node = options.node || this;
+      node.dispatchEvent(event);
+      return event;
+    }
+}
+customElements.define(StateCardHTML.is, StateCardHTML);
+</script>

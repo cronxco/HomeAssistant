@@ -34,11 +34,6 @@ homeassistant:
             icon: mdi:music-note
             script: script.play_epm_br
 
-input_text:
-  dummy_player_lr_one:
-    name: Living Room One
-  dummy_player_br_one:
-    name: Bedroom One
 
 tts:
   - platform: google
@@ -296,6 +291,10 @@ input_text:
   what:
     name: What to speak
     initial: "Hello, world"
+  dummy_player_lr_one:
+    name: Living Room One
+  dummy_player_br_one:
+    name: Bedroom One
 input_select:
   where:
     name: Where to speak

@@ -90,7 +90,7 @@ version: 20180601
           </div>
         </div>
       </template>
-      <paper-dialog id='infoCard'>
+      <!-- <paper-dialog id='infoCard'>
         <template is='dom-if' if='[[config.buttons]]'>
           Choose a playlist for [[computeStateName(playerObj)]]:
           <paper-button-group>
@@ -108,7 +108,7 @@ version: 20180601
           hass='[[hass]]'
           state-obj='[[playerObj]]'
         ></more-info-media_player>
-      </paper-dialog>
+      </paper-dialog> -->
     </template>
   </template>
 </dom-module>
@@ -205,7 +205,7 @@ version: 20180601
     },
 
     openInfoCard: function () {
-      this.root.getElementById('infoCard').open();
+      // this.root.getElementById('infoCard').open();
     },
   });
 </script>

@@ -143,6 +143,7 @@ group:
     icon: mdi:cast
     entities:
       - group.living_room_media
+      - group.sonos
       - group.spotify_card
       - group.playstation_4
       - group.sonos_livingroom

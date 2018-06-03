@@ -7,6 +7,38 @@
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
 
+homeassistant:
+  customize:
+    input_text.dummy_player_lr_one:
+      icon: mdi:cast
+      custom_ui_state_card: state-card-mini-media-player
+      config:
+        player: media_player.living_room_one
+        buttons:
+          - name: Radio 4
+            icon: mdi:music-note
+            script: script.play_r4_lr
+          - name: EPM
+            icon: mdi:music-note
+            script: script.play_epm_lr
+    input_text.dummy_player_br_one:
+      icon: mdi:cast
+      custom_ui_state_card: state-card-mini-media-player
+      config:
+        player: media_player.bedroom_one
+        buttons:
+          - name: Radio 4
+            icon: mdi:music-note
+            script: script.play_r4_br
+          - name: EPM
+            icon: mdi:music-note
+            script: script.play_epm_br
+
+input_text:
+  dummy_player_lr_one:
+    name: Living Room One
+  dummy_player_br_one:
+    name: Bedroom One
 
 tts:
   - platform: google
@@ -110,6 +142,30 @@ script:
       - service: script.stream
         data_template:
           message: "{{'\U0001f4e2 Broadcast: '~ what}}"
+  play_r4_br:
+    sequence:
+    - service: media_player.select_source
+      entity_id: media_player.bedroom_one
+      data:
+        source: "BBC Radio 4"
+  play_r4_lr:
+    sequence:
+    - service: media_player.select_source
+      entity_id: media_player.living_room_one
+      data:
+        source: "BBC Radio 4"
+  play_epm_br:
+    sequence:
+    - service: media_player.select_source
+      entity_id: media_player.bedroom_one
+      data:
+        source: "Emergency Party Mode"
+  play_epm_lr:
+    sequence:
+    - service: media_player.select_source
+      entity_id: media_player.living_room_one
+      data:
+        source: "Emergency Party Mode"
 
   tts_test:
     sequence:
@@ -229,6 +285,11 @@ group:
   sonos_bedroom:
     entities:
       - media_player.bedroom_one
+  sonos:
+    entities:
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
+
 
 # Add the debug inputs for the developer settings
 input_text:

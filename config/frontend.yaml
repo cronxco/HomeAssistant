@@ -7,18 +7,34 @@
 javascript_version: es5 # Lots of frontend issues on iOS so reverting back to the old version of javascript.
 
 extra_html_url:
+  # Trams
   - /local/custom_ui/state-card-eastbound.html
   - /local/custom_ui/state-card-westbound.html
   - /local/custom_ui/state-card-traintimes.html
+  # Standard Custom UI
   - /local/custom_ui/state-card-custom-ui.html
+  # Tiles
   - /local/custom_ui/state-card-tiles.html
+  # Mini Media Player
+  - /local/custom_ui/state-card-mini-media-player.html
+  # Custom State Card HTML
+  - /local/custom_ui/state-card-html.html
+  # Heating
   - /local/custom_ui/state-card-custom-heating.html
 extra_html_url_es5:
-  - /local/custom_ui/state-card-eastbound.html
-  - /local/custom_ui/state-card-westbound.html
-  - /local/custom_ui/state-card-traintimes.html
+  # Trams
+  - /local/custom_ui/state-card-eastbound.html # no ES5
+  - /local/custom_ui/state-card-westbound.html # no ES5
+  - /local/custom_ui/state-card-traintimes.html # no ES5
+  # Standard Custom UI
   - /local/custom_ui/state-card-custom-ui-es5.html
-  - /local/custom_ui/state-card-tiles.html
-  - /local/custom_ui/state-card-custom-heating.html
+  # Tiles
+  - /local/custom_ui/state-card-tiles_es5.html
+  # Mini Media Player
+  - /local/custom_ui/state-card-mini-media-player_es5.html
+  # Custom State Card HTML
+  - /local/custom_ui/state-card-html_es5.html
+  # Heating
+  - /local/custom_ui/state-card-custom-heating.html # no ES5
 
 themes: !include themes.yaml

@@ -1,0 +1,102 @@
+<script>
+{
+  var _NAME = 'HTML custom state card';
+  var _URL = 'https://github.com/c727/home-assistant-html';
+  var _VERSION = '20180601_es5';
+
+  if (!window.CUSTOM_UI_LIST) window.CUSTOM_UI_LIST = [];
+  window.CUSTOM_UI_LIST.push({
+    name: _NAME,
+    url: _URL,
+    version: _VERSION
+  });
+}
+</script>
+
+<dom-module id='state-card-html'>
+  <template>
+    <div id='content' on-click='cardClicked'></div>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is: 'state-card-html',
+  properties: {
+    hass: {
+      type: Object,
+    },
+    stateObj: {
+      type: Object,
+    },
+    config: {
+      type: Object,
+      computed: 'computeConfig(stateObj)',
+    },
+  },
+  observers: [
+    'contentChanged(hass.states.*, config)'
+  ],
+
+  computeConfig: function (stateObj) {
+    return stateObj && stateObj.attributes && stateObj.attributes.config;
+  },
+
+  contentChanged: function (states, config) {
+    if (config && config.html && Array.isArray(config.html)) {
+      var content = '';
+      config.html.forEach(function (item) {
+        if ('code' in item || 'c' in item) {
+          content += item.code || item.c;
+        } else if ('state' in item || 's' in item) {
+          var entity = item.state || item.s;
+          content += this.computeState(states.value, entity);
+        } else if ('mixed' in item || 'm' in item) {
+          var mixed = item.mixed || item.m;
+          content += mixed.replace(/\${(.+)}/g, this.mixedReplacer.bind(this));
+        }
+      });
+      this.$.content.innerHTML = content;
+    } else {
+      this.$.content.innerHTML = '(config error)';
+    }
+  },
+
+  ready: function () {
+    if (this.config && this.config.stylesheet) {
+      var link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('href', this.config.stylesheet);
+      Polymer.dom(this.root).appendChild(link);
+    }
+  },
+
+  computeState: function (states, entity) {
+    return states[entity] && states[entity].state ? states[entity].state : '';
+  },
+
+  mixedReplacer: function (match, entity) {
+    return this.computeState(this.hass.states, entity);
+  },
+
+  cardClicked: function (ev) {
+    if (this.config && this.config.dialog) {
+      this.fire('hass-more-info', { entityId: this.config.dialog });
+    }
+    ev.stopPropagation();
+  },
+
+  fire: function (type, detail = {}, options = {}) {
+    var event = new Event(type, {
+      bubbles: options.bubbles === undefined ? true : options.bubbles,
+      cancelable: Boolean(options.cancelable),
+      composed: options.composed === undefined ? true : options.composed
+    });
+    event.detail = detail;
+    var node = options.node || this;
+    node.dispatchEvent(event);
+    return event;
+  },
+});
+</script>

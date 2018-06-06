@@ -144,7 +144,6 @@ group:
     entities:
       - group.living_room_media
       - group.audio_control
-      - group.spotify_card
       - group.playstation_4
       # - group.sonos_livingroom
       # - group.sonos_bedroom

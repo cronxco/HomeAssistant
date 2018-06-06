@@ -261,18 +261,10 @@ script:
 #         visible: false
 
 group:
-  spotify_card: # TODO: Improve this!
-    entities:
-      - media_player.spotify
-  sonos_livingroom:
-    entities:
-      - media_player.living_room_one
-  sonos_bedroom:
-    entities:
-      - media_player.bedroom_one
   audio_control:
     name: Audio
     entities:
+      - input_select.primary_player
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
       - input_text.dummy_player_spotify
@@ -292,6 +284,11 @@ input_text:
 input_select:
   where:
     name: Where to speak
+    options:
+     - bedroom_one
+     - living_room_one
+  primary_player:
+    name: Primary Player
     options:
      - bedroom_one
      - living_room_one

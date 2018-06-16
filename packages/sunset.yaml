@@ -54,15 +54,31 @@ scene:
      light.living_room:
         state: on
         transition: 90
-        brightness: 35
+        brightness: 50
         color_temp: 285
-# Side note: Actually the hall comes on as part of Sunset2 but is activated via a script because the bulbs are slow to respond...
   - name: Sunset2
     entities:
      light.living_room:
         state: on
         transition: 90
-        brightness: 70
+        brightness: 100
+        color_temp: 285
+     light.hall:
+        state: on
+        transition: 10
+        brightness: 15
+        color_temp: 285
+     light.bedroom:
+        state: on
+        transition: 180
+        brightness: 100
+        color_temp: 285
+  - name: Sunset2Quiet
+    entities:
+     light.living_room:
+        state: on
+        transition: 90
+        brightness: 100
         color_temp: 285
      light.hall:
         state: on
@@ -74,18 +90,18 @@ scene:
      light.living_room:
         state: on
         transition: 180
-        brightness: 115
-        color_temp: 285
+        brightness: 150
+        color_temp: 350
      light.hall:
         state: on
         transition: 10
-        brightness: 25
-        color_temp: 285
+        brightness: 75
+        color_temp: 350
      light.bedroom:
         state: on
         transition: 180
-        brightness: 115
-        color_temp: 285
+        brightness: 150
+        color_temp: 350
 
 # The triggered versions have much shorter transitions - we want the lights to come on nearly instantly if we arrive back home.
 
@@ -94,14 +110,31 @@ scene:
      light.living_room:
         state: on
         transition: 5
-        brightness: 35
+        brightness: 50
         color_temp: 285
   - name: trigsunset2
     entities:
      light.living_room:
         state: on
         transition: 5
-        brightness: 70
+        brightness: 100
+        color_temp: 285
+     light.hall:
+        state: on
+        transition: 10
+        brightness: 15
+        color_temp: 285
+     light.bedroom:
+        state: on
+        transition: 180
+        brightness: 100
+        color_temp: 285
+  - name: trigsunset2Quiet
+    entities:
+     light.living_room:
+        state: on
+        transition: 5
+        brightness: 100
         color_temp: 285
      light.hall:
         state: on
@@ -113,18 +146,18 @@ scene:
      light.living_room:
         state: on
         transition: 5
-        brightness: 115
-        color_temp: 285
+        brightness: 150
+        color_temp: 350
      light.hall:
         state: on
         transition: 5
-        brightness: 25
-        color_temp: 285
+        brightness: 75
+        color_temp: 350
      light.bedroom:
         state: on
         transition: 5
-        brightness: 115
-        color_temp: 285
+        brightness: 150
+        color_temp: 350
 
 # These are now just automations to turn on the switches. First set for clear(ish)
 # skies, the second & third sets for cloudy days...
@@ -490,9 +523,40 @@ automation:
         - condition: state
           entity_id: input_boolean.film_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.quiet_mode
+          state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.sunset2
+      - service: script.stream
+        data:
+          message: "\U0001f4a1 Phase 2 lights have come on"
+
+  - alias: 'Sunset Lighting 2 Quiet'
+    trigger:
+      - platform: state
+        entity_id: input_select.sunset_phase
+        to: Mid Twilight
+    condition:
+        - condition: state
+          entity_id: group.people
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.romance_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.party_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.quiet_mode
+          state: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.sunset2Quiet
       - service: script.stream
         data:
           message: "\U0001f4a1 Phase 2 lights have come on"
@@ -520,9 +584,44 @@ automation:
         - condition: state
           entity_id: input_boolean.film_mode
           state: 'off'
+        - condition: state
+          entity_id: input_boolean.quiet_mode
+          state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.trigsunset2
+      - service: script.stream
+        data:
+          message: "\U0001f4a1 Lights have been tiggered"
+
+  - alias: 'Triggered Sunset 2 Quiet'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.light_trigger
+        from: 'off'
+        to: 'on'
+    condition:
+        - condition: state
+          entity_id: input_select.sunset_phase
+          state: Mid Twilight
+        - condition: state
+          entity_id: group.people
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.romance_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.party_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.film_mode
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.quiet_mode
+          state: 'on'
+    action:
+      - service: scene.turn_on
+        entity_id: scene.trigsunset2Quiet
       - service: script.stream
         data:
           message: "\U0001f4a1 Lights have been tiggered"

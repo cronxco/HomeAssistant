@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 23/06/2018 14:44
+# @Last modified time: 23/06/2018 14:51
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -309,10 +309,15 @@ input_text:
   dummy_player_spotify:
     name: Spotify
   audio_tiles_lr:
+    name: Living Room SONOS
   audio_tiles_br:
+    name: Bedroom SONOS
   audio_tiles_off:
+    name: SONOS
   audio_tiles_joined:
+    name: SONOS Goup
   audio_tiles_multi:
+    name: SONOS Zones
 input_select:
   where:
     name: Where to speak

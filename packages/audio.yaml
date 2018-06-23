@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 23/06/2018 16:08
+# @Last modified time: 23/06/2018 20:54
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -111,6 +111,54 @@ homeassistant:
           - entity: script.play_something_somewhere
             data:
               where: bedroom_one
+              what: "Current"
+            label: Current
+            column_span: 2
+
+    input_text.audio_tiles_off:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        entities:
+          - entity: input_boolean.pp_living_room_one
+            label: Living Room
+          - entity: input_boolean.pp_bedroom_one
+            label: Bedroom
+          - entity: input_boolean.pp_joined
+            label: Group
+          - entity: script.sonos_reset
+            label: Reset
+          # Row 2
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+              what: "Epic"
+            label: Epic
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+              what: "Cinematic Chillout"
+            label: Cinematic
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+              what: "Disney"
+            label: Disney
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+              what: "Emergency Party Mode"
+            label: Party
+          # Row 3
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+              what: "BBC Radio 4"
+            label: Radio 4
+            column_span: 2
+          - entity: script.play_something_somewhere
+            data_template:
+              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Current"
             label: Current
             column_span: 2
@@ -399,6 +447,56 @@ automation:
       data:
         visible: false
 
+  - alias: Set PP to LR
+    trigger:
+      - platform: state
+        entity_id: input_boolean.pp_living_room_one
+        from: off
+        to: on
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_bedroom_one
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_joined
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.primary_player
+          option: "living_room_one"
+  - alias: Set PP to BR
+    trigger:
+      - platform: state
+        entity_id: input_boolean.pp_bedroom_one
+        from: off
+        to: on
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.living_room_one
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_joined
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.primary_player
+          option: "bedroom_one"
+  - alias: Set PP to Joined
+    trigger:
+      - platform: state
+        entity_id: input_boolean.pp_joined
+        from: off
+        to: on
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.living_room_one
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_bedroom_one
+      - service: media_player.sonos_join
+        data_template:
+          master: media_player.living_room_one
+          entity_id: media_player.bedroom_one
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.primary_player
+          option: "living_room_one"
+
 sensor:
   - platform: template
     sensors:
@@ -437,7 +535,7 @@ input_text:
   audio_tiles_off:
     name: SONOS
   audio_tiles_joined:
-    name: SONOS Goup
+    name: SONOS Group
   audio_tiles_multi:
     name: SONOS Zones
 input_select:
@@ -451,3 +549,10 @@ input_select:
     options:
      - bedroom_one
      - living_room_one
+input_boolean:
+  pp_bedroom_one:
+    name: SONOS Bedroom
+  pp_living_room_one:
+    name: SONOS Living Room
+  pp_joined:
+    name: SONOS Group

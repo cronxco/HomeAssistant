@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 23/06/2018 14:35
+# @Last modified time: 23/06/2018 14:38
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -217,7 +217,7 @@ script:
       - service: script.stream
         data_template:
           message: "{{'\U0001f4e2 Broadcast: '~ what}}"
- play_something_somewhere:
+  play_something_somewhere:
    sequence:
    - service: media_player.select_source
      data_template:

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 23/06/2018 14:51
+# @Last modified time: 23/06/2018 16:08
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -276,6 +276,128 @@ group:
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
       - input_text.dummy_player_spotify
+  sonos_lr:
+    name: Living Room SONOS
+    entities:
+      - input_text.audio_tiles_lr
+  sonos_br:
+    name: Bedroom SONOS
+    entities:
+      - input_text.audio_tiles_br
+  sonos_off:
+    name: SONOS
+    entities:
+      - input_text.audio_tiles_off
+  sonos_joined:
+    name: SONOS Group
+    entities:
+      - input_text.audio_tiles_joined
+  sonos_zone:
+    name: SONOS Zones
+    entities:
+      - input_text.audio_tiles_multi
+
+automation:
+
+  - alias: LR Card Visible
+    trigger:
+      platform: template
+      value_template: "{{ is_state('sensor.sonos_state', 'Living Room') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_lr
+      data:
+        visible: true
+
+  - alias: LR Card Hidden
+    trigger:
+      platform: template
+      value_template: "{{ not is_state('sensor.sonos_state', 'Living Room') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_lr
+      data:
+        visible: false
+
+  - alias: BR Card Visible
+    trigger:
+      platform: template
+      value_template: "{{ is_state('sensor.sonos_state', 'Bedroom') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_br
+      data:
+        visible: true
+
+  - alias: BR Card Hidden
+    trigger:
+      platform: template
+      value_template: "{{ not is_state('sensor.sonos_state', 'Bedroom') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_br
+      data:
+        visible: false
+
+  - alias: Off Card Visible
+    trigger:
+      platform: template
+      value_template: "{{ is_state('sensor.sonos_state', 'Off') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_off
+      data:
+        visible: true
+
+  - alias: Off Card Hidden
+    trigger:
+      platform: template
+      value_template: "{{ not is_state('sensor.sonos_state', 'Off') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_off
+      data:
+        visible: false
+
+  - alias: Joined Card Visible
+    trigger:
+      platform: template
+      value_template: "{{ is_state('sensor.sonos_state', 'Joined') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_joined
+      data:
+        visible: true
+
+  - alias: Joined Card Hidden
+    trigger:
+      platform: template
+      value_template: "{{ not is_state('sensor.sonos_state', 'Joined') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_joined
+      data:
+        visible: false
+
+  - alias: Zoned Card Visible
+    trigger:
+      platform: template
+      value_template: "{{ is_state('sensor.sonos_state', 'Multi Zone') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_zone
+      data:
+        visible: true
+
+  - alias: Zoned Card Hidden
+    trigger:
+      platform: template
+      value_template: "{{ not is_state('sensor.sonos_state', 'Multi Zone') }}"
+    action:
+      service: group.set_visibility
+      entity_id: group.sonos_zone
+      data:
+        visible: false
 
 sensor:
   - platform: template

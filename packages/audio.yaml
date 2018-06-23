@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 23/06/2018 14:38
+# @Last modified time: 23/06/2018 14:44
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -254,12 +254,12 @@ script:
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one
-      - service: media_player.volume_set
-        data_template:
-          entity_id:
-            - media_player.living_room_one
-            - media_player.bedroom_one
-          volume_level: 0.25
+    - service: media_player.volume_set
+      data_template:
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+        volume_level: 0.25
 
   tts_test:
     sequence:

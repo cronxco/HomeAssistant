@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/04/2018 11:06
+# @Last modified time: 23/06/2018 14:35
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -24,6 +24,96 @@ homeassistant:
       custom_ui_state_card: state-card-mini-media-player
       config:
         player: media_player.spotify
+    input_text.audio_tiles_lr:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        entities:
+          - entity: script.group_from_lr
+            column_span: 2
+            label: Group
+          - entity: script.sonos_reset
+            column_span: 2
+            label: Reset
+          # Row 2
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "Epic"
+            label: Epic
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "Cinematic Chillout"
+            label: Cinematic
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "Disney"
+            label: Disney
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "Emergency Party Mode"
+            label: Party
+          # Row 3
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "BBC Radio 4"
+            label: Radio 4
+            column_span: 2
+          - entity: script.play_something_somewhere
+            data:
+              where: living_room_one
+              what: "Current"
+            label: Current
+            column_span: 2
+    input_text.audio_tiles_br:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        entities:
+          - entity: script.group_from_br
+            column_span: 2
+            label: Group
+          - entity: script.sonos_reset
+            column_span: 2
+            label: Reset
+          # Row 2
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "Epic"
+            label: Epic
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "Cinematic Chillout"
+            label: Cinematic
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "Disney"
+            label: Disney
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "Emergency Party Mode"
+            label: Party
+          # Row 3
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "BBC Radio 4"
+            label: Radio 4
+            column_span: 2
+          - entity: script.play_something_somewhere
+            data:
+              where: bedroom_one
+              what: "Current"
+            label: Current
+            column_span: 2
 
 tts:
   - platform: google
@@ -127,30 +217,49 @@ script:
       - service: script.stream
         data_template:
           message: "{{'\U0001f4e2 Broadcast: '~ what}}"
-  play_r4_br:
+ play_something_somewhere:
+   sequence:
+   - service: media_player.select_source
+     data_template:
+       entity_id: "{{ 'media_player.' ~ where }}"
+       source: "{{ what }}"
+  group_from_lr:
     sequence:
-    - service: media_player.select_source
-      entity_id: media_player.bedroom_one
-      data:
-        source: "BBC Radio 4"
-  play_r4_lr:
+    - service: media_player.sonos_join
+      data_template:
+        master: media_player.living_room_one
+        entity_id: media_player.bedroom_one
+  group_from_br:
     sequence:
-    - service: media_player.select_source
-      entity_id: media_player.living_room_one
-      data:
-        source: "BBC Radio 4"
-  play_epm_br:
+    - service: media_player.sonos_join
+      data_template:
+        master: media_player.bedroom_one
+        entity_id: media_player.living_room_one
+  unjoin_sonos:
     sequence:
-    - service: media_player.select_source
-      entity_id: media_player.bedroom_one
-      data:
-        source: "Emergency Party Mode"
-  play_epm_lr:
+    - service: media_player.sonos_unjoin
+      data_template:
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+  sonos_reset:
     sequence:
-    - service: media_player.select_source
-      entity_id: media_player.living_room_one
-      data:
-        source: "Emergency Party Mode"
+    - service: media_player.media_stop
+      data_template:
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+    - service: media_player.sonos_unjoin
+      data_template:
+        entity_id:
+          - media_player.living_room_one
+          - media_player.bedroom_one
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.living_room_one
+            - media_player.bedroom_one
+          volume_level: 0.25
 
   tts_test:
     sequence:
@@ -159,115 +268,33 @@ script:
           what: "{{ states('input_text.what') }}"
           where: "{{ states('input_select.where') }}"
 
-# automation:
-#
-#   - alias: Spotify Card Visible
-#     trigger:
-#       platform: template
-#       value_template: "{{ not is_state('media_player.spotify', 'paused') }}"
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.spotify_card
-#       data:
-#         visible: true
-#
-#   - alias: Spotify Card Hidden
-#     trigger:
-#       - platform: homeassistant
-#         event: start
-#       - platform: state
-#         entity_id: media_player.spotify
-#         to: 'paused'
-#         for:
-#           minutes: 5
-#       - platform: state
-#         entity_id: media_player.spotify
-#         to: 'idle'
-#         for:
-#           minutes: 3
-#       - platform: state
-#         entity_id: media_player.spotify
-#         to: 'off'
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.spotify_card
-#       data:
-#         visible: false
-#
-#   - alias: Living Room Sonos Visible
-#     trigger:
-#       platform: template
-#       value_template: "{{ not is_state('media_player.living_room_one', 'paused') }}"
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.sonos_livingroom
-#       data:
-#         visible: true
-#
-#   - alias: Living Room Sonos Hidden
-#     trigger:
-#       - platform: homeassistant
-#         event: start
-#       - platform: state
-#         entity_id: media_player.living_room_one
-#         to: 'paused'
-#         for:
-#           minutes: 5
-#       - platform: state
-#         entity_id: media_player.living_room_one
-#         to: 'idle'
-#         for:
-#           minutes: 3
-#       - platform: state
-#         entity_id: media_player.living_room_one
-#         to: 'off'
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.sonos_livingroom
-#       data:
-#         visible: false
-#
-#   - alias: Bedroom Sonos Visible
-#     trigger:
-#       platform: template
-#       value_template: "{{ not is_state('media_player.bedroom_one', 'paused') }}"
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.sonos_bedroom
-#       data:
-#         visible: true
-#
-#   - alias: Bedroom Sonos Hidden
-#     trigger:
-#       - platform: homeassistant
-#         event: start
-#       - platform: state
-#         entity_id: media_player.bedroom_one
-#         to: 'paused'
-#         for:
-#           minutes: 5
-#       - platform: state
-#         entity_id: media_player.bedroom_one
-#         to: 'idle'
-#         for:
-#           minutes: 3
-#       - platform: state
-#         entity_id: media_player.bedroom_one
-#         to: 'off'
-#     action:
-#       service: group.set_visibility
-#       entity_id: group.sonos_bedroom
-#       data:
-#         visible: false
 
 group:
   audio_control:
     name: Audio
     entities:
-      - input_select.primary_player
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
       - input_text.dummy_player_spotify
+
+sensor:
+  - platform: template
+    sensors:
+      sonos_state:
+        friendly_name: "Sonos Grouping State"
+        value_template: >-
+          {% if (is_state("media_player.living_room_one", "playing") and is_state("media_player.bedroom_one", "playing")) and (state_attr('media_player.living_room_one', 'media_title') == state_attr('media_player.bedroom_one', 'media_title'))  -%}
+            Joined
+          {%- elif (is_state("media_player.living_room_one", "playing") and is_state("media_player.bedroom_one", "playing")) -%}
+            Multi Zone
+          {%- elif is_state("media_player.living_room_one", "playing") -%}
+            Living Room
+          {%- elif is_state("media_player.bedroom_one", "playing") -%}
+            Bedroom
+          {%- else -%}
+            Off
+          {%- endif %}
+
 
 
 # Add the debug inputs for the developer settings
@@ -281,6 +308,11 @@ input_text:
     name: Bedroom One
   dummy_player_spotify:
     name: Spotify
+  audio_tiles_lr:
+  audio_tiles_br:
+  audio_tiles_off:
+  audio_tiles_joined:
+  audio_tiles_multi:
 input_select:
   where:
     name: Where to speak

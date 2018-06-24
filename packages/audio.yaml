@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 15:07
+# @Last modified time: 24/06/2018 15:30
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -335,12 +335,16 @@ script:
       data_template:
         master: media_player.living_room_one
         entity_id: media_player.bedroom_one
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.pp_joined
   group_from_br:
     sequence:
     - service: media_player.sonos_join
       data_template:
         master: media_player.bedroom_one
         entity_id: media_player.living_room_one
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.pp_joined
   unjoin_sonos:
     sequence:
     - service: media_player.sonos_unjoin
@@ -348,6 +352,12 @@ script:
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.pp_joined
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.primary_player
+        option: "living_room_one"
   sonos_reset:
     sequence:
     - service: media_player.sonos_unjoin
@@ -381,29 +391,64 @@ group:
     entities:
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
-      - input_text.dummy_player_spotify
   sonos_lr:
-    name: Living Room SONOS
+    name: Audio: Living Room
     entities:
       - input_text.audio_tiles_lr
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
   sonos_br:
-    name: Bedroom SONOS
+    name: Audio: Bedroom
     entities:
       - input_text.audio_tiles_br
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
   sonos_off:
-    name: SONOS
+    name: Audio: SONOS
     entities:
       - input_text.audio_tiles_off
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
   sonos_joined:
-    name: SONOS Group
+    name: Audio: Whole Home
     entities:
       - input_text.audio_tiles_joined
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
   sonos_zone:
-    name: SONOS Zones
+    name: Audio: Multi Zone
     entities:
       - input_text.audio_tiles_multi
+      - input_text.dummy_player_lr_one
+      - input_text.dummy_player_br_one
 
 automation:
+
+  - alias: Intial SONOS card
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: group.set_visibility
+        entity_id: group.sonos_off
+        data:
+          visible: true
+      - service: group.set_visibility
+        entity_id: group.sonos_lr
+        data:
+          visible: false
+      - service: group.set_visibility
+        entity_id: group.sonos_br
+        data:
+          visible: false
+      - service: group.set_visibility
+        entity_id: group.sonos_joined
+        data:
+          visible: false
+      - service: group.set_visibility
+        entity_id: group.sonos_zone
+        data:
+          visible: false
 
   - alias: LR Card Visible
     trigger:

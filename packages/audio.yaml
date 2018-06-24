@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 16:11
+# @Last modified time: 24/06/2018 17:12
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -337,6 +337,8 @@ script:
         master: media_player.living_room_one
         entity_id: media_player.bedroom_one
     - service: input_boolean.turn_on
+      entity_id: input_boolean.master_living_room_one
+    - service: input_boolean.turn_on
       entity_id: input_boolean.pp_joined
   group_from_br:
     sequence:
@@ -344,6 +346,8 @@ script:
       data_template:
         master: media_player.bedroom_one
         entity_id: media_player.living_room_one
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.master_bedroom_one
     - service: input_boolean.turn_on
       entity_id: input_boolean.pp_joined
   unjoin_sonos:
@@ -355,6 +359,10 @@ script:
           - media_player.bedroom_one
     - service: input_boolean.turn_on
       entity_id: input_boolean.pp_living_room_one
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.master_living_room_one
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.master_bedroom_one
     - service: input_select.select_option
       data:
         entity_id: input_select.primary_player
@@ -592,6 +600,10 @@ automation:
         entity_id: input_boolean.pp_joined
         from: 'off'
         to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.master_bedroom_one
+        state: 'off'
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_living_room_one
@@ -605,7 +617,29 @@ automation:
         data:
           entity_id: input_select.primary_player
           option: "living_room_one"
-
+  - alias: Set PP to Joined
+    trigger:
+      - platform: state
+        entity_id: input_boolean.pp_joined
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.master_bedroom_one
+        state: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_living_room_one
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.pp_bedroom_one
+      - service: media_player.sonos_join
+        data_template:
+          master: media_player.bedroom_one
+          entity_id: media_player.living_room_one
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.primary_player
+          option: "bedroom_one"
 sensor:
   - platform: template
     sensors:
@@ -665,3 +699,7 @@ input_boolean:
     name: SONOS Living Room
   pp_joined:
     name: SONOS Group
+  master_living_room_one:
+    name: "Master: Living Room"
+  master_bedroom_one:
+    name: "Master: Bedroom"

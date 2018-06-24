@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 21:11
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 25/03/2018 20:16
+# @Last modified time: 24/06/2018 18:13
 
 # This package deals with frontend views
 
@@ -142,8 +142,12 @@ group:
     view: yes
     icon: mdi:cast
     entities:
+      - group.sonos_lr
+      - group.sonos_br
+      - group.sonos_off
+      - group.sonos_joined
+      - group.sonos_zone
       - group.living_room_media
-      - group.audio_control
       - group.playstation_4
       # - group.sonos_livingroom
       # - group.sonos_bedroom

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 17:35
+# @Last modified time: 24/06/2018 17:37
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -26,12 +26,13 @@ homeassistant:
         player: media_player.spotify
     input_text.blank_row:
       custom_ui_state_card: state-card-tiles
-      entities:
-        - entity: python_script.reload
-          label: ""
-          color: "var(--paper-card-background-color)"
-          color_on: "var(--paper-card-background-color)"
-          color_off: "var(--paper-card-background-color)"
+      config:
+        entities:
+          - entity: python_script.reload
+            label: ""
+            color: "var(--paper-card-background-color)"
+            color_on: "var(--paper-card-background-color)"
+            color_off: "var(--paper-card-background-color)"
     input_text.audio_tiles_lr:
       custom_ui_state_card: state-card-tiles
       config:

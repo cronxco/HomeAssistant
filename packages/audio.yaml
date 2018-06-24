@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 14:59
+# @Last modified time: 24/06/2018 15:07
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -129,29 +129,29 @@ homeassistant:
             label: Reset
           # Row 2
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "Epic"
             label: Epic
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "Disney"
             label: Disney
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_primary
-            data_template:
+            data:
               what: "Current"
             label: Current
             column_span: 2
@@ -350,12 +350,12 @@ script:
           - media_player.bedroom_one
   sonos_reset:
     sequence:
-    - service: media_player.media_stop
+    - service: media_player.sonos_unjoin
       data_template:
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one
-    - service: media_player.sonos_unjoin
+    - service: media_player.media_stop
       data_template:
         entity_id:
           - media_player.living_room_one

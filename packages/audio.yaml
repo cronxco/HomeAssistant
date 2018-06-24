@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 14:14
+# @Last modified time: 24/06/2018 14:48
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -38,34 +38,34 @@ homeassistant:
           # Row 2
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Epic"
             label: Epic
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Disney"
             label: Disney
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Current"
             label: Current
             column_span: 2
@@ -83,34 +83,34 @@ homeassistant:
           # Row 2
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "Epic"
             label: Epic
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "Disney"
             label: Disney
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_somewhere
             data:
-              where: bedroom_one
+              where: "media_player.bedroom_one"
               what: "Current"
             label: Current
             column_span: 2
@@ -189,34 +189,34 @@ homeassistant:
           # Row 2
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Epic"
             label: Epic
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Disney"
             label: Disney
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_somewhere
             data:
-              where: living_room_one
+              where: "media_player.living_room_one"
               what: "Current"
             label: Current
             column_span: 2
@@ -327,7 +327,7 @@ script:
    sequence:
    - service: media_player.select_source
      data_template:
-       entity_id: "{{ 'media_player.' ~ where }}"
+       entity_id: "{{ where }}"
        source: "{{ what }}"
   group_from_lr:
     sequence:
@@ -528,7 +528,7 @@ automation:
         to: 'on'
     action:
       - service: input_boolean.turn_off
-        entity_id: input_boolean.living_room_one
+        entity_id: input_boolean.pp_living_room_one
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_joined
       - service: input_select.select_option

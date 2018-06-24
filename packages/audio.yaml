@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 14:48
+# @Last modified time: 24/06/2018 14:59
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -128,36 +128,30 @@ homeassistant:
           - entity: script.sonos_reset
             label: Reset
           # Row 2
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Epic"
             label: Epic
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Cinematic Chillout"
             label: Cinematic
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Disney"
             label: Disney
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
-          - entity: script.play_something_somewhere
+          - entity: script.play_something_primary
             data_template:
-              where: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
               what: "Current"
             label: Current
             column_span: 2
@@ -328,6 +322,12 @@ script:
    - service: media_player.select_source
      data_template:
        entity_id: "{{ where }}"
+       source: "{{ what }}"
+  play_something_primary:
+   sequence:
+   - service: media_player.select_source
+     data_template:
+       entity_id: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
        source: "{{ what }}"
   group_from_lr:
     sequence:

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 15:56
+# @Last modified time: 24/06/2018 16:04
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -28,6 +28,7 @@ homeassistant:
       custom_ui_state_card: state-card-tiles
       config:
         columns: 4
+        color_off: "var(--primary-color)"
         entities:
           - entity: script.group_from_lr
             column_span: 2
@@ -593,7 +594,7 @@ automation:
         to: 'on'
     action:
       - service: input_boolean.turn_off
-        entity_id: input_boolean.living_room_one
+        entity_id: input_boolean.pp_living_room_one
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_bedroom_one
       - service: media_player.sonos_join

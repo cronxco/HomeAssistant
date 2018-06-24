@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 17:12
+# @Last modified time: 24/06/2018 17:18
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -363,10 +363,6 @@ script:
       entity_id: input_boolean.master_living_room_one
     - service: input_boolean.turn_off
       entity_id: input_boolean.master_bedroom_one
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.primary_player
-        option: "living_room_one"
   sonos_reset:
     sequence:
     - service: media_player.sonos_unjoin

@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 17:18
+# @Last modified time: 24/06/2018 17:24
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -24,6 +24,8 @@ homeassistant:
       custom_ui_state_card: state-card-mini-media-player
       config:
         player: media_player.spotify
+    input_text.blank_row:
+      custom_ui_state_card: state-card-tiles
     input_text.audio_tiles_lr:
       custom_ui_state_card: state-card-tiles
       config:
@@ -363,13 +365,13 @@ script:
       entity_id: input_boolean.master_living_room_one
     - service: input_boolean.turn_off
       entity_id: input_boolean.master_bedroom_one
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.primary_player
+        option: "living_room_one"
   sonos_reset:
     sequence:
-    - service: media_player.sonos_unjoin
-      data_template:
-        entity_id:
-          - media_player.living_room_one
-          - media_player.bedroom_one
+    - service: script.unjoin_sonos
     - service: media_player.media_stop
       data_template:
         entity_id:
@@ -677,6 +679,8 @@ input_text:
     name: SONOS Group
   audio_tiles_multi:
     name: SONOS Zones
+  blank_row:
+    name: Blank
 input_select:
   where:
     name: Where to speak

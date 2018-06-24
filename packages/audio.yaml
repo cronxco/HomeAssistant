@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 20:34
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 24/06/2018 15:30
+# @Last modified time: 24/06/2018 15:35
 
 # This package deals with what I hope will become whole home audio!
 # Lots more work needed here! TODO: Almost everything!
@@ -392,31 +392,31 @@ group:
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
   sonos_lr:
-    name: Audio: Living Room
+    name: "Audio: Living Room"
     entities:
       - input_text.audio_tiles_lr
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
   sonos_br:
-    name: Audio: Bedroom
+    name: "Audio: Bedroom"
     entities:
       - input_text.audio_tiles_br
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
   sonos_off:
-    name: Audio: SONOS
+    name: "Audio: SONOS"
     entities:
       - input_text.audio_tiles_off
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
   sonos_joined:
-    name: Audio: Whole Home
+    name: "Audio: Whole Home"
     entities:
       - input_text.audio_tiles_joined
       - input_text.dummy_player_lr_one
       - input_text.dummy_player_br_one
   sonos_zone:
-    name: Audio: Multi Zone
+    name: "Audio: Multi Zone"
     entities:
       - input_text.audio_tiles_multi
       - input_text.dummy_player_lr_one

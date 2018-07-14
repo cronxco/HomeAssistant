@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:12
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/04/2018 10:46
+# @Last modified time: 30/06/2018 18:29
 
 # This package deals with the internal climate.
 
@@ -14,16 +14,16 @@ homeassistant:
       friendly_name: 'Indoor Humidity'
     sensor.heating_set_temp:
       friendly_name: 'Target Temperature'
-      icon: mdi:nest-thermostat
+      icon: mdi:thermostat
     sensor.heating_heating:
       friendly_name: 'Heating Power'
       icon: mdi:fire
     sensor.heating_link:
       friendly_name: 'Tado Status'
-      icon: mdi:nest-thermostat
+      icon: mdi:thermostat
     sensor.heating_tado_mode:
       friendly_name: 'Tado Mode'
-      icon: mdi:nest-thermostat
+      icon: mdi:thermostat
 
 tado:
   username: !secret tado_user

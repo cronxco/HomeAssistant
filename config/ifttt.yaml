@@ -1,0 +1,7 @@
+# @Author: Will Scott <willscott>
+# @Date:   14/07/2018 19:34
+# @Project: Ambassadr Home Automation
+# @Last modified by:   willscott
+# @Last modified time: 14/07/2018 19:36
+
+key: !secret ifttt

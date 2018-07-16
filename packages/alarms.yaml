@@ -2,7 +2,7 @@
 # @Date:   12/06/2017 22:03
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 14/07/2018 17:55
+# @Last modified time: 16/07/2018 21:17
 
 # This package deals with alarms
 
@@ -227,21 +227,79 @@ automation:
       - service: script.stream
         data:
           message: "\U0001f4fb I've switched Radio 4 on"
-    # Progressively increase volume
-      - delay: 0:03
+    # Progressively increase volume, made more progressive
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.105
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.11
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.115
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.12
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.125
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.13
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.135
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.14
+      - delay:
+          seconds: 30
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.bedroom_one
+          volume_level: 0.145
+      - delay:
+          seconds: 30
       - service: media_player.volume_set
         data_template:
           entity_id:
             - media_player.bedroom_one
           volume_level: 0.15
-      - delay: 0:02
-      - service: media_player.volume_set
-        data_template:
-          entity_id:
-            - media_player.bedroom_one
-          volume_level: 0.20
       - service: ifttt.trigger
-        data: {"event":"aircoffee_5"}
+        data: {"event":"aircoffee_4"} # Coffee brew size reduced
 
 
   - alias: 'Alarm Reset'

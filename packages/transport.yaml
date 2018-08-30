@@ -2,7 +2,7 @@
 # @Date:   14/06/2017 21:13
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 26/03/2018 14:15
+# @Last modified time: 30/08/2018 12:50
 
 # This package deals with transport
 
@@ -47,6 +47,13 @@ sensor:
       - mode: train
         origin: ECR
         destination: CTK
+  - platform: uk_transport
+    app_id: !secret transport_id_2
+    app_key: !secret transport_key_2
+    queries:
+      - mode: train
+        origin: WIM
+        destination: VXH
 
 group:
   tram:
@@ -74,6 +81,16 @@ zone:
     longitude: -0.092753
     radius: 190
     icon: mdi:train
+  - name: WIM
+    latitude: 51.421433
+    longitude: -0.206384
+    radius: 190
+    icon: mdi:train
+  - name: ECR-west
+    latitude: 51.374167
+    longitude: -0.096599
+    radius: 200
+    icon: mdi:target
 
 script:
   ecr_will:

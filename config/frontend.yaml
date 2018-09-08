@@ -2,7 +2,7 @@
 # @Date:   20/01/2018 12:46
 # @Project: Ambassadr Home Automation
 # @Last modified by:   willscott
-# @Last modified time: 08/02/2018 09:04
+# @Last modified time: 08/09/2018 12:34
 
 javascript_version: auto # Trying to see if auto works well enough
 
@@ -12,7 +12,7 @@ extra_html_url:
   - /local/custom_ui/state-card-westbound.html
   - /local/custom_ui/state-card-traintimes.html
   # Standard Custom UI
-  - /local/custom_ui/state-card-custom-ui.html
+#  - /local/custom_ui/state-card-custom-ui.html
   # Tiles
   - /local/custom_ui/state-card-tiles.html
   # Mini Media Player
@@ -27,7 +27,7 @@ extra_html_url_es5:
   - /local/custom_ui/state-card-westbound.html # no ES5
   - /local/custom_ui/state-card-traintimes.html # no ES5
   # Standard Custom UI
-  - /local/custom_ui/state-card-custom-ui-es5.html
+#  - /local/custom_ui/state-card-custom-ui-es5.html
   # Tiles
   - /local/custom_ui/state-card-tiles_es5.html
   # Mini Media Player

@@ -7,6 +7,7 @@ stages:
 test:
   stage: test
   script:
+    - pip3 install timezonefinder
     - cd /usr/src/app
     - cp $CI_PROJECT_DIR/ci_secrets.yaml $CI_PROJECT_DIR/secrets.yaml
     - /usr/local/bin/python -m homeassistant --config $CI_PROJECT_DIR/ --script check_config

@@ -15,10 +15,11 @@ from homeassistant.helpers.dispatcher import dispatcher_connect
 from homeassistant.helpers.event import track_state_change
 from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.components.light import (
-    is_on, turn_on)
+    is_on, ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, ATTR_RGB_COLOR, ATTR_TRANSITION,
+    ATTR_WHITE_VALUE, ATTR_XY_COLOR, DOMAIN as LIGHT_DOMAIN, VALID_TRANSITION)
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import (
-    CONF_NAME, CONF_PLATFORM, STATE_ON)
+    CONF_NAME, CONF_PLATFORM, STATE_ON, SERVICE_TURN_ON)
 from homeassistant.util import slugify
 from homeassistant.util.color import (
     color_RGB_to_xy, color_temperature_kelvin_to_mired, color_temperature_to_rgb)
@@ -263,39 +264,47 @@ class CircadianSwitch(SwitchDevice):
                 if self._attributes['lights_ct'] is not None and light in self._attributes['lights_ct']:
                     mired = int(self.calc_ct())
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
-                                color_temp=mired,
-                                brightness=brightness,
-                                transition=transition)
+                        service_data = {ATTR_ENTITY_ID: light}
+                        service_data[ATTR_COLOR_TEMP] = int(mired)
+                        service_data[ATTR_BRIGHTNESS] = brightness
+                        service_data[ATTR_TRANSITION] = transition
+                        hass.services.call(
+                            LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " CT Adjusted - color_temp: " + str(mired) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
 
                 """Set color of array of rgb light."""
                 if self._attributes['lights_rgb'] is not None and light in self._attributes['lights_rgb']:
                     rgb = self.calc_rgb()
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
-                                rgb_color=rgb,
-                                brightness=brightness,
-                                transition=transition)
+                        service_data = {ATTR_ENTITY_ID: light}
+                        service_data[ATTR_RGB_COLOR] = rgb
+                        service_data[ATTR_BRIGHTNESS] = brightness
+                        service_data[ATTR_TRANSITION] = transition
+                        hass.services.call(
+                            LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " RGB Adjusted - rgb_color: " + str(rgb) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
 
                 """Set color of array of xy light."""
                 if self._attributes['lights_xy'] is not None and light in self._attributes['lights_xy']:
                     x_val, y_val = self.calc_xy()
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
-                                xy_color=[x_val, y_val],
-                                brightness=brightness,
-                                transition=transition,
-                                white_value=brightness)
-                        _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + srt(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(white_value))
+                        service_data = {ATTR_ENTITY_ID: light}
+                        service_data[ATTR_XY_COLOR] = [x_val, y_val]
+                        service_data[ATTR_BRIGHTNESS] = brightness
+                        service_data[ATTR_WHITE_VALUE] = brightness
+                        service_data[ATTR_TRANSITION] = transition
+                        hass.services.call(
+                            LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
+                        _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + srt(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(brightness))
 
                 """Set color of array of brightness light."""
                 if self._attributes['lights_brightness'] is not None and light in self._attributes['lights_brightness']:
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
-                                brightness=brightness,
-                                transition=transition)
+                        service_data = {ATTR_ENTITY_ID: light}
+                        service_data[ATTR_BRIGHTNESS] = brightness
+                        service_data[ATTR_TRANSITION] = transition
+                        hass.services.call(
+                            LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " Brightness Adjusted - brightness: " + str(brightness) + ", transition: " + str(transition))
 
     def light_state_changed(self, entity_id, from_state, to_state):

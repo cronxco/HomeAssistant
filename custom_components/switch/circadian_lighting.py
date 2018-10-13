@@ -15,10 +15,10 @@ from homeassistant.helpers.dispatcher import dispatcher_connect
 from homeassistant.helpers.event import track_state_change
 from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.components.light import (
-    is_on, service_turn_on)
+    is_on)
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import (
-    CONF_NAME, CONF_PLATFORM, STATE_ON)
+    CONF_NAME, CONF_PLATFORM, STATE_ON, SERVICE_TURN_ON)
 from homeassistant.util import slugify
 from homeassistant.util.color import (
     color_RGB_to_xy, color_temperature_kelvin_to_mired, color_temperature_to_rgb)
@@ -263,7 +263,7 @@ class CircadianSwitch(SwitchDevice):
                 if self._attributes['lights_ct'] is not None and light in self._attributes['lights_ct']:
                     mired = int(self.calc_ct())
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
+                        service_turn_on(self.hass, light,
                                 color_temp=mired,
                                 brightness=brightness,
                                 transition=transition)
@@ -273,7 +273,7 @@ class CircadianSwitch(SwitchDevice):
                 if self._attributes['lights_rgb'] is not None and light in self._attributes['lights_rgb']:
                     rgb = self.calc_rgb()
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
+                        service_turn_on(self.hass, light,
                                 rgb_color=rgb,
                                 brightness=brightness,
                                 transition=transition)
@@ -283,7 +283,7 @@ class CircadianSwitch(SwitchDevice):
                 if self._attributes['lights_xy'] is not None and light in self._attributes['lights_xy']:
                     x_val, y_val = self.calc_xy()
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
+                        service_turn_on(self.hass, light,
                                 xy_color=[x_val, y_val],
                                 brightness=brightness,
                                 transition=transition,
@@ -293,7 +293,7 @@ class CircadianSwitch(SwitchDevice):
                 """Set color of array of brightness light."""
                 if self._attributes['lights_brightness'] is not None and light in self._attributes['lights_brightness']:
                     if is_on(self.hass, light):
-                        turn_on(self.hass, light,
+                        service_turn_on(self.hass, light,
                                 brightness=brightness,
                                 transition=transition)
                         _LOGGER.debug(light + " Brightness Adjusted - brightness: " + str(brightness) + ", transition: " + str(transition))

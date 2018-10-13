@@ -267,7 +267,7 @@ class CircadianSwitch(SwitchDevice):
                         service_data[ATTR_COLOR_TEMP] = int(mired)
                         service_data[ATTR_BRIGHTNESS] = brightness
                         service_data[ATTR_TRANSITION] = transition
-                        hass.services.call(
+                        self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " CT Adjusted - color_temp: " + str(mired) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
 
@@ -279,7 +279,7 @@ class CircadianSwitch(SwitchDevice):
                         service_data[ATTR_RGB_COLOR] = rgb
                         service_data[ATTR_BRIGHTNESS] = brightness
                         service_data[ATTR_TRANSITION] = transition
-                        hass.services.call(
+                        self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " RGB Adjusted - rgb_color: " + str(rgb) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
 
@@ -292,7 +292,7 @@ class CircadianSwitch(SwitchDevice):
                         service_data[ATTR_BRIGHTNESS] = brightness
                         service_data[ATTR_WHITE_VALUE] = brightness
                         service_data[ATTR_TRANSITION] = transition
-                        hass.services.call(
+                        self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + srt(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(brightness))
 
@@ -302,7 +302,7 @@ class CircadianSwitch(SwitchDevice):
                         service_data = {ATTR_ENTITY_ID: light}
                         service_data[ATTR_BRIGHTNESS] = brightness
                         service_data[ATTR_TRANSITION] = transition
-                        hass.services.call(
+                        self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " Brightness Adjusted - brightness: " + str(brightness) + ", transition: " + str(transition))
 

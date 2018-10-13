@@ -12,6 +12,18 @@ homeassistant:
       # By default I don't want individual lights exposed to Alexa via emulated hue. I think this is actually slightly redundant as I could just the light domain from the emulated hue settings.
       emulated_hue_hidden: false
 
+circadian_lighting:
+  interval: 300
+  transition: 300
+
+switch:
+  - platform: circadian_lighting
+    name: Bathroom lights
+    lights_xy:
+      - light.bathroom
+      - light.ensuite
+    max_brightness: 80
+
 
 light:
   - platform: lifx

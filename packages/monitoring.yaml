@@ -34,6 +34,7 @@ homeassistant:
       friendly_name: Memory use
     sensor.basecamp_living_room_air_quality:
       friendly_name: Air Quality
+      unit_of_measurement: AQU
 
 switch:
   - platform: tplink

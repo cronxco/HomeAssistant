@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.mode
+    state: "Holiday"
+card:
+  type: markdown
+  title: Holiday
+  content: >
+    Welcome to your **Lovelace UI**.

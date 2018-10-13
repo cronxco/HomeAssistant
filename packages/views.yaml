@@ -66,6 +66,8 @@ homeassistant:
     group.all_lights:
       hidden: false
 
+shell_command:
+  lovelace_gen: 'python ~/.homeassistant/lovelace-gen.py'
 
 sensor:
  - platform: template

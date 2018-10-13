@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.mode
+    state: "Film"
+card:
+  type: markdown
+  title: Film
+  content: >
+    Welcome to your **Lovelace UI**.

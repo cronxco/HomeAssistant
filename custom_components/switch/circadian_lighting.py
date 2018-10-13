@@ -294,7 +294,7 @@ class CircadianSwitch(SwitchDevice):
                         service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
-                        _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + srt(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(brightness))
+                        _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + str(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(brightness))
 
                 """Set color of array of brightness light."""
                 if self._attributes['lights_brightness'] is not None and light in self._attributes['lights_brightness']:

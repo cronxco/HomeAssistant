@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# coding=utf-8
 # The MIT License (MIT)
 
 # Copyright (c) 2018 Thomas Lovén

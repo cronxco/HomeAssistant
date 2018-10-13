@@ -18,8 +18,7 @@ from homeassistant.components.light import (
     is_on, ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, ATTR_RGB_COLOR, ATTR_TRANSITION,
     ATTR_WHITE_VALUE, ATTR_XY_COLOR, DOMAIN as LIGHT_DOMAIN, VALID_TRANSITION)
 from homeassistant.components.switch import SwitchDevice
-from homeassistant.const import (
-    CONF_NAME, CONF_PLATFORM, STATE_ON, SERVICE_TURN_ON)
+from homeassistant.const import ( ATTR_ENTITY_ID, CONF_NAME, CONF_PLATFORM, CONF_LIGHTS, CONF_MODE, SERVICE_TURN_ON)
 from homeassistant.util import slugify
 from homeassistant.util.color import (
     color_RGB_to_xy, color_temperature_kelvin_to_mired, color_temperature_to_rgb)

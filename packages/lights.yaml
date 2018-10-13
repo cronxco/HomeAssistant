@@ -19,7 +19,7 @@ circadian_lighting:
 switch:
   - platform: circadian_lighting
     name: Bathroom lights
-    lights_xy:
+    lights_ct:
       - light.bathroom
       - light.ensuite
     max_brightness: 80

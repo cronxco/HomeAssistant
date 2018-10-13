@@ -15,10 +15,10 @@ from homeassistant.helpers.dispatcher import dispatcher_connect
 from homeassistant.helpers.event import track_state_change
 from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.components.light import (
-    is_on)
+    is_on, turn_on)
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import (
-    CONF_NAME, CONF_PLATFORM, STATE_ON, SERVICE_TURN_ON)
+    CONF_NAME, CONF_PLATFORM, STATE_ON)
 from homeassistant.util import slugify
 from homeassistant.util.color import (
     color_RGB_to_xy, color_temperature_kelvin_to_mired, color_temperature_to_rgb)

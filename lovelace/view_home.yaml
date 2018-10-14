@@ -1,4 +1,4 @@
-icon: mdi:home-assistant
+icon: mdi:home
 title: Home
 # Optional unique id for direct access /lovelace/${id}
 id: home
@@ -38,7 +38,7 @@ cards:
 
     # Internal
       # Temperature, air quality, alerts (power, humidity, plants)
-  - type: custom:vertical-stack-in-card
+  - type: vertical-stack
     title: Internal
     cards:
       - !include card_alert_power.yaml
@@ -49,32 +49,34 @@ cards:
         entity: sensor.heating_temperature
         name: Temperature
         graph: line
-        line_color: "#3498db"
+        line_color: "#ff5722"
         icon: mid:thermometer
       - type: sensor
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality
         graph: line
-        line_color: "#3498db"
+        line_color: "#757575"
         icon: mid:home-heart
 
 
     # External
       # Weather, air quality, UV, rain alert
-  - type: custom:vertical-stack-in-card
+  - type: vertical-stack
     title: External
     cards:
       - !include card_alert_rain.yaml
       - type: weather-forecast
         entity: weather.dark_sky
-      - type: gauge
-        max: 150
-        entity: sensor.waqi_sutton__beddington_lane_north_united_kingdom
-        severity:
-          green: 0
-          yellow: 50
-          red: 100
       - type: entities
         show_header_toggle: false
         entities:
           - sensor.current_uv_level
+      - type: gauge
+        max: 150
+        entity: sensor.waqi_sutton__beddington_lane_north_united_kingdom
+        title: Air Quality
+        unit_of_measurement: AQ
+        severity:
+          green: 0
+          yellow: 50
+          red: 100

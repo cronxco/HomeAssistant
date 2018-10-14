@@ -55,6 +55,7 @@ weather:
   - platform: darksky
     api_key: !secret darksky2
     units: uk
+    mode: daily
 
 sensor:
   # The Dark Sky sensor gives additional metrics like apparent_temperature and cloud_cover (needed for sunset automations).
@@ -68,7 +69,7 @@ sensor:
       - humidity
       - cloud_cover
       - hourly_summary
-      - temperature_max
+      - temperature_high
       - precip_intensity_max
   # WAQI is an air quality sensor
   - platform: waqi

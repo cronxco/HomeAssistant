@@ -8,18 +8,18 @@ theme: midnight-remake
 cards:
 
     # SmartCard
-  - !include smartcard/dawn.yaml
-  - !include card_smartcard_morning.yaml
-  - !include card_smartcard_afternoon.yaml
-  - !include card_smartcard_evening.yaml
-  - !include card_smartcard_night.yaml
-  - !include card_smartcard_away.yaml
-  - !include card_smartcard_holiday.yaml
-  - !include card_smartcard_guest.yaml
-  - !include card_smartcard_romance.yaml
-  - !include card_smartcard_party.yaml
-  - !include card_smartcard_quiet.yaml
-  - !include card_smartcard_film.yaml
+  - !include home/smartcard/dawn.yaml
+  - !include home/smartcard/morning.yaml
+  - !include home/smartcard/afternoon.yaml
+  - !include home/smartcard/evening.yaml
+  - !include home/smartcard/night.yaml
+  - !include home/smartcard/away.yaml
+  - !include home/smartcard/holiday.yaml
+  - !include home/smartcard/guest.yaml
+  - !include home/smartcard/romance.yaml
+  - !include home/smartcard/party.yaml
+  - !include home/smartcard/quiet.yaml
+  - !include home/smartcard/film.yaml
 
 
     # Lights
@@ -41,10 +41,10 @@ cards:
   - type: vertical-stack
     title: Internal
     cards:
-      - !include card_alert_power.yaml
-      - !include card_alert_heating.yaml
-      - !include card_alert_humidity.yaml
-      - !include card_alert_plants.yaml
+      - !include home/alert/power.yaml
+      - !include home/alert/heating.yaml
+      - !include home/alert/humidity.yaml
+      - !include home/alert/plants.yaml
       - type: sensor
         entity: sensor.heating_temperature
         name: Temperature
@@ -64,7 +64,7 @@ cards:
   - type: vertical-stack
     title: External
     cards:
-      - !include card_alert_rain.yaml
+      - !include home/alert/rain.yaml
       - type: weather-forecast
         entity: weather.dark_sky
       - type: entities

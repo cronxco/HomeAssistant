@@ -46,7 +46,6 @@ cards:
       - !include home/alert/humidity.yaml
       - !include home/alert/plants.yaml
       - type: custom:thermostat-card
-        title: Heating
         entity: climate.heating
       - type: sensor
         entity: sensor.heating_temperature
@@ -78,6 +77,20 @@ cards:
         show_header_toggle: false
         entities:
           - sensor.current_uv_level
+      - type: custom:bignumber-card
+        title: UV
+        entity: sensor.current_uv_index
+        scale: 30px
+        from: left
+        min: 0
+        max: 10
+        severity:
+          - value: 5
+            style: 'var(--label-badge-green)'
+          - value: 7
+            style: 'var(--label-badge-yellow)'
+          - value: 10
+            style: 'var(--label-badge-red)'
       - type: gauge
         max: 150
         entity: sensor.waqi_sutton__beddington_lane_north_united_kingdom

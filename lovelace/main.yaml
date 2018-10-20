@@ -7,6 +7,7 @@ title: Cronx
 resources:
   - url: !resource thermostat-card/thermostat-card.js
     type: module
+  - url: !resource bignumber-card/bignumber-card.js
 
 # Exclude entities from "Unused entities" view
 # excluded_entities:

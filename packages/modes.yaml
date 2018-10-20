@@ -32,6 +32,10 @@ input_boolean:
     name: Film
     icon: mdi:movie
 
+  sleep_mode:
+    name: Sleep
+    icon: mdi:sleep
+
 group:
   manual_modes:
     name: Manual Modes

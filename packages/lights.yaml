@@ -22,22 +22,37 @@ switch:
     lights_ct:
       - light.bathroom
       - light.ensuite
+      - light.kitchen
     max_brightness: 80
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
+    sleep_brightness: 2
   - platform: circadian_lighting
     name: Hall
     lights_ct:
       - light.hall
     max_brightness: 60
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
+    sleep_brightness: 5
   - platform: circadian_lighting
     name: Living
     lights_ct:
-      - light.living_room
+      - light.sofa
+      - light.dining
       - light.map_room
     disable_brightness_adjust: true
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
   - platform: circadian_lighting
     name: Bedroom
     lights_ct:
-      - light.bedroom
+      - light.main
+      - light.daniel_side
+      - light.will_side
     disable_brightness_adjust: true
     disable_entity: input_boolean.alarm
     disable_state: "on"

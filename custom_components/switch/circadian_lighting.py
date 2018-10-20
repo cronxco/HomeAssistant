@@ -264,9 +264,12 @@ class CircadianSwitch(SwitchDevice):
                     mired = int(self.calc_ct())
                     if is_on(self.hass, light):
                         service_data = {ATTR_ENTITY_ID: light}
-                        service_data[ATTR_COLOR_TEMP] = int(mired)
-                        service_data[ATTR_BRIGHTNESS] = brightness
-                        service_data[ATTR_TRANSITION] = transition
+                        if mired is not None:
+                            service_data[ATTR_COLOR_TEMP] = int(mired)
+                        if brightness is not None:
+                            service_data[ATTR_BRIGHTNESS] = brightness
+                        if transition is not None:
+                            service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " CT Adjusted - color_temp: " + str(mired) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
@@ -276,9 +279,10 @@ class CircadianSwitch(SwitchDevice):
                     rgb = self.calc_rgb()
                     if is_on(self.hass, light):
                         service_data = {ATTR_ENTITY_ID: light}
-                        service_data[ATTR_RGB_COLOR] = rgb
-                        service_data[ATTR_BRIGHTNESS] = brightness
-                        service_data[ATTR_TRANSITION] = transition
+                        if rgb is not None:
+                            service_data[ATTR_RGB_COLOR] = rgb
+                        if transition is not None:
+                            service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " RGB Adjusted - rgb_color: " + str(rgb) + ", brightness: " + str(brightness) + ", transition: " + str(transition))
@@ -288,10 +292,13 @@ class CircadianSwitch(SwitchDevice):
                     x_val, y_val = self.calc_xy()
                     if is_on(self.hass, light):
                         service_data = {ATTR_ENTITY_ID: light}
-                        service_data[ATTR_XY_COLOR] = [x_val, y_val]
-                        service_data[ATTR_BRIGHTNESS] = brightness
-                        service_data[ATTR_WHITE_VALUE] = brightness
-                        service_data[ATTR_TRANSITION] = transition
+                        if x_val is not None and y_val is not None:
+                            service_data[ATTR_XY_COLOR] = [x_val, y_val]
+                        if brightness is not None:
+                            service_data[ATTR_BRIGHTNESS] = brightness
+                            service_data[ATTR_WHITE_VALUE] = brightness
+                        if transition is not None:
+                            service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " XY Adjusted - xy_color: [" + str(x_val) + ", " + str(y_val) + "], brightness: " + str(brightness) + ", transition: " + str(transition) + ", white_value: " + str(brightness))

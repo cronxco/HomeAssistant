@@ -109,6 +109,8 @@ automation:
               entity_id: input_boolean.will_home
               state: 'on'
     action:
+        - service: homeassistant.turn_off
+          entity_id: switch.circadian_lighting_bedroom
         - service: script.stream
           data:
             message: "\U000023f0 Will's alarm has triggered"
@@ -298,6 +300,8 @@ automation:
           entity_id:
             - media_player.bedroom_one
           volume_level: 0.15
+      - service: homeassistant.turn_off
+        entity_id: input_select.sleep_mode
       - service: ifttt.trigger
         data: {"event":"aircoffee_4"} # Coffee brew size reduced
 
@@ -321,6 +325,8 @@ automation:
     action:
       - service: media_player.turn_off
         entity_id: media_player.bedroom_one
+      - service: homeassistant.turn_on
+        entity_id: switch.circadian_lighting_bedroom
 
 # Incremental (currently very white!) wake up scenes.
 

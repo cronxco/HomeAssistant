@@ -8,7 +8,7 @@ theme: midnight-remake
 cards:
 
     # SmartCard
-  - !include card_smartcard_dawn.yaml
+  - !include smartcard/dawn.yaml
   - !include card_smartcard_morning.yaml
   - !include card_smartcard_afternoon.yaml
   - !include card_smartcard_evening.yaml

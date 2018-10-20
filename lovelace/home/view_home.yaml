@@ -52,6 +52,7 @@ cards:
         line_color: "#ff5722"
         icon: mid:thermometer
         accuracy: 50
+        hours_to_show: 6
       - type: sensor
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality
@@ -59,6 +60,7 @@ cards:
         line_color: "#757575"
         icon: mid:home-heart
         accuracy: 50
+        hours_to_show: 6
 
 
     # External

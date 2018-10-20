@@ -51,12 +51,14 @@ cards:
         graph: line
         line_color: "#ff5722"
         icon: mid:thermometer
+        accuracy: 50
       - type: sensor
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality
         graph: line
         line_color: "#757575"
         icon: mid:home-heart
+        accuracy: 50
 
 
     # External

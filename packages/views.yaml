@@ -67,7 +67,7 @@ homeassistant:
       hidden: false
 
 shell_command:
-  lovelace_gen: 'python3 /home/homeassistant/.homeassistant/lovelace-gen.py'
+  lovelace_gen: 'bash /home/homeassistant/.homeassistant/scripts/lovelace_gen.sh'
 
 sensor:
  - platform: template

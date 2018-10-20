@@ -18,12 +18,44 @@ circadian_lighting:
 
 switch:
   - platform: circadian_lighting
-    name: Bathroom lights
+    name: Bathroom
     lights_ct:
       - light.bathroom
       - light.ensuite
+      - light.kitchen
     max_brightness: 80
-
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
+    sleep_brightness: 2
+  - platform: circadian_lighting
+    name: Hall
+    lights_ct:
+      - light.hall
+    max_brightness: 60
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
+    sleep_brightness: 5
+  - platform: circadian_lighting
+    name: Living
+    lights_ct:
+      - light.sofa
+      - light.dining
+      - light.map_room
+    disable_brightness_adjust: true
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: on
+    sleep_colortemp: 5500
+  - platform: circadian_lighting
+    name: Bedroom
+    lights_ct:
+      - light.main
+      - light.daniel_side
+      - light.will_side
+    disable_brightness_adjust: true
+    disable_entity: input_boolean.alarm
+    disable_state: "on"
 
 light:
   - platform: lifx
@@ -86,3 +118,18 @@ group:
     - light.utility
     - light.kitchen
     - light.ensuite
+
+automation:
+  - alias: 'Enable Circadian Lighting'
+    initial_state: 'on'
+    trigger:
+     - platform: homeassistant
+       event: start
+    action:
+      service: homeassistant.turn_on
+      data:
+        entity_id:
+          - switch.circadian_lighting_bathroom
+          - switch.circadian_lighting_hall
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom

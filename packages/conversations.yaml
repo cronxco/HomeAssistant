@@ -209,6 +209,13 @@ automation:
         entity_id: input_boolean.good_night
         to: 'on'
     action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id:
+            - switch.circadian_lighting_bathroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living
+            - switch.circadian_lighting_bedroom
       - service: scene.turn_on
         entity_id: scene.good_night_lights
       - service: homeassistant.turn_off
@@ -241,6 +248,15 @@ automation:
       - service: script.stream
         data:
           message: "\U0001f319 Good night!"
+      - service: homeassistant.turn_on
+        entity_id: input_select.sleep_mode
+      - service: homeassistant.turn_off
+        data:
+          entity_id:
+            - switch.circadian_lighting_bathroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living
+            - switch.circadian_lighting_bedroom
 
   - alias: 'Goodbye'
     trigger:

@@ -74,7 +74,7 @@ media_player:
   - platform: alexa
     email: !secret alexa_user
     password: !secret alexa_pwd
-    url: “amazon.co.uk”
+    url: amazon.co.uk
 
 remote:
   - platform: harmony

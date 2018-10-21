@@ -15,7 +15,6 @@ homeassistant:
 circadian_lighting:
   interval: 300
   transition: 300
-  sunrise_offset: 01:00:00
 
 switch:
   - platform: circadian_lighting
@@ -27,7 +26,7 @@ switch:
     max_brightness: 80
     sleep_entity: input_boolean.sleep_mode
     sleep_state: on
-    sleep_colortemp: 5500
+    sleep_colortemp: 2500
     sleep_brightness: 2
   - platform: circadian_lighting
     name: Hall
@@ -36,7 +35,7 @@ switch:
     max_brightness: 60
     sleep_entity: input_boolean.sleep_mode
     sleep_state: on
-    sleep_colortemp: 5500
+    sleep_colortemp: 2500
     sleep_brightness: 5
   - platform: circadian_lighting
     name: Living
@@ -47,7 +46,7 @@ switch:
     disable_brightness_adjust: true
     sleep_entity: input_boolean.sleep_mode
     sleep_state: on
-    sleep_colortemp: 5500
+    sleep_colortemp: 2500
   - platform: circadian_lighting
     name: Bedroom
     lights_ct:

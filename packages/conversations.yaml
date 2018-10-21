@@ -250,7 +250,7 @@ automation:
           message: "\U0001f319 Good night!"
       - service: homeassistant.turn_on
         entity_id: input_select.sleep_mode
-      - service: homeassistant.turn_off
+      - service: homeassistant.turn_on
         data:
           entity_id:
             - switch.circadian_lighting_bathroom

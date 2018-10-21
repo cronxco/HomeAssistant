@@ -71,6 +71,10 @@ media_player:
   - platform: ps4
     host: !secret ps4ip
     imagemap_json: games.json
+  - platform: alexa
+      email: !secret alexa_user
+      password: !secret alexa_pwd
+      url: “amazon.co.uk”
 
 remote:
   - platform: harmony
@@ -127,7 +131,7 @@ automation:
         to: 'off'
     action:
       - service: media_player.turn_off
-        entity_id: media_player.livingroomtv    
+        entity_id: media_player.livingroomtv
 
   - alias: 'Auto Film Mode On'
     # Either thing changing will trigger film mode however both need to be true for it to turn on.

@@ -16,9 +16,11 @@ from homeassistant.helpers.event import track_state_change
 from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.components.light import (
     is_on, ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, ATTR_RGB_COLOR, ATTR_TRANSITION,
-    ATTR_WHITE_VALUE, ATTR_XY_COLOR, DOMAIN as LIGHT_DOMAIN, VALID_TRANSITION)
+    ATTR_WHITE_VALUE, ATTR_XY_COLOR, DOMAIN as LIGHT_DOMAIN)
 from homeassistant.components.switch import SwitchDevice
-from homeassistant.const import ( ATTR_ENTITY_ID, CONF_NAME, CONF_PLATFORM, CONF_LIGHTS, CONF_MODE, SERVICE_TURN_ON)
+from homeassistant.const import (
+    ATTR_ENTITY_ID, CONF_NAME, CONF_PLATFORM, STATE_ON,
+    SERVICE_TURN_ON)
 from homeassistant.util import slugify
 from homeassistant.util.color import (
     color_RGB_to_xy, color_temperature_kelvin_to_mired, color_temperature_to_rgb)
@@ -281,6 +283,8 @@ class CircadianSwitch(SwitchDevice):
                         service_data = {ATTR_ENTITY_ID: light}
                         if rgb is not None:
                             service_data[ATTR_RGB_COLOR] = rgb
+                        if brightness is not None:
+                            service_data[ATTR_BRIGHTNESS] = brightness
                         if transition is not None:
                             service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
@@ -307,8 +311,10 @@ class CircadianSwitch(SwitchDevice):
                 if self._attributes['lights_brightness'] is not None and light in self._attributes['lights_brightness']:
                     if is_on(self.hass, light):
                         service_data = {ATTR_ENTITY_ID: light}
-                        service_data[ATTR_BRIGHTNESS] = brightness
-                        service_data[ATTR_TRANSITION] = transition
+                        if brightness is not None:
+                            service_data[ATTR_BRIGHTNESS] = brightness
+                        if transition is not None:
+                            service_data[ATTR_TRANSITION] = transition
                         self.hass.services.call(
                             LIGHT_DOMAIN, SERVICE_TURN_ON, service_data)
                         _LOGGER.debug(light + " Brightness Adjusted - brightness: " + str(brightness) + ", transition: " + str(transition))

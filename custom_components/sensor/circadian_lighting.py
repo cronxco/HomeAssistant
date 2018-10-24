@@ -11,8 +11,7 @@ from custom_components.circadian_lighting import DOMAIN, CIRCADIAN_LIGHTING_UPDA
 from homeassistant.helpers.dispatcher import dispatcher_connect
 from homeassistant.helpers.entity import Entity
 
-import astral
-from datetime import datetime, timedelta
+import datetime
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -83,7 +82,7 @@ class CircadianSensor(Entity):
     @property
     def device_state_attributes(self):
         """Return the attributes of the sensor."""
-        return dict((k,str(v)) for k,v in self._attributes.items())
+        return dict((k,str(v) if isinstance(v, datetime.time) or isinstance(v, datetime.timedelta) else v) for k,v in self._attributes.items())
 
     def update(self):
         """Fetch new state data for the sensor.

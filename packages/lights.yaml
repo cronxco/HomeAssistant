@@ -57,8 +57,11 @@ switch:
     disable_entity: input_boolean.alarm
     disable_state: "on"
 
+lifx:
+
 light:
-  - platform: lifx
+  # LIFX now has to be configured differently
+  # - platform: lifx
   # IKEA Trädfri now here (through autoconfig)
   - platform: group
     name: Kitchen

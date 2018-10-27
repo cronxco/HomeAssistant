@@ -15,6 +15,7 @@ homeassistant:
 circadian_lighting:
   interval: 300
   transition: 300
+  sunset_offset: '0:45'
 
 switch:
   - platform: circadian_lighting

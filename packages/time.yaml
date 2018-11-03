@@ -49,11 +49,11 @@ automation:
     condition:
       # No point if it's already on!
       - condition: state
-        entity_id: 'input_boolean.sleep_mode'
+        entity_id: input_boolean.sleep_mode
         state: 'off'
     action:
       - service: homeassistant.turn_on
-        entity_id: input_select.sleep_mode
+        entity_id: input_boolean.sleep_mode
 
 # 1: 04:30: Reset everything (but not guest_mode or holiday_mode), turn on dawn_mode and turn off night_mode.
 # Aside: this is also when the presence module checks to see if anyone is home - if not then holiday_mode is automagically switched on.
@@ -131,11 +131,11 @@ automation:
         at: '08:30:00'
     condition:
       - condition: state
-        entity_id: 'input_boolean.sleep_mode'
+        entity_id: input_boolean.sleep_mode
         state: 'on'
     action:
       - service: homeassistant.turn_off
-        entity_id: input_select.sleep_mode
+        entity_id: input_boolean.sleep_mode
 
 
 # 3: Midday: Turn off Morning and turn on Afternoon.

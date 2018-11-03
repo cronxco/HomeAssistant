@@ -5,9 +5,12 @@ title: Cronx
 #   - url: !resource vertical-stack-in-card/vertical-stack-in-card.js
 #     type: js
 resources:
-  - url: !resource thermostat-card/thermostat-card.js
+  - url: !resource custom/thermostat-card.js
     type: module
-  - url: !resource bignumber-card/bignumber-card.js
+  - url: !resource custom/bignumber-card.js
+    type: js
+  - url: !resource custom/mini-media-player.js
+    type: module
 
 # Exclude entities from "Unused entities" view
 # excluded_entities:

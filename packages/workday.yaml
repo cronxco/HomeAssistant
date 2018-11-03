@@ -23,7 +23,7 @@ sensor:
     sensors:
       date_tomorrow:
         friendly_name: "Tomorrow's date"
-        value_template: "{{ (as_timestamp(states('sensor.date'))+ (1*86400))| timestamp_custom('%Y-%m-%d')}}"
+        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d')}}"
       dan_workday_today:
         friendly_name: "Is Dan working today?"
         value_template: "{{ states('sensor.date') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"

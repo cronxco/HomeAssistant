@@ -45,7 +45,7 @@ cards:
       - !include home/alert/heating.yaml
       - !include home/alert/humidity.yaml
       - !include home/alert/plants.yaml
-      - type: thermostat
+      - type: custom:thermostat-card
         entity: climate.heating
       - type: sensor
         entity: sensor.heating_temperature

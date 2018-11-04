@@ -112,7 +112,7 @@ automation:
     trigger:
          platform: zone
          entity_id: device_tracker.will_iphone
-         zone: zone.ecr
+         zone: zone.ecr-west
          event: enter
     condition:
       # If it's a work day and a reasonable commuting time.
@@ -127,6 +127,9 @@ automation:
         before: '10:00:00'
       - condition: time
         after: '05:30:00'
+      - condition: template
+        value_template: >-
+          {{ ((as_timestamp(now()) - as_timestamp(states.automation.will_at_ecr.attributes.last_triggered))) > 3600 }}
     action:
         - service: script.ecr_will
         - service: script.stream
@@ -137,7 +140,7 @@ automation:
     trigger:
          platform: zone
          entity_id: device_tracker.dan_iphone
-         zone: zone.ecr
+         zone: zone.ecr-west
          event: enter
     condition:
       # If it's a work day and a reasonable commuting time.
@@ -152,6 +155,9 @@ automation:
         before: '10:00:00'
       - condition: time
         after: '05:30:00'
+      - condition: template
+        value_template: >-
+          {{ ((as_timestamp(now()) - as_timestamp(states.automation.dan_at_ecr.attributes.last_triggered))) > 3600 }}
     action:
         - service: script.ecr_dan
         - service: script.stream

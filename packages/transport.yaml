@@ -112,7 +112,7 @@ automation:
     trigger:
          platform: zone
          entity_id: device_tracker.will_iphone
-         zone: zone.ecr-west
+         zone: zone.ecrwest
          event: enter
     condition:
       # If it's a work day and a reasonable commuting time.
@@ -140,7 +140,7 @@ automation:
     trigger:
          platform: zone
          entity_id: device_tracker.dan_iphone
-         zone: zone.ecr-west
+         zone: zone.ecrwest
          event: enter
     condition:
       # If it's a work day and a reasonable commuting time.

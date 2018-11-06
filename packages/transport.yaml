@@ -129,7 +129,7 @@ automation:
         after: '05:30:00'
       - condition: template
         value_template: >-
-          {{ ((as_timestamp(now()) - as_timestamp(states.automation.will_at_ecr.attributes.last_triggered))) > 3600 }}
+          {% if states.automation.will_at_ecr.attributes.last_triggered is none %}true{% else %}{{((as_timestamp(now()) - as_timestamp(states.automation.will_at_ecr.attributes.last_triggered))) > 3600}}{% endif %}
     action:
         - service: script.ecr_will
         - service: script.stream
@@ -157,7 +157,7 @@ automation:
         after: '05:30:00'
       - condition: template
         value_template: >-
-          {{ ((as_timestamp(now()) - as_timestamp(states.automation.dan_at_ecr.attributes.last_triggered))) > 3600 }}
+          {% if states.automation.dan_at_ecr.attributes.last_triggered is none %}true{% else %}{{((as_timestamp(now()) - as_timestamp(states.automation.dan_at_ecr.attributes.last_triggered))) > 3600}}{% endif %}
     action:
         - service: script.ecr_dan
         - service: script.stream

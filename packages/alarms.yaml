@@ -301,7 +301,7 @@ automation:
             - media_player.bedroom_one
           volume_level: 0.15
       - service: homeassistant.turn_off
-        entity_id: input_select.sleep_mode
+        entity_id: input_boolean.sleep_mode
       - service: ifttt.trigger
         data: {"event":"aircoffee_4"} # Coffee brew size reduced
 

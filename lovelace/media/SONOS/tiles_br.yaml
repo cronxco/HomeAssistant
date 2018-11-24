@@ -8,7 +8,7 @@ card:
   cards:
     - type: markdown
       title: SONOS
-      content: ""
+      content: " "
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"

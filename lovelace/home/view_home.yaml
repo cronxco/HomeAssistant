@@ -85,7 +85,7 @@ cards:
   - type: conditional
     conditions:
       - entity: input_boolean.developer_mode
-        state: on
+        state: "on"
     card:
       type: entities
       title: Advanced Light Settings

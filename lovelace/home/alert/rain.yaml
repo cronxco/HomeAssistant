@@ -1,7 +1,7 @@
 type: conditional
 conditions:
   - entity: sensor.alert_rain
-    state: true
+    state: "true"
 card:
   type: markdown
   title: Rain

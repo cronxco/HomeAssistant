@@ -7,7 +7,7 @@ card:
   title: SONOS
   cards:
     - type: markdown
-      title: SONOS
+      title: "SONOS: Bedroom"
       content: " "
     - type: horizontal-stack
       cards:
@@ -103,9 +103,21 @@ card:
       artwork: cover
       hide_volume: false
       show_progress: true
+      idle_view: true
+      hide_power: true
+      show_shuffle: true
+      hide_icon: true
+      consider_pause_idle: true
+      max_volume: 65
     - type: custom:mini-media-player
       entity: media_player.bedroom_one
       name: Bedroom SONOS
       artwork: cover
       hide_volume: false
       show_progress: true
+      idle_view: true
+      hide_power: true
+      show_shuffle: true
+      hide_icon: true
+      consider_pause_idle: true
+      max_volume: 65

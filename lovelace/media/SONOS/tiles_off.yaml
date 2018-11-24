@@ -12,25 +12,25 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Living Room
           action: toggle
           entity: input_boolean.pp_living_room_one
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Bedroom
           action: toggle
           entity: input_boolean.pp_bedroom_one
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Group
           action: toggle
           entity: input_boolean.pp_joined
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Reset
           action: service
@@ -40,7 +40,7 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Epic
           action: service
@@ -50,7 +50,7 @@ card:
             data:
               what: "Epic"
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Cinematic
           action: service
@@ -60,7 +60,7 @@ card:
             data:
               what: "Cinematic Chillout"
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Disney
           action: service
@@ -70,7 +70,7 @@ card:
             data:
               what: "Disney"
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Party
           action: service
@@ -82,7 +82,7 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: card
+          color_type: label-card
           color: rgb(41,128,185)
           name: Radio 4
           action: service
@@ -92,8 +92,8 @@ card:
             data:
               what: "BBC Radio 4"
         - type: "custom:button-card"
-          color_type: card
-          color: rrgb(41,128,185)
+          color_type: label-card
+          color: rgb(41,128,185)
           name: Current
           action: service
           service:

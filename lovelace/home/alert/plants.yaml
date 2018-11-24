@@ -1,7 +1,7 @@
 type: conditional
 conditions:
-  - entity: sensor.mode
-    state: "Afternoon"
+  - entity: sensor.alert_plants
+    state: true
 card:
   type: markdown
   title: Plants

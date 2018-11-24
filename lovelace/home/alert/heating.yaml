@@ -1,7 +1,7 @@
 type: conditional
 conditions:
-  - entity: sensor.mode
-    state: "Afternoon"
+  - entity: sensor.alert_heating
+    state: true
 card:
   type: markdown
   title: Heating

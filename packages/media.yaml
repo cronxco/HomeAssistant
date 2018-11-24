@@ -61,9 +61,7 @@ media_player:
           entity_id: remote.living_room
           activity: "Watch TV"
       turn_off:
-        service: remote.turn_off
-        data:
-          entity_id: remote.living_room
+        service: script.tv_off
       volume_up:
         service: remote.send_command
         data:

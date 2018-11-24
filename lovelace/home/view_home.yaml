@@ -47,22 +47,24 @@ cards:
       - !include home/alert/plants.yaml
       - type: thermostat
         entity: climate.heating
-      - type: sensor
+      - type: custom:mini-graph-card
         entity: sensor.heating_temperature
         name: Temperature
         graph: line
         line_color: "#ff5722"
-        icon: mid:thermometer
-        accuracy: 50
-        hours_to_show: 6
-      - type: sensor
+        icon: mdi:thermometer
+        detail: 2
+        hours_to_show: 24
+        labels: true
+      - type: custom:mini-graph-card
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality
         graph: line
         line_color: "#757575"
-        icon: mid:home-heart
-        accuracy: 50
-        hours_to_show: 6
+        icon: mdi:home-heart
+        detail: 2
+        hours_to_show: 24
+        labels: true
 
 
     # External

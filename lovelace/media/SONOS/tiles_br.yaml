@@ -98,6 +98,12 @@ card:
               where: "media_player.bedroom_one"
               what: "Current"
     - type: custom:mini-media-player
+      entity: media_player.living_room_one
+      name: Living Room SONOS
+      artwork: cover
+      hide_volume: false
+      show_progress: true
+    - type: custom:mini-media-player
       entity: media_player.bedroom_one
       name: Bedroom SONOS
       artwork: cover

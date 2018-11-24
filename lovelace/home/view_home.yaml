@@ -93,12 +93,9 @@ cards:
             style: 'var(--label-badge-yellow)'
           - value: 10
             style: 'var(--label-badge-red)'
-      - type: gauge
-        max: 150
-        entity: sensor.waqi_sutton__beddington_lane_north_united_kingdom
-        title: Air Quality
-        unit_of_measurement: AQ
-        severity:
-          green: 0
-          yellow: 50
-          red: 100
+      - type: custom:air-visual-card
+        air_pollution_level: sensor.us_air_pollution_level
+        air_quality_index: sensor.us_air_quality_index
+        main_pollutant: sensor.us_main_pollutant
+        temp: sensor.dark_sky_temperature
+        city: !secret city

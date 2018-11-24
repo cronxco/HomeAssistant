@@ -13,6 +13,8 @@ resources:
     type: js
   - url: !resource custom/mini-graph-card-bundle.js
     type: js
+  - url: !resource custom/air-visual-card-bundle.js
+    type: js
 # Exclude entities from "Unused entities" view
 # excluded_entities:
 #   - weblink.router

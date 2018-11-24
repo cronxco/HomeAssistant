@@ -43,10 +43,21 @@ cards:
           - light.hall_a
           - light.hall_b
           - switch.circadian_lighting_hall
-      - light.living_room
-      - light.hall
-      - light.bedroom
-      - light.map_room
+      - type: custom:fold-entity-row
+        head: light.bedroom
+        group_config:
+          secondary_info: last-changed
+        items:
+          - light.main
+          - light.will_side
+          - light.daniel_side
+          - switch.circadian_lighting_bedroom
+      - type: custom:fold-entity-row
+        head: light.map_room
+        group_config:
+          secondary_info: last-changed
+        items:
+          - switch.circadian_lighting_living
       - light.bathroom
       - light.utility
       - light.kitchen

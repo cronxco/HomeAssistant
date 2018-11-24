@@ -11,7 +11,7 @@ card:
         - type: "custom:button-card"
           color_type: card
           color: rgb(223, 255, 97)
-          icon: mdi:volume-plus
+          name: Group
           action: service
           service:
             domain: script
@@ -19,7 +19,7 @@ card:
         - type: "custom:button-card"
           color_type: card
           color: rgb(223, 255, 97)
-          icon: mdi:volume-minus
+          name: Reset
           action: service
           service:
             domain: script

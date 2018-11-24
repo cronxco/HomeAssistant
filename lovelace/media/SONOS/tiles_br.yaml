@@ -4,6 +4,8 @@ conditions:
     state: "Bedroom"
 card:
   type: custom:vertical-style-card
+  style:
+    border: true
   title: SONOS
   cards:
     - type: horizontal-stack

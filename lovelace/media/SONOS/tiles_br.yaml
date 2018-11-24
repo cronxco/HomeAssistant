@@ -3,11 +3,12 @@ conditions:
   - entity: sensor.sonos_state
     state: "Bedroom"
 card:
-  type: custom:vertical-style-card
-  style:
-    border: true
+  type: vertical-stack
   title: SONOS
   cards:
+    - type: markdown
+      title: SONOS
+      content: " "
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"

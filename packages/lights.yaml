@@ -11,6 +11,18 @@ homeassistant:
     "light.*":
       # By default I don't want individual lights exposed to Alexa via emulated hue. I think this is actually slightly redundant as I could just the light domain from the emulated hue settings.
       emulated_hue_hidden: false
+  customize:
+    # Add some friendly names
+    switch.circadian_lighting_bathroom:
+      friendly_name: 'Circadian Downlights'
+    switch.circadian_lighting_bedroom:
+      friendly_name: 'Circadian Bedrooms'
+    switch.circadian_lighting_hall:
+      friendly_name: 'Circadian Hall'
+    switch.circadian_lighting_living:
+      friendly_name: 'Circadian Living Room'
+    switch.circadian_lighting_utility:
+      friendly_name: 'Circadian Utility'
 
 circadian_lighting:
   interval: 30
@@ -52,7 +64,6 @@ switch:
     lights_ct:
       - light.sofa
       - light.dining
-      - light.map_room
     disable_brightness_adjust: true
     sleep_entity: input_boolean.sleep_mode
     sleep_state: 'on'
@@ -63,6 +74,7 @@ switch:
       - light.main
       - light.daniel_side
       - light.will_side
+      - light.map_room
     disable_brightness_adjust: true
     disable_entity: input_boolean.alarm
     disable_state: "on"

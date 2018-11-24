@@ -57,7 +57,7 @@ cards:
         group_config:
           secondary_info: last-changed
         items:
-          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
       - type: custom:fold-entity-row
         head: light.bathroom
         group_config:

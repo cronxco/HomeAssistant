@@ -77,7 +77,6 @@ card:
       cards:
         - type: "custom:button-card"
           color_type: card
-          color: rgb(223, 255, 97)
           name: Radio 4
           action: service
           service:
@@ -88,7 +87,6 @@ card:
               what: "BBC Radio 4"
         - type: "custom:button-card"
           color_type: card
-          color: rgb(223, 255, 97)
           name: Current
           action: service
           service:

@@ -8,6 +8,8 @@ card:
   cards:
     - type: horizontal-stack
       cards:
+        - type: markdown
+          title: SONOS
         - type: "custom:button-card"
           color_type: card
           color: rgb(223, 255, 97)

@@ -49,9 +49,9 @@ homeassistant:
       custom_ui_state_card: state-card-custom-ui
       state_card_mode: hide-slider
     group.presence_sensors:
-     friendly_name: "Presence"
+      friendly_name: "Presence"
     group.default_view:
-     icon: mdi:home
+      icon: mdi:home
     sensor.mode:
       icon: mdi:home-assistant
     sensor.living_room_tv_source:
@@ -70,88 +70,88 @@ shell_command:
   lovelace_gen: 'bash /home/homeassistant/.homeassistant/scripts/lovelace_gen.sh'
 
 sensor:
- - platform: template
-   sensors:
-     living_room_tv_source:
-       value_template: >-
-         {%- if states.media_player.livingroomtv.attributes["source"] is undefined -%}
-           Off
-         {%- elif states.media_player.livingroomtv.attributes["source"] == "LiveTV" -%}
-           {{ states.media_player.livingroomtv.attributes["media_title"] }}
-         {%- else -%}
-           {{ states.media_player.livingroomtv.attributes["source"] }}
-         {%- endif -%}
-       friendly_name: 'Living Room TV Source'
-     mode:
-       friendly_name: "Mode"
-       value_template: >-
-         {%- if is_state('input_boolean.holiday_mode', 'on') -%}
-           Holiday
-         {%- elif is_state('input_boolean.away_mode', 'on') -%}
-           Away
-         {%- elif is_state('input_boolean.quiet_mode', 'on') -%}
-           Quiet
-         {%- elif is_state('input_boolean.party_mode', 'on') -%}
-           Party
-         {%- elif is_state('input_boolean.guest_mode', 'on') -%}
-           Guest
-         {%- elif is_state('input_boolean.romance_mode', 'on') -%}
-           Romance
-         {%- elif is_state('input_select.time_mode', 'Night') -%}
-           Night
-         {%- elif is_state('input_select.time_mode', 'Evening') -%}
-           Evening
-         {%- elif is_state('input_select.time_mode', 'Afternoon') -%}
-           Afternoon
-         {%- elif is_state('input_select.time_mode', 'Morning') -%}
-           Morning
-         {%- elif is_state('input_select.time_mode', 'Dawn') -%}
-           Dawn
-         {%- elif is_state('input_boolean.home_mode', 'on') -%}
-           Home
-         {%- else -%}
-           Unknown
-         {%- endif -%}
-     alert_heating:
-       friendly_name: "Heating Alert"
-       value_template: >-
-         {%- if states('sensor.heating_heating') | float > 0 -%}
-           true
-         {%- else -%}
-           false
-         {%- endif -%}
-      alert_rain:
-       friendly_name: "Rain Alert"
-       value_template: >-
-         {%- if states('sensor.dark_sky_daily_max_precip_intensity') | float > 0.2 -%}
-           true
-         {%- else -%}
-           false
-         {%- endif -%}
-      alert_power:
-       friendly_name: "Power Alert"
-       value_template: >-
-         {%- if states('sensor.power_stats_mean') | float >= 0.3 -%}
-           true
-         {%- else -%}
-           false
-         {%- endif -%}
-      alert_humidity:
-       friendly_name: "Humidity Alert"
-       value_template: >-
-         {%- if states('sensor.average_humidity') | float >= 85 -%}
-           true
-         {%- else -%}
-           false
-         {%- endif -%}
-      alert_plants:
-       friendly_name: "Plants Alert"
-       value_template: >-
-         {%- if states('sensor.water_plants') | float >= 1 -%}
-           true
-         {%- else -%}
-           false
-         {%- endif -%}
+  - platform: template
+    sensors:
+      living_room_tv_source:
+        value_template: >-
+          {%- if states.media_player.livingroomtv.attributes["source"] is undefined -%}
+            Off
+          {%- elif states.media_player.livingroomtv.attributes["source"] == "LiveTV" -%}
+            {{ states.media_player.livingroomtv.attributes["media_title"] }}
+          {%- else -%}
+            {{ states.media_player.livingroomtv.attributes["source"] }}
+          {%- endif -%}
+        friendly_name: 'Living Room TV Source'
+      mode:
+        friendly_name: "Mode"
+        value_template: >-
+          {%- if is_state('input_boolean.holiday_mode', 'on') -%}
+            Holiday
+          {%- elif is_state('input_boolean.away_mode', 'on') -%}
+            Away
+          {%- elif is_state('input_boolean.quiet_mode', 'on') -%}
+            Quiet
+          {%- elif is_state('input_boolean.party_mode', 'on') -%}
+            Party
+          {%- elif is_state('input_boolean.guest_mode', 'on') -%}
+            Guest
+          {%- elif is_state('input_boolean.romance_mode', 'on') -%}
+            Romance
+          {%- elif is_state('input_select.time_mode', 'Night') -%}
+            Night
+          {%- elif is_state('input_select.time_mode', 'Evening') -%}
+            Evening
+          {%- elif is_state('input_select.time_mode', 'Afternoon') -%}
+            Afternoon
+          {%- elif is_state('input_select.time_mode', 'Morning') -%}
+            Morning
+          {%- elif is_state('input_select.time_mode', 'Dawn') -%}
+            Dawn
+          {%- elif is_state('input_boolean.home_mode', 'on') -%}
+            Home
+          {%- else -%}
+            Unknown
+          {%- endif -%}
+    alert_heating:
+      friendly_name: "Heating Alert"
+      value_template: >-
+        {%- if states('sensor.heating_heating') | float > 0 -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
+    alert_rain:
+      friendly_name: "Rain Alert"
+      value_template: >-
+        {%- if states('sensor.dark_sky_daily_max_precip_intensity') | float > 0.2 -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
+    alert_power:
+      friendly_name: "Power Alert"
+      value_template: >-
+        {%- if states('sensor.power_stats_mean') | float >= 0.3 -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
+    alert_humidity:
+      friendly_name: "Humidity Alert"
+      value_template: >-
+        {%- if states('sensor.average_humidity') | float >= 85 -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
+    alert_plants:
+      friendly_name: "Plants Alert"
+      value_template: >-
+        {%- if states('sensor.water_plants') | float >= 1 -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
 group:
   default_view:
     name: Home

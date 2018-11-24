@@ -11,6 +11,12 @@ cards:
     hide_volume: true
     show_progress: true
 
+  - !include home/SONOS/tiles_lr.yaml
+  - !include home/SONOS/tiles_br.yaml
+  - !include home/SONOS/tiles_off.yaml
+  - !include home/SONOS/tiles_multi.yaml
+  - !include home/SONOS/tiles_joined.yaml
+
     # The markdown card will render markdown text.
   - type: markdown
     title: Lovelace

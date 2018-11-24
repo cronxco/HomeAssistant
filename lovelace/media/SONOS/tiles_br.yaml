@@ -24,3 +24,49 @@ card:
           service:
             domain: script
             action: sonos_reset
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(223, 255, 97)
+          name: Epic
+          action: service
+          service:
+            domain: script
+            action: play_something_somewhere
+            data:
+              where: "media_player.bedroom_one"
+              what: "Epic"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(223, 255, 97)
+          name: Cinematic
+          action: service
+          service:
+            domain: script
+            action: play_something_somewhere
+            data:
+              where: "media_player.bedroom_one"
+              what: "Cinematic Chillout"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(223, 255, 97)
+          name: Disney
+          action: service
+          service:
+            domain: script
+            action: play_something_somewhere
+            data:
+              where: "media_player.bedroom_one"
+              what: "Disney"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(223, 255, 97)
+          name: Party
+          action: service
+          service:
+            domain: script
+            action: play_something_somewhere
+            data:
+              where: "media_player.bedroom_one"
+              what: "Emergency Party Mode"

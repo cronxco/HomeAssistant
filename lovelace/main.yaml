@@ -16,7 +16,7 @@ resources:
   - url: !resource custom/air-visual-card.js
     type: js
   - url: !resource custom/button-card.js
-    type: js
+    type: module
 # Exclude entities from "Unused entities" view
 # excluded_entities:
 #   - weblink.router

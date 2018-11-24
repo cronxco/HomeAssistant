@@ -82,7 +82,7 @@ class AirVisualCard extends HTMLElement {
           justify-items: center;
           align-items: center;
           display: grid;
-          width: 4.5em;
+          width: 6.5em;
         }
 
         .face img {

@@ -120,7 +120,7 @@ sensor:
          {%- else -%}
            false
          {%- endif -%}
-    alert_rain:
+      alert_rain:
        friendly_name: "Rain Alert"
        value_template: >-
          {%- if states('sensor.dark_sky_daily_max_precip_intensity') | float > 0.2 -%}
@@ -128,7 +128,7 @@ sensor:
          {%- else -%}
            false
          {%- endif -%}
-    alert_power:
+      alert_power:
        friendly_name: "Power Alert"
        value_template: >-
          {%- if states('sensor.power_stats_mean') | float >= 0.3 -%}
@@ -136,7 +136,7 @@ sensor:
          {%- else -%}
            false
          {%- endif -%}
-    alert_humidity:
+      alert_humidity:
        friendly_name: "Humidity Alert"
        value_template: >-
          {%- if states('sensor.average_humidity') | float >= 85 -%}
@@ -144,7 +144,7 @@ sensor:
          {%- else -%}
            false
          {%- endif -%}
-    alert_plants:
+      alert_plants:
        friendly_name: "Plants Alert"
        value_template: >-
          {%- if states('sensor.water_plants') | float >= 1 -%}

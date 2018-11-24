@@ -2,20 +2,14 @@ icon: mdi:cast
 # Title of the view. Will be used as the tooltip for tab icon
 title: Media
 cards:
-    # Entities card will take a list of entities and show their state.
-  - type: entities
-    # Title of the entities card
-    title: Example
-    # The entities here will be shown in the same order as specified.
-    # Each entry is an entity ID or a map with extra options.
-    entities:
-      - type: custom:mini-media-player
-        entity: media_player.living_room
-        name: Living Room TV
-        artwork: cover
-        power_color: true
-        hide_volume: true
-        show_progress: true
+
+  - type: custom:mini-media-player
+    entity: media_player.living_room
+    name: Living Room TV
+    artwork: cover
+    power_color: true
+    hide_volume: true
+    show_progress: true
 
     # The markdown card will render markdown text.
   - type: markdown

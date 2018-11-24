@@ -1,7 +1,7 @@
 type: conditional
 conditions:
   - entity: sensor.sonos_state
-    state: "Living Room"
+    state: "Joined"
 card:
   type: vertical-stack
   title: SONOS

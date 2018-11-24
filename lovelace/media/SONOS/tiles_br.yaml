@@ -6,11 +6,11 @@ card:
   type: vertical-stack
   title: SONOS
   cards:
+    - type: markdown
+      title: SONOS
+      content: ""
     - type: horizontal-stack
       cards:
-        - type: markdown
-          title: SONOS
-          content: " "
         - type: "custom:button-card"
           color_type: card
           color: rgb(223, 255, 97)

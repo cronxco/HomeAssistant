@@ -27,6 +27,22 @@ cards:
     title: Lights
     show_header_toggle: true
     entities:
+      - type: custom:fold-entity-row
+        head: light.living_room
+        group_config:
+          secondary_info: last-changed
+        items:
+          - light.sofa
+          - light.dining
+          - switch.circadian_lighting_living
+      - type: custom:fold-entity-row
+        head: light.hall
+        group_config:
+          secondary_info: last-changed
+        items:
+          - light.hall_a
+          - light.hall_b
+          - switch.circadian_lighting_hall
       - light.living_room
       - light.hall
       - light.bedroom

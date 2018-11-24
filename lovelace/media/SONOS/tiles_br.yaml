@@ -12,16 +12,16 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Group
           action: service
           service:
             domain: script
             action: group_from_br
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Reset
           action: service
           service:
@@ -30,8 +30,8 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Epic
           action: service
           service:
@@ -41,8 +41,8 @@ card:
               where: "media_player.bedroom_one"
               what: "Epic"
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Cinematic
           action: service
           service:
@@ -52,8 +52,8 @@ card:
               where: "media_player.bedroom_one"
               what: "Cinematic Chillout"
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Disney
           action: service
           service:
@@ -63,8 +63,8 @@ card:
               where: "media_player.bedroom_one"
               what: "Disney"
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Party
           action: service
           service:
@@ -76,8 +76,8 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Radio 4
           action: service
           service:
@@ -87,8 +87,8 @@ card:
               where: "media_player.bedroom_one"
               what: "BBC Radio 4"
         - type: "custom:button-card"
-          color_type: label-card
-          color: rgb(41,128,185)
+          color_type: card
+          color: rgb(223, 255, 97)
           name: Current
           action: service
           service:

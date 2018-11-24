@@ -51,20 +51,28 @@ cards:
         entity: sensor.heating_temperature
         name: Temperature
         graph: line
-        line_color: "#ff5722"
+        line_color: "#aed581"
         icon: mdi:thermometer
         detail: 2
         hours_to_show: 12
         labels: true
+        line_value_above: 24
+        line_color_above: "#f4511e"
+        line_value_below: 17
+        line_color_below: "#4dd0e1"
       - type: custom:mini-graph-card
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality
         graph: line
-        line_color: "#757575"
+        line_color: "#ffb74d"
         icon: mdi:home-heart
         detail: 2
         hours_to_show: 12
         labels: true
+        line_value_above: 0.59
+        line_color_above: "#aed581"
+        line_value_below: 0.41
+        line_color_below: "#f4511e"
 
 
     # External

@@ -7,7 +7,7 @@ card:
   title: SONOS
   cards:
     - type: markdown
-      title: "SONOS: Bedroom"
+      title: "SONOS: Living Room"
       content: " "
     - type: horizontal-stack
       cards:

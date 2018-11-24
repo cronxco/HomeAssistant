@@ -36,6 +36,10 @@ input_boolean:
     name: Sleep
     icon: mdi:sleep
 
+  developer_mode:
+    name: Developer
+    icon: mdi:settings
+
 group:
   manual_modes:
     name: Manual Modes

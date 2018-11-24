@@ -82,15 +82,18 @@ cards:
           secondary_info: last-changed
         items:
           - switch.circadian_lighting_bathroom
-      - type: custom:fold-entity-row
-        head:
-          type: section
-          label: Advanced
-        items:
-          - input_boolean.light_trigger
-          - input_select.time_mode
-          - input_select.sunset_phase
-          - input_select.cloud_cover
+  - type: conditional
+    conditions:
+      - entity: input_boolean.developer_mode
+        state: on
+    card:
+      type: entities
+      title: Advanced Light Settings
+      entities:
+        - input_boolean.light_trigger
+        - input_select.time_mode
+        - input_select.sunset_phase
+        - input_select.cloud_cover
 
     # Internal
       # Temperature, air quality, alerts (power, humidity, plants)

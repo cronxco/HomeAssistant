@@ -14,7 +14,7 @@ card:
         - type: "custom:button-card"
           color_type: card
           color: rgb(41,128,185)
-          name: Living Room
+          name: Living
           action: toggle
           entity: input_boolean.pp_living_room_one
         - type: "custom:button-card"

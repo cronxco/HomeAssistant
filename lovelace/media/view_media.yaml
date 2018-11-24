@@ -12,14 +12,14 @@ cards:
           name: Living Room TV
           artwork: cover
           power_color: true
-          hide_volume: true
+          volume_stateless: true
           show_progress: true
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
           color_type: card
           color: rgb(163,193,57)
-          name: LiveTV
+          name: Live TV
           action: service
           service:
             domain: media_player
@@ -60,6 +60,7 @@ cards:
             data:
               entity_id: "media_player.living_room"
               source: "BBC iPlayer"
+
 
 
   - !include media/SONOS/tiles_off.yaml

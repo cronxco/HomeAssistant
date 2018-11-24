@@ -3,9 +3,9 @@ conditions:
   - entity: sensor.sonos_state
     state: "Bedroom"
 card:
-  type: vertical-stack
+  type: entities
   title: SONOS
-  cards:
+  entities:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"

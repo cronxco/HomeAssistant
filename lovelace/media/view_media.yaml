@@ -18,7 +18,7 @@ cards:
       cards:
         - type: "custom:button-card"
           color_type: card
-          color: rgb(41,128,185)
+          color: rgb(163,193,57)
           name: LiveTV
           action: service
           service:
@@ -29,7 +29,7 @@ cards:
               source: "LiveTV"
         - type: "custom:button-card"
           color_type: card
-          color: rgb(41,128,185)
+          color: rgb(216,39,40)
           name: Netflix
           action: service
           service:
@@ -40,7 +40,7 @@ cards:
               source: "Netflix"
         - type: "custom:button-card"
           color_type: card
-          color: rgb(41,128,185)
+          color: rgb(229,168,35)
           name: Plex
           action: service
           service:
@@ -51,7 +51,7 @@ cards:
               source: "Plex"
         - type: "custom:button-card"
           color_type: card
-          color: rgb(41,128,185)
+          color: rgb(238,74,150)
           name: iPlayer
           action: service
           service:

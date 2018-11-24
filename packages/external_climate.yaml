@@ -76,6 +76,14 @@ sensor:
     token: !secret waqi
     locations:
       - Sutton
+  - platform: airvisual
+    api_key: !secret airvisual
+    monitored_conditions:
+      - us
+    show_on_map: false
+    city: !secret city
+    state: england
+    country: uk
   # This exposes the sun elevation value (mostly for debugging)
   - platform: template
     sensors:

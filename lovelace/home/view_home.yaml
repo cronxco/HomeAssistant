@@ -54,7 +54,7 @@ cards:
         line_color: "#ff5722"
         icon: mdi:thermometer
         detail: 2
-        hours_to_show: 24
+        hours_to_show: 12
         labels: true
       - type: custom:mini-graph-card
         entity: sensor.basecamp_living_room_air_quality
@@ -63,7 +63,7 @@ cards:
         line_color: "#757575"
         icon: mdi:home-heart
         detail: 2
-        hours_to_show: 24
+        hours_to_show: 12
         labels: true
 
 

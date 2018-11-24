@@ -3,16 +3,67 @@ icon: mdi:cast
 title: Media
 cards:
 
-  - type: custom:mini-media-player
-    entity: media_player.living_room
-    name: Living Room TV
-    artwork: cover
-    power_color: true
-    hide_volume: true
-    show_progress: true
+  - type: vertical-stack
+    cards:
+    - type: horizontal-stack
+      cards:
+        - type: custom:mini-media-player
+          entity: media_player.living_room
+          name: Living Room TV
+          artwork: cover
+          power_color: true
+          hide_volume: true
+          show_progress: true
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(41,128,185)
+          name: LiveTV
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "LiveTV"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(41,128,185)
+          name: Netflix
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "Netflix"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(41,128,185)
+          name: Plex
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "Plex"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(41,128,185)
+          name: iPlayer
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "BBC iPlayer"
 
+
+  - !include media/SONOS/tiles_off.yaml
   - !include media/SONOS/tiles_lr.yaml
   - !include media/SONOS/tiles_br.yaml
-  - !include media/SONOS/tiles_off.yaml
   - !include media/SONOS/tiles_multi.yaml
   - !include media/SONOS/tiles_joined.yaml

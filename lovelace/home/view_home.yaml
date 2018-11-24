@@ -104,8 +104,8 @@ cards:
       - !include home/alert/heating.yaml
       - !include home/alert/humidity.yaml
       - !include home/alert/plants.yaml
-      - type: thermostat
-        entity: climate.heating
+      # - type: thermostat
+      #   entity: climate.heating
       - type: custom:mini-graph-card
         entity: sensor.heating_temperature
         name: Temperature

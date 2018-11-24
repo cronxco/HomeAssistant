@@ -112,46 +112,46 @@ sensor:
           {%- else -%}
             Unknown
           {%- endif -%}
-    alert_heating:
-      friendly_name: "Heating Alert"
-      value_template: >-
-        {%- if states('sensor.heating_heating') | float > 0 -%}
-          true
-        {%- else -%}
-          false
-        {%- endif -%}
-    alert_rain:
-      friendly_name: "Rain Alert"
-      value_template: >-
-        {%- if states('sensor.dark_sky_daily_max_precip_intensity') | float > 0.2 -%}
-          true
-        {%- else -%}
-          false
-        {%- endif -%}
-    alert_power:
-      friendly_name: "Power Alert"
-      value_template: >-
-        {%- if states('sensor.power_stats_mean') | float >= 0.3 -%}
-          true
-        {%- else -%}
-          false
-        {%- endif -%}
-    alert_humidity:
-      friendly_name: "Humidity Alert"
-      value_template: >-
-        {%- if states('sensor.average_humidity') | float >= 85 -%}
-          true
-        {%- else -%}
-          false
-        {%- endif -%}
-    alert_plants:
-      friendly_name: "Plants Alert"
-      value_template: >-
-        {%- if states('sensor.water_plants') | float >= 1 -%}
-          true
-        {%- else -%}
-          false
-        {%- endif -%}
+      alert_heating:
+        friendly_name: "Heating Alert"
+        value_template: >-
+          {%- if states('sensor.heating_heating') | float > 0 -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
+      alert_rain:
+        friendly_name: "Rain Alert"
+        value_template: >-
+          {%- if states('sensor.dark_sky_daily_max_precip_intensity') | float > 0.2 -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
+      alert_power:
+        friendly_name: "Power Alert"
+        value_template: >-
+          {%- if states('sensor.power_stats_mean') | float >= 0.3 -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
+      alert_humidity:
+        friendly_name: "Humidity Alert"
+        value_template: >-
+          {%- if states('sensor.average_humidity') | float >= 85 -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
+      alert_plants:
+        friendly_name: "Plants Alert"
+        value_template: >-
+          {%- if states('sensor.water_plants') | float >= 1 -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
 group:
   default_view:
     name: Home

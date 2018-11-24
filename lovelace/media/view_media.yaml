@@ -16,9 +16,3 @@ cards:
   - !include media/SONOS/tiles_off.yaml
   - !include media/SONOS/tiles_multi.yaml
   - !include media/SONOS/tiles_joined.yaml
-
-    # The markdown card will render markdown text.
-  - type: markdown
-    title: Lovelace
-    content: >
-      Welcome to your **Lovelace UI**.

@@ -174,7 +174,7 @@ automation:
       - condition: time
         before: '22:00:00'
       - condition: time
-        after: '15:00:00'
+        after: '12:05:00'
       # No point in setting the mode if it's already set!
       - condition: template
         value_template: "{% if not is_state('input_select.time_mode', 'Evening') %}true{% endif %}"

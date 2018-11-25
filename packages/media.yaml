@@ -29,6 +29,12 @@ homeassistant:
     media_player.will_iphone:
       hidden: true
 
+apple_tv:
+  - host: !secret atvip
+    login_id: !secret atvlogin
+    name: Bedroom
+    start_off: true
+
 media_player:
   - platform: plex
     #include_non_clients: true #This was causing errors in the log
@@ -91,6 +97,7 @@ media_player:
     email: !secret alexa_user
     password: !secret alexa_pwd
     url: amazon.co.uk
+
 
 remote:
   - platform: harmony

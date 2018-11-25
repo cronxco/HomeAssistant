@@ -158,3 +158,4 @@ automation:
           - switch.circadian_lighting_hall
           - switch.circadian_lighting_living
           - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_utility

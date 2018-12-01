@@ -98,6 +98,14 @@ automation:
       - service: script.stream
         data:
           message: "\u267b Morning reset has completed successfully."
+      # Reset all circadian lightling
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
+          - switch.circadian_lighting_bathroom
+          - switch.circadian_lighting_utility
 
 # 2: Sunrise! Turn off Danw and turn on Morning.
 
@@ -128,7 +136,7 @@ automation:
   - alias: "Lie in"
     trigger:
       - platform: time
-        at: '08:30:00'
+        at: '07:00:00'
     condition:
       - condition: state
         entity_id: input_boolean.sleep_mode

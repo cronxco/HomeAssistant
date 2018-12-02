@@ -31,9 +31,6 @@ device_tracker:
     track_new_devices: true
     consider_home: 60
 
-  - platform: owntracks
-    max_gps_accuracy: 200
-
   - platform: tado
     username: !secret tado_user
     password: !secret tado_pass

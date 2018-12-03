@@ -132,6 +132,9 @@ light:
       - light.r_ensuite
       - light.m_ensuite
       - light.l_ensuite
+  - platform: switch
+    name: Christmas Tree
+    entity_id: switch.christmas_tree
 
 group:
   Lights:
@@ -143,6 +146,7 @@ group:
     - light.utility
     - light.kitchen
     - light.ensuite
+    - light.christmas_tree
 
 automation:
   - alias: 'Enable Circadian Lighting'

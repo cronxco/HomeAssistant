@@ -13,7 +13,7 @@ import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.dispatcher import dispatcher_connect
 from homeassistant.helpers.event import track_state_change
-from homeassistant.helpers.restore_state import async_get_last_state
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.components.light import (
     is_on, ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, ATTR_RGB_COLOR, ATTR_TRANSITION,
     ATTR_WHITE_VALUE, ATTR_XY_COLOR, DOMAIN as LIGHT_DOMAIN)
@@ -100,7 +100,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         return False
 
 
-class CircadianSwitch(SwitchDevice):
+class CircadianSwitch(SwitchDevice, RestoreEntity):
     """Representation of a Circadian Lighting switch."""
 
     def __init__(self, hass, cl, name, lights_ct, lights_rgb, lights_xy, lights_brightness,
@@ -166,10 +166,11 @@ class CircadianSwitch(SwitchDevice):
     async def async_added_to_hass(self):
         """Call when entity about to be added to hass."""
         # If not None, we got an initial value.
+        await super().async_added_to_hass()
         if self._state is not None:
             return
 
-        state = await async_get_last_state(self.hass, self._entity_id)
+        state = await self.async_get_last_state()
         self._state = state and state.state == STATE_ON
 
     @property

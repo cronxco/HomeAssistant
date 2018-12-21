@@ -56,3 +56,6 @@ homekit: !include config/homekit.yaml
 influxdb: !include config/influxdb.yaml
 xiaomi_aqara: !include config/xiaomi.yaml
 ifttt: !include config/ifttt.yaml
+
+lovelace:
+  mode: yaml

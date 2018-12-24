@@ -175,9 +175,9 @@ automation:
         entity_id: sensor.dark_sky_cloud_coverage
         below: 60
       - condition: time
-        after: '14:30:00'
+        after: '12:00:00'
       - condition: time
-        before: '21:30:00'
+        before: '22:00:00'
       - condition: state
         entity_id: input_select.cloud_cover
         state: Unset
@@ -189,6 +189,11 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to clear"
+      - service: homeassistant.turn_off
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
   - alias: 'Cloud Status: Cloudy'
     trigger:
       platform: numeric_state
@@ -203,9 +208,9 @@ automation:
         entity_id: sensor.dark_sky_cloud_coverage
         below: 80
       - condition: time
-        after: '14:30:00'
+        after: '12:00:00'
       - condition: time
-        before: '21:30:00'
+        before: '22:00:00'
       - condition: state
         entity_id: input_select.cloud_cover
         state: Unset
@@ -217,6 +222,11 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to cloudy"
+      - service: homeassistant.turn_off
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
   - alias: 'Cloud Status: Overcast'
     trigger:
       platform: numeric_state
@@ -228,9 +238,9 @@ automation:
         entity_id: sensor.dark_sky_cloud_coverage
         above: 79
       - condition: time
-        after: '14:30:00'
+        after: '12:00:00'
       - condition: time
-        before: '21:30:00'
+        before: '22:00:00'
       - condition: state
         entity_id: input_select.cloud_cover
         state: Unset
@@ -242,6 +252,11 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to overcast"
+      - service: homeassistant.turn_off
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
 
   - alias: 'Early Twilight; Clear'
     trigger:
@@ -654,6 +669,13 @@ automation:
       - service: script.stream
         data:
           message: "\U0001f4a1 Phase 3 lights have come on"
+      # Wait for 5 minutes and then turn on circadian lighting again
+      - delay: '0:05'
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
 
 # This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 3'
@@ -690,6 +712,13 @@ automation:
       - service: script.stream
         data:
           message: "\U0001f4a1 Lights have been tiggered"
+      # Wait for 5 minutes and then turn on circadian lighting again
+      - delay: '0:05'
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
 
 # If it's gone 22:00 and the flat is in "night mode" we still want some lighting if the trigger is enabled. Here it just turns on the hall lights.
 
@@ -721,6 +750,13 @@ automation:
       - service: script.stream
         data:
           message: "\U0001f4a1 The hall lights have been tiggered"
+      # Wait for 5 minutes and then turn on circadian lighting again
+      - delay: '0:05'
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
 
 # Add a way for the light trigger to be reset. By having it remain on for a minute, it leads to a refractory period where a faully state elsewhere cannot lead to the lights triggering every second!
   - alias: 'Reset Light Trigger'

@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.alert_humidity
+    state: "true"
+card:
+  type: markdown
+  title: Humidity
+  content: >
+    Welcome to your **Lovelace UI**.

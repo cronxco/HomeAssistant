@@ -29,6 +29,12 @@ homeassistant:
     media_player.will_iphone:
       hidden: true
 
+apple_tv:
+  - host: !secret atvip
+    login_id: !secret atvlogin
+    name: Bedroom
+    start_off: true
+
 media_player:
   - platform: plex
     #include_non_clients: true #This was causing errors in the log
@@ -61,9 +67,25 @@ media_player:
           entity_id: remote.living_room
           activity: "Watch TV"
       turn_off:
-        service: remote.turn_off
+        service: script.tv_off
+      volume_up:
+        service: remote.send_command
         data:
           entity_id: remote.living_room
+          device: "41500377"
+          command: "VolumeUp"
+      volume_down:
+        service: remote.send_command
+        data:
+          entity_id: remote.living_room
+          device: "41500377"
+          command: "VolumeDown"
+      volume_mute:
+        service: remote.send_command
+        data:
+          entity_id: remote.living_room
+          device: "41500377"
+          command: "Mute"
     attributes:
       state: remote.living_room
   # The PS4 is exposed here through a custom component: https://github.com/hmn/home-assistant-config/wiki/media_player_ps4
@@ -71,6 +93,11 @@ media_player:
   - platform: ps4
     host: !secret ps4ip
     imagemap_json: games.json
+  - platform: alexa
+    email: !secret alexa_user
+    password: !secret alexa_pwd
+    url: amazon.co.uk
+
 
 remote:
   - platform: harmony
@@ -127,7 +154,7 @@ automation:
         to: 'off'
     action:
       - service: media_player.turn_off
-        entity_id: media_player.livingroomtv    
+        entity_id: media_player.livingroomtv
 
   - alias: 'Auto Film Mode On'
     # Either thing changing will trigger film mode however both need to be true for it to turn on.

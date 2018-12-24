@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.alert_heating
+    state: "true"
+card:
+  type: markdown
+  title: Heating
+  content: >
+    Welcome to your **Lovelace UI**.

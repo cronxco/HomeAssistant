@@ -1,0 +1,21 @@
+icon: mdi:train
+# Title of the view. Will be used as the tooltip for tab icon
+title: Transport
+cards:
+    # Entities card will take a list of entities and show their state.
+  - type: entities
+    # Title of the entities card
+    title: Example
+    # The entities here will be shown in the same order as specified.
+    # Each entry is an entity ID or a map with extra options.
+    entities:
+      - light.kitchen
+      - entity: light.living_room
+        # Override the name to use
+        name: LR Lights
+
+    # The markdown card will render markdown text.
+  - type: markdown
+    title: Lovelace
+    content: >
+      Welcome to your **Lovelace UI**.

@@ -1,0 +1,70 @@
+icon: mdi:cast
+# Title of the view. Will be used as the tooltip for tab icon
+title: Media
+cards:
+
+  - type: vertical-stack
+    cards:
+    - type: horizontal-stack
+      cards:
+        - type: custom:mini-media-player
+          entity: media_player.living_room
+          name: Living Room TV
+          artwork: cover
+          power_color: true
+          volume_stateless: true
+          show_progress: true
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(163,193,57)
+          name: Live TV
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "LiveTV"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(216,39,40)
+          name: Netflix
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "Netflix"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(229,168,35)
+          name: Plex
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "Plex"
+        - type: "custom:button-card"
+          color_type: card
+          color: rgb(238,74,150)
+          name: iPlayer
+          action: service
+          service:
+            domain: media_player
+            action: select_source
+            data:
+              entity_id: "media_player.living_room"
+              source: "BBC iPlayer"
+
+
+
+  - !include media/SONOS/tiles_off.yaml
+  - !include media/SONOS/tiles_lr.yaml
+  - !include media/SONOS/tiles_br.yaml
+  - !include media/SONOS/tiles_multi.yaml
+  - !include media/SONOS/tiles_joined.yaml

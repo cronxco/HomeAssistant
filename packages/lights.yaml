@@ -11,10 +11,23 @@ homeassistant:
     "light.*":
       # By default I don't want individual lights exposed to Alexa via emulated hue. I think this is actually slightly redundant as I could just the light domain from the emulated hue settings.
       emulated_hue_hidden: false
+  customize:
+    # Add some friendly names
+    switch.circadian_lighting_bathroom:
+      friendly_name: 'Circadian Downlights'
+    switch.circadian_lighting_bedroom:
+      friendly_name: 'Circadian Bedrooms'
+    switch.circadian_lighting_hall:
+      friendly_name: 'Circadian Hall'
+    switch.circadian_lighting_living:
+      friendly_name: 'Circadian Living Room'
+    switch.circadian_lighting_utility:
+      friendly_name: 'Circadian Utility'
 
 circadian_lighting:
-  interval: 300
-  transition: 300
+  interval: 30
+  transition: 30
+  sunset_offset: '0:45'
 
 switch:
   - platform: circadian_lighting
@@ -25,8 +38,17 @@ switch:
       - light.kitchen
     max_brightness: 80
     sleep_entity: input_boolean.sleep_mode
-    sleep_state: on
-    sleep_colortemp: 5500
+    sleep_state: 'on'
+    sleep_colortemp: 2500
+    sleep_brightness: 2
+  - platform: circadian_lighting
+    name: Utility
+    lights_ct:
+      - light.utility
+    max_brightness: 80
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: 'on'
+    sleep_colortemp: 2500
     sleep_brightness: 2
   - platform: circadian_lighting
     name: Hall
@@ -34,31 +56,34 @@ switch:
       - light.hall
     max_brightness: 60
     sleep_entity: input_boolean.sleep_mode
-    sleep_state: on
-    sleep_colortemp: 5500
+    sleep_state: 'on'
+    sleep_colortemp: 2500
     sleep_brightness: 5
   - platform: circadian_lighting
     name: Living
     lights_ct:
       - light.sofa
       - light.dining
-      - light.map_room
     disable_brightness_adjust: true
     sleep_entity: input_boolean.sleep_mode
-    sleep_state: on
-    sleep_colortemp: 5500
+    sleep_state: 'on'
+    sleep_colortemp: 2500
   - platform: circadian_lighting
     name: Bedroom
     lights_ct:
       - light.main
       - light.daniel_side
       - light.will_side
+      - light.map_room
     disable_brightness_adjust: true
     disable_entity: input_boolean.alarm
     disable_state: "on"
 
+lifx:
+
 light:
-  - platform: lifx
+  # LIFX now has to be configured differently
+  # - platform: lifx
   # IKEA Trädfri now here (through autoconfig)
   - platform: group
     name: Kitchen
@@ -107,6 +132,9 @@ light:
       - light.r_ensuite
       - light.m_ensuite
       - light.l_ensuite
+  - platform: switch
+    name: Christmas Tree
+    entity_id: switch.christmas_tree
 
 group:
   Lights:
@@ -118,6 +146,7 @@ group:
     - light.utility
     - light.kitchen
     - light.ensuite
+    - light.christmas_tree
 
 automation:
   - alias: 'Enable Circadian Lighting'
@@ -133,3 +162,4 @@ automation:
           - switch.circadian_lighting_hall
           - switch.circadian_lighting_living
           - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_utility

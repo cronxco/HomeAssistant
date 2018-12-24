@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.alert_power
+    state: "true"
+card:
+  type: markdown
+  title: Power
+  content: >
+    Welcome to your **Lovelace UI**.

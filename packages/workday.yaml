@@ -21,18 +21,15 @@ binary_sensor:
 sensor:
   - platform: template
     sensors:
-      date_tomorrow:
-        friendly_name: "Tomorrow's date"
-        value_template: "{{ (as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d')}}"
       dan_workday_today:
         friendly_name: "Is Dan working today?"
         value_template: "{{ states('sensor.date') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       dan_workday_tomorrow:
         friendly_name: "Is Dan working tomorrow?"
-        value_template: "{{ states('sensor.date_tomorrow') == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ ((as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d')) == strptime(states.calendar.dan_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_today:
         friendly_name: "Is Will working today?"
         value_template: "{{ states('sensor.date') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
       will_workday_tomorrow:
         friendly_name: "Is Will working tomorrow?"
-        value_template: "{{ states('sensor.date_tomorrow') == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"
+        value_template: "{{ ((as_timestamp(now())+ (1*86400))| timestamp_custom('%Y-%m-%d')) == strptime(states.calendar.will_workday.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')}}"

@@ -165,6 +165,8 @@ automation:
           minutes: 1
       - service: input_boolean.turn_off
         entity_id: input_boolean.good_morning
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.sleep_mode
 
 # If it's dark out
 
@@ -249,8 +251,8 @@ automation:
         data:
           message: "\U0001f319 Good night!"
       - service: homeassistant.turn_on
-        entity_id: input_select.sleep_mode
-      - service: homeassistant.turn_off
+        entity_id: input_boolean.sleep_mode
+      - service: homeassistant.turn_on
         data:
           entity_id:
             - switch.circadian_lighting_bathroom

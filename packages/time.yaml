@@ -49,11 +49,11 @@ automation:
     condition:
       # No point if it's already on!
       - condition: state
-        entity_id: 'input_boolean.sleep_mode'
+        entity_id: input_boolean.sleep_mode
         state: 'off'
     action:
       - service: homeassistant.turn_on
-        entity_id: input_select.sleep_mode
+        entity_id: input_boolean.sleep_mode
 
 # 1: 04:30: Reset everything (but not guest_mode or holiday_mode), turn on dawn_mode and turn off night_mode.
 # Aside: this is also when the presence module checks to see if anyone is home - if not then holiday_mode is automagically switched on.
@@ -98,6 +98,14 @@ automation:
       - service: script.stream
         data:
           message: "\u267b Morning reset has completed successfully."
+      # Reset all circadian lightling
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_living
+          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_hall
+          - switch.circadian_lighting_bathroom
+          - switch.circadian_lighting_utility
 
 # 2: Sunrise! Turn off Danw and turn on Morning.
 
@@ -128,14 +136,14 @@ automation:
   - alias: "Lie in"
     trigger:
       - platform: time
-        at: '08:30:00'
+        at: '07:00:00'
     condition:
       - condition: state
-        entity_id: 'input_boolean.sleep_mode'
+        entity_id: input_boolean.sleep_mode
         state: 'on'
     action:
       - service: homeassistant.turn_off
-        entity_id: input_select.sleep_mode
+        entity_id: input_boolean.sleep_mode
 
 
 # 3: Midday: Turn off Morning and turn on Afternoon.
@@ -174,7 +182,7 @@ automation:
       - condition: time
         before: '22:00:00'
       - condition: time
-        after: '15:00:00'
+        after: '12:05:00'
       # No point in setting the mode if it's already set!
       - condition: template
         value_template: "{% if not is_state('input_select.time_mode', 'Evening') %}true{% endif %}"

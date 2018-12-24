@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.alert_plants
+    state: "true"
+card:
+  type: markdown
+  title: Plants
+  content: >
+    Welcome to your **Lovelace UI**.

@@ -1,0 +1,9 @@
+type: conditional
+conditions:
+  - entity: sensor.mode
+    state: "Quiet"
+card:
+  type: markdown
+  title: Quiet
+  content: >
+    Welcome to your **Lovelace UI**.

@@ -79,6 +79,7 @@ automation:
           - input_boolean.party_mode
           - input_boolean.quiet_mode
           - input_boolean.alarm
+          - input_boolean.film_mode
       # This should have been covered off at evening -> night but just in case
       - service: input_select.select_option
         entity_id: input_select.sunset_phase
@@ -144,6 +145,10 @@ automation:
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.sleep_mode
+      - service: media_player.sonos_set_option
+        entity_id: media_player.living_room_sonos
+        data:
+          night_sound: "off"
 
 
 # 3: Midday: Turn off Morning and turn on Afternoon.
@@ -220,6 +225,11 @@ automation:
         entity_id: input_select.cloud_cover
         data:
           option: Unset
+      # Set SONOS into quiet mode
+      - service: media_player.sonos_set_option
+        entity_id: media_player.living_room_sonos
+        data:
+          night_sound: "on"
       - service: script.stream
         data:
           message: "\U0001f559 Night mode."

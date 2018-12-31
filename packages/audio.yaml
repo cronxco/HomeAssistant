@@ -13,7 +13,7 @@ homeassistant:
       icon: mdi:cast
       custom_ui_state_card: state-card-mini-media-player
       config:
-        player: media_player.living_room_one
+        player: media_player.living_room_sonos
     input_text.dummy_player_br_one:
       icon: mdi:cast
       custom_ui_state_card: state-card-mini-media-player
@@ -49,34 +49,34 @@ homeassistant:
           # Row 2
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Epic"
             label: Epic
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Disney"
             label: Disney
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Current"
             label: Current
             column_span: 2
@@ -131,7 +131,7 @@ homeassistant:
         columns: 4
         color_off: "var(--primary-color)"
         entities:
-          - entity: input_boolean.pp_living_room_one
+          - entity: input_boolean.pp_living_room_sonos
             label: Living Room
           - entity: input_boolean.pp_bedroom_one
             label: Bedroom
@@ -195,34 +195,34 @@ homeassistant:
           # Row 2
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Epic"
             label: Epic
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Cinematic Chillout"
             label: Cinematic
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Disney"
             label: Disney
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Emergency Party Mode"
             label: Party
           # Row 3
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "BBC Radio 4"
             label: Radio 4
             column_span: 2
           - entity: script.play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Current"
             label: Current
             column_span: 2
@@ -287,32 +287,32 @@ script:
       - service: media_player.sonos_snapshot
         data_template:
           entity_id:
-            - media_player.living_room_one
+            - media_player.living_room_sonos
             - media_player.bedroom_one
           with_group: yes
       - service: media_player.sonos_unjoin
         data_template:
           entity_id:
-            - media_player.living_room_one
+            - media_player.living_room_sonos
             - media_player.bedroom_one
       - service: media_player.sonos_join
         data_template:
-          master: media_player.living_room_one
+          master: media_player.living_room_sonos
           entity_id: media_player.bedroom_one
       - service: media_player.volume_set
         data_template:
           entity_id:
-            - media_player.living_room_one
+            - media_player.living_room_sonos
             - media_player.bedroom_one
           volume_level: 0.5
       - service: tts.amazon_polly_say
         data_template:
-          entity_id: media_player.living_room_one
+          entity_id: media_player.living_room_sonos
           message: "{{ what }}"
       - delay:
           seconds: 1
       - delay: >-
-          {% set duration = states.media_player.living_room_one.attributes.media_duration %}
+          {% set duration = states.media_player.living_room_sonos.attributes.media_duration %}
           {% if duration > 0 %}
             {% set duration = duration - 1 %}
           {% endif %}
@@ -323,7 +323,7 @@ script:
       - service: media_player.sonos_restore
         data_template:
           entity_id:
-            - media_player.living_room_one
+            - media_player.living_room_sonos
             - media_player.bedroom_one
           with_group: yes
       - service: script.stream
@@ -345,10 +345,10 @@ script:
     sequence:
     - service: media_player.sonos_join
       data_template:
-        master: media_player.living_room_one
+        master: media_player.living_room_sonos
         entity_id: media_player.bedroom_one
     - service: input_boolean.turn_on
-      entity_id: input_boolean.master_living_room_one
+      entity_id: input_boolean.master_living_room_sonos
     - service: input_boolean.turn_on
       entity_id: input_boolean.pp_joined
   group_from_br:
@@ -356,7 +356,7 @@ script:
     - service: media_player.sonos_join
       data_template:
         master: media_player.bedroom_one
-        entity_id: media_player.living_room_one
+        entity_id: media_player.living_room_sonos
     - service: input_boolean.turn_on
       entity_id: input_boolean.master_bedroom_one
     - service: input_boolean.turn_on
@@ -366,36 +366,36 @@ script:
     - service: media_player.sonos_unjoin
       data_template:
         entity_id:
-          - media_player.living_room_one
+          - media_player.living_room_sonos
           - media_player.bedroom_one
     - service: input_boolean.turn_on
-      entity_id: input_boolean.pp_living_room_one
+      entity_id: input_boolean.pp_living_room_sonos
     - service: input_boolean.turn_off
-      entity_id: input_boolean.master_living_room_one
+      entity_id: input_boolean.master_living_room_sonos
     - service: input_boolean.turn_off
       entity_id: input_boolean.master_bedroom_one
     - service: input_select.select_option
       data:
         entity_id: input_select.primary_player
-        option: "living_room_one"
+        option: "living_room_sonos"
   sonos_reset:
     sequence:
     - service: script.unjoin_sonos
     - service: media_player.media_stop
       data_template:
         entity_id:
-          - media_player.living_room_one
+          - media_player.living_room_sonos
           - media_player.bedroom_one
     - service: media_player.volume_set
       data_template:
         entity_id:
-          - media_player.living_room_one
+          - media_player.living_room_sonos
           - media_player.bedroom_one
         volume_level: 0.20
     - service: media_player.volume_mute
       data_template:
         entity_id:
-          - media_player.living_room_one
+          - media_player.living_room_sonos
           - media_player.bedroom_one
         is_volume_muted: false
   tts_test:
@@ -574,7 +574,7 @@ automation:
   - alias: Set PP to LR
     trigger:
       - platform: state
-        entity_id: input_boolean.pp_living_room_one
+        entity_id: input_boolean.pp_living_room_sonos
         from: 'off'
         to: 'on'
     action:
@@ -585,7 +585,7 @@ automation:
       - service: input_select.select_option
         data:
           entity_id: input_select.primary_player
-          option: "living_room_one"
+          option: "living_room_sonos"
   - alias: Set PP to BR
     trigger:
       - platform: state
@@ -594,7 +594,7 @@ automation:
         to: 'on'
     action:
       - service: input_boolean.turn_off
-        entity_id: input_boolean.pp_living_room_one
+        entity_id: input_boolean.pp_living_room_sonos
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_joined
       - service: input_select.select_option
@@ -613,17 +613,17 @@ automation:
         state: 'off'
     action:
       - service: input_boolean.turn_off
-        entity_id: input_boolean.pp_living_room_one
+        entity_id: input_boolean.pp_living_room_sonos
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_bedroom_one
       - service: media_player.sonos_join
         data_template:
-          master: media_player.living_room_one
+          master: media_player.living_room_sonos
           entity_id: media_player.bedroom_one
       - service: input_select.select_option
         data:
           entity_id: input_select.primary_player
-          option: "living_room_one"
+          option: "living_room_sonos"
   - alias: Set PP to Joined
     trigger:
       - platform: state
@@ -636,13 +636,13 @@ automation:
         state: 'on'
     action:
       - service: input_boolean.turn_off
-        entity_id: input_boolean.pp_living_room_one
+        entity_id: input_boolean.pp_living_room_sonos
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_bedroom_one
       - service: media_player.sonos_join
         data_template:
           master: media_player.bedroom_one
-          entity_id: media_player.living_room_one
+          entity_id: media_player.living_room_sonos
       - service: input_select.select_option
         data:
           entity_id: input_select.primary_player
@@ -653,11 +653,11 @@ sensor:
       sonos_state:
         friendly_name: "Sonos Grouping State"
         value_template: >-
-          {% if (is_state("media_player.living_room_one", "playing") and is_state("media_player.bedroom_one", "playing")) and (state_attr('media_player.living_room_one', 'media_title') == state_attr('media_player.bedroom_one', 'media_title'))  -%}
+          {% if (is_state("media_player.living_room_sonos", "playing") and is_state("media_player.bedroom_one", "playing")) and (state_attr('media_player.living_room_sonos', 'media_title') == state_attr('media_player.bedroom_one', 'media_title'))  -%}
             Joined
-          {%- elif (is_state("media_player.living_room_one", "playing") and is_state("media_player.bedroom_one", "playing")) -%}
+          {%- elif (is_state("media_player.living_room_sonos", "playing") and is_state("media_player.bedroom_one", "playing")) -%}
             Multi Zone
-          {%- elif is_state("media_player.living_room_one", "playing") -%}
+          {%- elif is_state("media_player.living_room_sonos", "playing") -%}
             Living Room
           {%- elif is_state("media_player.bedroom_one", "playing") -%}
             Bedroom
@@ -695,20 +695,20 @@ input_select:
     name: Where to speak
     options:
      - bedroom_one
-     - living_room_one
+     - living_room_sonos
   primary_player:
     name: Primary Player
     options:
      - bedroom_one
-     - living_room_one
+     - living_room_sonos
 input_boolean:
   pp_bedroom_one:
     name: SONOS Bedroom
-  pp_living_room_one:
+  pp_living_room_sonos:
     name: SONOS Living Room
   pp_joined:
     name: SONOS Group
-  master_living_room_one:
+  master_living_room_sonos:
     name: "Master: Living Room"
   master_bedroom_one:
     name: "Master: Bedroom"

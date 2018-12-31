@@ -102,12 +102,15 @@ scene:
         state: on
         transition: 30
         brightness: 60
-        color_temp: 200
       light.bedroom:
         state: on
-        transition: 30
+        transition: 60
         brightness: 100
         color_temp: 200
+      light.living_room:
+        state: on
+        transition: 30
+        brightness: 60
   - name: Goodbye Lights
     entities:
       light.living_room:
@@ -167,6 +170,10 @@ automation:
         entity_id: input_boolean.good_morning
       - service: input_boolean.turn_off
         entity_id: input_boolean.sleep_mode
+      - service: media_player.sonos_set_option
+        entity_id: media_player.living_room_sonos
+        data:
+          night_sound: "off"
 
 # If it's dark out
 

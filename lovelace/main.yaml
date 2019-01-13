@@ -17,6 +17,8 @@ resources:
     type: js
   - url: !resource custom/vertical-style-card.js
     type: js
+  - url: !resource custom/compact-custom-header.js
+    type: js
   - url: !resource custom/button-card.js
     type: module
 # Exclude entities from "Unused entities" view

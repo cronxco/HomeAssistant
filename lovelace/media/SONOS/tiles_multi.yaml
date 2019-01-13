@@ -36,7 +36,7 @@ card:
             domain: script
             action: sonos_reset
     - type: custom:mini-media-player
-      entity: media_player.living_room_one
+      entity: media_player.living_room_sonos
       name: Living Room SONOS
       artwork: cover
       hide_volume: false

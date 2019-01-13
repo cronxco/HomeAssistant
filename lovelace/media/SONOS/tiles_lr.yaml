@@ -38,7 +38,7 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Epic"
         - type: "custom:button-card"
           color_type: card
@@ -49,7 +49,7 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Cinematic Chillout"
         - type: "custom:button-card"
           color_type: card
@@ -60,7 +60,7 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Disney"
         - type: "custom:button-card"
           color_type: card
@@ -71,7 +71,7 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Emergency Party Mode"
     - type: horizontal-stack
       cards:
@@ -84,7 +84,7 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "BBC Radio 4"
         - type: "custom:button-card"
           color_type: card
@@ -95,10 +95,10 @@ card:
             domain: script
             action: play_something_somewhere
             data:
-              where: "media_player.living_room_one"
+              where: "media_player.living_room_sonos"
               what: "Current"
     - type: custom:mini-media-player
-      entity: media_player.living_room_one
+      entity: media_player.living_room_sonos
       name: Living Room SONOS
       artwork: cover
       hide_volume: false

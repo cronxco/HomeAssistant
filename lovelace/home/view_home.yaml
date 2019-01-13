@@ -25,6 +25,7 @@ cards:
     menu: true
     clock: notification
     clock_format: 24
+    dir: "/local/lovelace/"
 
     # Lights
   - type: entities

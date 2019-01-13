@@ -4,7 +4,7 @@
 # @Last modified by:   willscott
 # @Last modified time: 08/09/2018 14:55
 
-javascript_version: auto # Trying to see if auto works well enough
+javascript_version: latest # Trying to see if auto works well enough
 
 extra_html_url:
   # Trams

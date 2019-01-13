@@ -21,6 +21,10 @@ cards:
   - !include home/smartcard/quiet.yaml
   - !include home/smartcard/film.yaml
 
+  - type: custom:compact-custom-header
+    menu: true
+    clock: notification
+    clock_format: 24
 
     # Lights
   - type: entities

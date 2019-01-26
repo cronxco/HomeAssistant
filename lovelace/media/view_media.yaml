@@ -3,6 +3,16 @@ icon: mdi:cast
 title: Media
 cards:
 
+  - type: custom:compact-custom-header
+    header: true
+    notification: true
+    menu: true
+    voice: false
+    options: false
+    tabs: true
+    clock: notification
+    clock_format: 24
+
   - type: vertical-stack
     cards:
     - type: horizontal-stack

@@ -26,7 +26,7 @@ cards:
     notification: true
     menu: true
     voice: false
-    options: true
+    options: false
     tabs: true
     clock: notification
     clock_format: 24

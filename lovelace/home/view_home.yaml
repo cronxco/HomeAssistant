@@ -166,9 +166,3 @@ cards:
             style: 'var(--label-badge-yellow)'
           - value: 10
             style: 'var(--label-badge-red)'
-      - type: custom:air-visual-card
-        air_pollution_level: sensor.us_air_pollution_level
-        air_quality_index: sensor.us_air_quality_index
-        main_pollutant: sensor.us_main_pollutant
-        temp: sensor.dark_sky_temperature
-        city: !secret city

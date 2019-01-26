@@ -32,7 +32,7 @@ cards:
     card:
       - type: custom:monster-card
         card:
-          type: glance
+          type: entity
           title: Automations
         filter:
           include:

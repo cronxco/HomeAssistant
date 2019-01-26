@@ -40,3 +40,18 @@ cards:
             options:
               secondary_info: last-changed
 
+  - type: conditional
+    conditions:
+      - entity: input_boolean.developer_mode
+        state: "on"
+    card:
+      type: custom:monster-card
+      card:
+        type: entities
+        title: Plants
+      filter:
+        include:
+          - entity_id: input_boolean.plant_*
+            options:
+              secondary_info: last-changed
+

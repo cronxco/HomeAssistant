@@ -25,7 +25,7 @@ homeassistant:
     sensor.dark_sky_cloud_coverage:
       friendly_name: 'Cloud Cover'
       icon: mdi:cloud
-    sensor.waqi_sutton__beddington_lane_north:
+    sensor.waqi_sutton_beddington_lane_north:
       friendly_name: 'Air Quality'
       icon: mdi:factory
     sensor.cronx_temperature:
@@ -107,6 +107,6 @@ group:
     - sensor.cronx_pressure
     - sensor.dark_sky_precip_intensity
     - sensor.dark_sky_cloud_coverage
-    - sensor.waqi_sutton__beddington_lane_north
+    - sensor.waqi_sutton_beddington_lane_north
     - sun.sun
     - sensor.solar_angle

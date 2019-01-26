@@ -22,7 +22,6 @@ cards:
   - !include home/smartcard/film.yaml
 
   - type: custom:compact-custom-header
-    dir: '/www/lovelace/'
     header: false
     notification: true
     menu: true

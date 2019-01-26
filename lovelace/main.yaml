@@ -5,21 +5,21 @@ title: Cronx
 #   - url: !resource vertical-stack-in-card/vertical-stack-in-card.js
 #     type: js
 resources:
-  - url: !resource custom/bignumber-card.js
+  - url: !file /local/lovelace/card-tools.js
     type: js
-  - url: !resource custom/mini-media-player-bundle.js
+  - url: !file /local/lovelace/mini-media-player-bundle.js
     type: module
-  - url: !resource custom/fold-entity-row.js
+  - url: !file /local/lovelace/fold-entity-row.js
     type: js
-  - url: !resource custom/mini-graph-card-bundle.js
+  - url: !file /local/lovelace/mini-graph-card-bundle.js
+    type: module
+  - url: !file /local/lovelace/vertical-style-card.js
     type: js
-  - url: !resource custom/air-visual-card.js
+  - url: !file /local/custom-lovelace/compact-custom-header/compact-custom-header.js
     type: js
-  - url: !resource custom/vertical-style-card.js
-    type: js
-  - url: !resource custom/compact-custom-header.js
-    type: js
-  - url: !resource custom/button-card.js
+  - url: !file /local/lovelace/button-card.js
+    type: module
+  - url: !file /local/simple-thermostat/simple-thermostat.js
     type: module
 # Exclude entities from "Unused entities" view
 # excluded_entities:

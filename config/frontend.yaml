@@ -21,6 +21,9 @@ extra_html_url:
   - /local/custom_ui/state-card-html.html
   # Heating
   - /local/custom_ui/state-card-custom-heating.html
+  # Icons
+  - /local/hass-fontawesome-regular.html
+
 extra_html_url_es5:
   # Trams
   - /local/custom_ui/state-card-eastbound.html # no ES5

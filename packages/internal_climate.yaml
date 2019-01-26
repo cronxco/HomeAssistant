@@ -88,7 +88,7 @@ automation:
     hide_entity: True
     initial_state: 'on'
     trigger:
-      - platform: time
+      - platform: time_pattern
         minutes: '/1'
         seconds: 00
     action:

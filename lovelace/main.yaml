@@ -17,7 +17,7 @@ resources:
     type: module
   - url: !file /local/lovelace/vertical-style-card.js
     type: js
-  - url: !file /local/lovelace/compact-custom-header.js
+  - url: !file /local/custom-lovelace/compact-custom-header/compact-custom-header.js
     type: js
   - url: !file /local/lovelace/button-card.js
     type: module

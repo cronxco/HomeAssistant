@@ -30,13 +30,13 @@ cards:
       - entity: input_boolean.developer_mode
         state: "on"
     card:
-      - type: custom:monster-card
-        card:
-          type: entity
-          title: Automations
-        filter:
-          include:
-            - domain: automation
-              options:
-                secondary_info: last-changed
+      type: custom:monster-card
+      card:
+        type: entities
+        title: Automations
+      filter:
+        include:
+          - domain: automation
+            options:
+              secondary_info: last-changed
 

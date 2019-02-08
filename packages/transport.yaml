@@ -110,10 +110,14 @@ script:
 automation:
   - alias: 'Will at ECR'
     trigger:
-         platform: zone
-         entity_id: device_tracker.will_iphone
-         zone: zone.ecrwest
-         event: enter
+      - platform: zone
+        entity_id: device_tracker.will_iphone
+        zone: zone.ecrwest
+        event: enter
+      - platform: zone
+        entity_id: device_tracker.will_iphone
+        zone: zone.ecr
+        event: enter
     condition:
       # If it's a work day and a reasonable commuting time.
       - condition: time
@@ -138,10 +142,14 @@ automation:
 
   - alias: 'Dan at ECR'
     trigger:
-         platform: zone
-         entity_id: device_tracker.dan_iphone
-         zone: zone.ecrwest
-         event: enter
+      - platform: zone
+        entity_id: device_tracker.dan_iphone
+        zone: zone.ecrwest
+        event: enter
+      - platform: zone
+        entity_id: device_tracker.dan_iphone
+        zone: zone.ecr
+        event: enter
     condition:
       # If it's a work day and a reasonable commuting time.
       - condition: time

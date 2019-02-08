@@ -2,20 +2,56 @@ icon: mdi:settings
 # Title of the view. Will be used as the tooltip for tab icon
 title: Settings
 cards:
+
+  - type: custom:compact-custom-header
+    header: true
+    notification: true
+    menu: true
+    voice: false
+    options: false
+    tabs: true
+    clock: notification
+    clock_format: 24
+
     # Entities card will take a list of entities and show their state.
   - type: entities
-    # Title of the entities card
-    title: Example
-    # The entities here will be shown in the same order as specified.
-    # Each entry is an entity ID or a map with extra options.
+    title: Modes
     entities:
-      - light.kitchen
-      - entity: light.living_room
-        # Override the name to use
-        name: LR Lights
+      - input_boolean.holiday_mode
+      - input_boolean.guest_mode
+      - input_boolean.romance_mode
+      - input_boolean.party_mode
+      - input_boolean.quiet_mode
+      - input_boolean.film_mode
+      - input_boolean.developer_mode
 
-    # The markdown card will render markdown text.
-  - type: markdown
-    title: Lovelace
-    content: >
-      Welcome to your **Lovelace UI**.
+  - type: conditional
+    conditions:
+      - entity: input_boolean.developer_mode
+        state: "on"
+    card:
+      type: custom:monster-card
+      card:
+        type: entities
+        title: Automations
+      filter:
+        include:
+          - domain: automation
+            options:
+              secondary_info: last-changed
+
+  - type: conditional
+    conditions:
+      - entity: input_boolean.developer_mode
+        state: "on"
+    card:
+      type: custom:monster-card
+      card:
+        type: entities
+        title: Plants
+      filter:
+        include:
+          - entity_id: input_boolean.plant_*
+            options:
+              secondary_info: last-changed
+

@@ -35,6 +35,7 @@ config:
 map:
 alexa:
 ffmpeg:
+system_health:
 
 frontend: !include config/frontend.yaml
 history: !include config/history.yaml

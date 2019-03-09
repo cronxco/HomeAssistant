@@ -88,15 +88,6 @@ media_player:
           command: "Mute"
     attributes:
       state: remote.living_room
-  # The PS4 is exposed here through a custom component: https://github.com/hmn/home-assistant-config/wiki/media_player_ps4
-  # Seeing if I can stabalise this again.
-  - platform: ps4
-    host: !secret ps4ip
-    imagemap_json: games.json
-  - platform: alexa
-    email: !secret alexa_user
-    password: !secret alexa_pwd
-    url: "amazon.co.uk"
 
 
 remote:

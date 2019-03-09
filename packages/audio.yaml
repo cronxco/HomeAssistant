@@ -246,6 +246,12 @@ media_player:
 
   - platform: sonos
 
+alexa_media:
+  accounts:
+    - email: !secret alexa_user
+      password: !secret alexa_pwd
+      url: "amazon.co.uk"
+
 script:
   sonos_tts:
     sequence:

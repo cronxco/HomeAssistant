@@ -94,13 +94,6 @@ sensor:
     electricity:
       electricity_serial: !secret loop_serial
       electricity_secret: !secret loop_secret
-  - platform: speedtest
-    minute:
-      - 45
-    monitored_conditions:
-      - download
-      - upload
-    server_id: 4078
   - platform: fastdotcom
     minute:
       - 15
@@ -169,6 +162,12 @@ sensor:
     host: !secret pihole
   - platform: cert_expiry
     host: !secret base_url
+
+speedtestdotnet:
+  monitored_conditions:
+    - download
+    - upload
+  server_id: 4078
 
 linode:
   access_token: !secret linode

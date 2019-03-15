@@ -20,7 +20,7 @@ resources:
   - url: !file /local/lovelace/vertical-style-card.js
     type: js
   - url: !file /local/custom-lovelace/compact-custom-header/compact-custom-header.js
-    type: js
+    type: module
   - url: !file /local/lovelace/button-card.js
     type: module
   - url: !file /local/simple-thermostat/simple-thermostat.js

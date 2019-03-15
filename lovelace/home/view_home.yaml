@@ -134,8 +134,20 @@ cards:
         sensors:
           - attribute: current_humidity
             name: Humidity
-        hide:
-          mode: true
+          - entity: sensor.heating_heating
+            name: Power
+        modes:
+          manual: false
+          timer: false
+          'smart schedule':
+            name: 'Smart'
+            icon: mdi:radiator
+          'tado mode':
+            name: 'Manual'
+            icon: mdi:thermostat-box
+          'off':
+            name: 'Off'
+            icon: mdi:radiator-off
       - type: custom:mini-graph-card
         entity: sensor.basecamp_living_room_air_quality
         name: Air Quality

@@ -36,6 +36,7 @@ map:
 alexa:
 ffmpeg:
 system_health:
+custom_updater:
 
 frontend: !include config/frontend.yaml
 history: !include config/history.yaml

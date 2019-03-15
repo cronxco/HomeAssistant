@@ -22,6 +22,7 @@ cards:
   - !include home/smartcard/film.yaml
 
   - type: custom:compact-custom-header
+    main_config: true
     header: true
     notification: true
     menu: true

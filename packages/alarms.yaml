@@ -19,32 +19,24 @@ input_number:
   walarmhour:
     name: Hour
     icon: mdi:timer
-    # Defaults to 06:10
-    initial: 6
     min: 0
     max: 23
     step: 1
   walarmminutes:
     name: Minutes
     icon: mdi:timer
-    # Defaults to 06:10
-    initial: 10
     min: 0
     max: 55
     step: 5
   dalarmhour:
     name: Hour
     icon: mdi:timer
-    # Defaults to 06:35
-    initial: 6
     min: 0
     max: 23
     step: 1
   dalarmminutes:
     name: Minutes
     icon: mdi:timer
-    # Defaults to 06:35
-    initial: 35
     min: 0
     max: 55
     step: 5

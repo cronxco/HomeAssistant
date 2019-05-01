@@ -37,6 +37,7 @@ alexa:
 ffmpeg:
 system_health:
 custom_updater:
+mobile_app:
 
 frontend: !include config/frontend.yaml
 history: !include config/history.yaml

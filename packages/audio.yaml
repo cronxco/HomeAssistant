@@ -228,7 +228,7 @@ homeassistant:
             column_span: 2
 
 tts:
-  - platform: google
+  - platform: google_translate
     language: 'en-uk'
   - platform: amazon_polly
     aws_access_key_id: !secret aws_id

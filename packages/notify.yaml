@@ -39,15 +39,15 @@ notify:
       - service: slack
 
 automation:
-  alias: 'Update Available Notifications'
-  trigger:
-    platform: state
-    entity_id: updater.updater
-  action:
-    service: notify.ios_will_iphone
-    data:
-      title: "\U0001f4f0 Update Available"
-      message: 'A new update for Home Assistant is available.'
+  - alias: 'Update Available Notifications'
+    trigger:
+      platform: state
+      entity_id: updater.updater
+    action:
+      service: notify.ios_will_iphone
+      data:
+        title: "\U0001f4f0 Update Available"
+        message: 'A new update for Home Assistant is available.'
 
 
 script:

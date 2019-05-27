@@ -133,7 +133,7 @@ sensor:
       tumble_dryer_current:
         friendly_name: 'Tumble Dryer Current'
         # The attribute changed in 0.61
-        value_template: '{{ states.switch.tumble_dryer.attributes["current_power_w"].split(" ")[0] }}'
+        value_template: '{{ states.switch.tumble.attributes["current_power_w"] | float }}'
         unit_of_measurement: 'W'
       air_quality:
         friendly_name: "Air Quality"
@@ -162,6 +162,14 @@ sensor:
     host: !secret pihole
   - platform: cert_expiry
     host: !secret base_url
+
+utility_meter:
+  daily_energy:
+    source: sensor.power_usage
+    cycle: daily
+  monthly_energy:
+    source: sensor.power_usage
+    cycle: monthly
 
 speedtestdotnet:
   monitored_conditions:

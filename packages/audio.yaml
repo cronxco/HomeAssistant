@@ -244,8 +244,6 @@ media_player:
     client_id: !secret spot_id
     client_secret: !secret spot_secret
 
-  - platform: sonos
-
 alexa_media:
   accounts:
     - email: !secret alexa_user

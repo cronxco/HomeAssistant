@@ -38,7 +38,7 @@ homeassistant:
 
 tplink:
   switch:
-    host: !secret dryer_ip
+    - host: !secret dryer_ip
 
 # Docker switches
   - platform: rest

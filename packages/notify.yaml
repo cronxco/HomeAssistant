@@ -37,6 +37,7 @@ notify:
     platform: group
     services:
       - service: slack
+  - platform: alexa_media
 
 automation:
   - alias: 'Update Available Notifications'

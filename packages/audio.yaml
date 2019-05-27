@@ -249,6 +249,11 @@ alexa_media:
     - email: !secret alexa_user
       password: !secret alexa_pwd
       url: "amazon.co.uk"
+      include_devices:
+        - "Bedroom Sonos One"
+        - "Will's Sonos Beam"
+        - "Bathroom Echo"
+        - "Map Room Echo"
 
 script:
   sonos_tts:

@@ -255,11 +255,11 @@ alexa_media:
 script:
   sonos_tts:
     sequence:
-      - service: media_player.sonos_snapshot
+      - service: sonos.snapshot
         data_template:
           entity_id: "{{ 'media_player.' ~ where }}"
           with_group: yes
-      - service: media_player.sonos_unjoin
+      - service: sonos.unjoin
         data_template:
           entity_id: "{{ 'media_player.' ~ where }}"
       - service: media_player.volume_set
@@ -281,7 +281,7 @@ script:
           {% set minutes = (duration / 60)|int % 60 %}
           {% set hours = (duration / 3600)|int %}
           {{ [hours, minutes, seconds]|join(':') }}
-      - service: media_player.sonos_restore
+      - service: sonos.restore
         data_template:
           entity_id: "{{ 'media_player.' ~ where }}"
           with_group: yes
@@ -290,18 +290,18 @@ script:
           message: "{{'\U0001f4e2 ' ~ where ~': ' ~ what }}"
   sonos_broadcast:
     sequence:
-      - service: media_player.sonos_snapshot
+      - service: sonos.snapshot
         data_template:
           entity_id:
             - media_player.living_room_sonos
             - media_player.bedroom_one
           with_group: yes
-      - service: media_player.sonos_unjoin
+      - service: sonos.unjoin
         data_template:
           entity_id:
             - media_player.living_room_sonos
             - media_player.bedroom_one
-      - service: media_player.sonos_join
+      - service: sonos.join
         data_template:
           master: media_player.living_room_sonos
           entity_id: media_player.bedroom_one
@@ -326,7 +326,7 @@ script:
           {% set minutes = (duration / 60)|int % 60 %}
           {% set hours = (duration / 3600)|int %}
           {{ [hours, minutes, seconds]|join(':') }}
-      - service: media_player.sonos_restore
+      - service: sonos.restore
         data_template:
           entity_id:
             - media_player.living_room_sonos
@@ -349,7 +349,7 @@ script:
        source: "{{ what }}"
   group_from_lr:
     sequence:
-    - service: media_player.sonos_join
+    - service: sonos.join
       data_template:
         master: media_player.living_room_sonos
         entity_id: media_player.bedroom_one
@@ -359,7 +359,7 @@ script:
       entity_id: input_boolean.pp_joined
   group_from_br:
     sequence:
-    - service: media_player.sonos_join
+    - service: sonos.join
       data_template:
         master: media_player.bedroom_one
         entity_id: media_player.living_room_sonos
@@ -369,7 +369,7 @@ script:
       entity_id: input_boolean.pp_joined
   unjoin_sonos:
     sequence:
-    - service: media_player.sonos_unjoin
+    - service: sonos.unjoin
       data_template:
         entity_id:
           - media_player.living_room_sonos
@@ -622,7 +622,7 @@ automation:
         entity_id: input_boolean.pp_living_room_sonos
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_bedroom_one
-      - service: media_player.sonos_join
+      - service: sonos.join
         data_template:
           master: media_player.living_room_sonos
           entity_id: media_player.bedroom_one
@@ -645,7 +645,7 @@ automation:
         entity_id: input_boolean.pp_living_room_sonos
       - service: input_boolean.turn_off
         entity_id: input_boolean.pp_bedroom_one
-      - service: media_player.sonos_join
+      - service: sonos.join
         data_template:
           master: media_player.bedroom_one
           entity_id: media_player.living_room_sonos

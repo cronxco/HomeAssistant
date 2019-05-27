@@ -145,7 +145,7 @@ automation:
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.sleep_mode
-      - service: media_player.sonos_set_option
+      - service: sonos.set_option
         entity_id: media_player.living_room_sonos
         data:
           night_sound: "off"
@@ -226,7 +226,7 @@ automation:
         data:
           option: Unset
       # Set SONOS into quiet mode
-      - service: media_player.sonos_set_option
+      - service: sonos.set_option
         entity_id: media_player.living_room_sonos
         data:
           night_sound: "on"

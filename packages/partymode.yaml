@@ -23,7 +23,7 @@ automation:
             change: 90
             spread: 45
       # Music
-      - service: media_player.sonos_join
+      - service: sonos.join
         data:
           master: media_player.living_room_one
           entity_id: media_player.bedroom_one
@@ -45,7 +45,7 @@ automation:
       - service: media_player.media_stop
         data:
           entity_id: media_player.living_room_one
-      - service: media_player.sonos_unjoin
+      - service: sonos.unjoin
         entity_id:
           - media_player.living_room_one
           - media_player.bedroom_one

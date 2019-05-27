@@ -36,10 +36,9 @@ homeassistant:
       friendly_name: Air Quality
       unit_of_measurement: AQU
 
-switch:
-  - platform: tplink
+tplink:
+  switch:
     host: !secret dryer_ip
-    name: "Tumble Dryer"
 
 # Docker switches
   - platform: rest
@@ -168,6 +167,10 @@ speedtestdotnet:
     - download
     - upload
   server_id: 4078
+
+fastdotcom:
+  scan_interval:
+      minutes: 35
 
 linode:
   access_token: !secret linode

@@ -88,12 +88,12 @@ light:
   - platform: group
     name: Kitchen
     entities:
-      - light.rf_kitchen
-      - light.lf_kitchen
-      - light.rm_kitchen
-      - light.lm_kitchen
-      - light.rr_kitchen
-      - light.lr_kitchen
+      - light.k_l_b
+      - light.k_l_f
+      - light.k_m_b
+      - light.k_m_f
+      - light.k_r_b
+      - light.k_r_f
   - platform: group
     name: Living Room
     entities:
@@ -102,8 +102,8 @@ light:
   - platform: group
     name: Hall
     entities:
-      - light.hall_a
-      - light.hall_b
+      - light.hall_l
+      - light.hall_r
   - platform: group
     name: Bedroom
     entities:
@@ -117,21 +117,21 @@ light:
   - platform: group
     name: Bathroom
     entities:
-      - light.lf_bathroom
-      - light.lr_bathroom
-      - light.rf_bathroom
-      - light.rr_bathroom
-      - light.ro_bathroom
+      - light.bt_l_f
+      - light.bt_l_r
+      - light.bt_m_f
+      - light.bt_m_r
+      - light.bt_r_m
   - platform: group
     name: Utility
     entities:
-      - light.utility_light
+      - light.utility_main
   - platform: group
     name: Ensuite
     entities:
-      - light.r_ensuite
-      - light.m_ensuite
-      - light.l_ensuite
+      - light.es_c
+      - light.es_l
+      - light.es_r
   - platform: switch
     name: Christmas Tree
     entity_id: switch.christmas_tree

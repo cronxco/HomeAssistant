@@ -58,6 +58,5 @@ ios: !include config/ios.yaml
 cloud: !include config/cloud.yaml
 homekit: !include config/homekit.yaml
 influxdb: !include config/influxdb.yaml
-xiaomi_aqara: !include config/xiaomi.yaml
 ifttt: !include config/ifttt.yaml
 custom_updater: !include config/custom_updater.yaml

@@ -45,7 +45,7 @@ automation:
       platform: state
       entity_id: updater.updater
     action:
-      service: notify.notify.mobile_app_iphone
+      service: notify.mobile_app_iphone
       data:
         title: "\U0001f4f0 Update Available"
         message: 'A new update for Home Assistant is available.'

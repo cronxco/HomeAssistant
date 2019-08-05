@@ -114,6 +114,7 @@ light:
     name: Map Room
     entities:
       - light.map
+      - light.map_desk
   - platform: group
     name: Bathroom
     entities:
@@ -163,3 +164,65 @@ automation:
           - switch.circadian_lighting_living
           - switch.circadian_lighting_bedroom
           - switch.circadian_lighting_utility
+  # Map Room Switch
+  - alias: 'Toggle map room lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: map_remote
+        event: 1002
+    action:
+      service: light.toggle
+      entity_id: light.map_room
+  - alias: 'Turn on map room lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: map_remote
+        event: 2002
+    action:
+      service: light.turn_on
+      entity_id: light.map_room
+  - alias: 'Turn off map room lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: map_remote
+        event: 3002
+    action:
+      service: light.turn_off
+      entity_id: light.map_room
+  - alias: 'Turn off map + hall + living'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: map_remote
+        event: 4002
+    action:
+      service: light.turn_off
+      entity_id:
+        - light.map_room
+        - light.hall
+        - light.living_room
+  - alias: 'Turn off map + hall + living v2'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: map_remote
+        event: 5002
+    action:
+      service: light.turn_off
+      entity_id:
+        - light.map_room
+        - light.hall
+        - light.living_room

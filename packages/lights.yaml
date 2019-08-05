@@ -174,8 +174,16 @@ automation:
         id: map_remote
         event: 1002
     action:
-      service: light.toggle
-      entity_id: light.map_room
+      - service: switch.turn_off
+        entity_id:
+            - switch.circadian_lighting_bedroom
+      - service: light.toggle
+        entity_id:
+            - light.map_room
+      - delay: '00:00:30'
+      - service: switch.turn_on
+        entity_id:
+            - switch.circadian_lighting_bedroom
   - alias: 'Turn on map room lights'
     initial_state: 'on'
     trigger:
@@ -185,8 +193,16 @@ automation:
         id: map_remote
         event: 2002
     action:
-      service: light.turn_on
-      entity_id: light.map_room
+      - service: switch.turn_off
+        entity_id:
+            - switch.circadian_lighting_bedroom
+      - service: light.turn_on
+        entity_id:
+            - light.map_room
+      - delay: '00:00:30'
+      - service: switch.turn_on
+        entity_id:
+            - switch.circadian_lighting_bedroom
   - alias: 'Turn off map room lights'
     initial_state: 'on'
     trigger:
@@ -196,8 +212,16 @@ automation:
         id: map_remote
         event: 3002
     action:
-      service: light.turn_off
-      entity_id: light.map_room
+      - service: switch.turn_off
+        entity_id:
+            - switch.circadian_lighting_bedroom
+      - service: light.turn_off
+        entity_id:
+            - light.map_room
+      - delay: '00:00:30'
+      - service: switch.turn_on
+        entity_id:
+            - switch.circadian_lighting_bedroom
   - alias: 'Turn off map + hall + living'
     initial_state: 'on'
     trigger:
@@ -207,11 +231,21 @@ automation:
         id: map_remote
         event: 4002
     action:
-      service: light.turn_off
-      entity_id:
-        - light.map_room
-        - light.hall
-        - light.living_room
+      - service: switch.turn_off
+        entity_id:
+            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living
+      - service: light.turn_off
+        entity_id:
+            - light.map_room
+            - light.hall
+            - light.living_room
+      - delay: '00:00:30'
+      - service: switch.turn_on
+            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living
   - alias: 'Turn off map + hall + living v2'
     initial_state: 'on'
     trigger:
@@ -221,8 +255,18 @@ automation:
         id: map_remote
         event: 5002
     action:
-      service: light.turn_off
-      entity_id:
-        - light.map_room
-        - light.hall
-        - light.living_room
+      - service: switch.turn_off
+        entity_id:
+            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living
+      - service: light.turn_off
+        entity_id:
+            - light.map_room
+            - light.hall
+            - light.living_room
+      - delay: '00:00:30'
+      - service: switch.turn_on
+            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_hall
+            - switch.circadian_lighting_living

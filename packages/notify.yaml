@@ -23,16 +23,16 @@ notify:
   - name: everyone
     platform: group
     services:
-      - service: ios_dan_iphone
-      - service: ios_will_iphone
+      - service: notify.mobile_app_dw_iphone
+      - service: notify.mobile_app_iphone
   - name: will
     platform: group
     services:
-      - service: ios_will_iphone
+      - service: notify.mobile_app_iphone
   - name: dan
     platform: group
     services:
-      - service: ios_dan_iphone
+      - service: notify.mobile_app_dw_iphone
   - name: nobody
     platform: group
     services:
@@ -45,7 +45,7 @@ automation:
       platform: state
       entity_id: updater.updater
     action:
-      service: notify.ios_will_iphone
+      service: notify.notify.mobile_app_iphone
       data:
         title: "\U0001f4f0 Update Available"
         message: 'A new update for Home Assistant is available.'

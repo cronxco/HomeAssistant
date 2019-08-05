@@ -243,6 +243,7 @@ automation:
             - light.living_room
       - delay: '00:00:30'
       - service: switch.turn_on
+        entity_id:
             - switch.circadian_lighting_bedroom
             - switch.circadian_lighting_hall
             - switch.circadian_lighting_living
@@ -267,6 +268,7 @@ automation:
             - light.living_room
       - delay: '00:00:30'
       - service: switch.turn_on
+        entity_id:
             - switch.circadian_lighting_bedroom
             - switch.circadian_lighting_hall
             - switch.circadian_lighting_living

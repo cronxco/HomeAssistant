@@ -23,16 +23,16 @@ notify:
   - name: everyone
     platform: group
     services:
-      - service: notify.mobile_app_dw_iphone
-      - service: notify.mobile_app_iphone
+      - service: mobile_app_dw_iphone
+      - service: mobile_app_iphone
   - name: will
     platform: group
     services:
-      - service: notify.mobile_app_iphone
+      - service: mobile_app_iphone
   - name: dan
     platform: group
     services:
-      - service: notify.mobile_app_dw_iphone
+      - service: mobile_app_dw_iphone
   - name: nobody
     platform: group
     services:

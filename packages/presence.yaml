@@ -14,11 +14,11 @@ homeassistant:
     input_boolean.dan_home:
       entity_picture: !secret dan_photo
 
-    device_tracker.will_iphone:
+    device_tracker.ws_iphone:
       icon: mdi:crosshairs-gps
     device_tracker.will_ping:
       icon: mdi:cellphone
-    device_tracker.dan_iphone:
+    device_tracker.dw_iphone:
       icon: mdi:crosshairs-gps
     device_tracker.dan_ping:
       icon: mdi:cellphone
@@ -77,10 +77,10 @@ group:
     control: hidden
     entities:
       - input_boolean.will_home
-      - device_tracker.will_iphone
+      - device_tracker.ws_iphone
       - device_tracker.will_ping
       - input_boolean.dan_home
-      - device_tracker.dan_iphone
+      - device_tracker.dw_iphone
       - device_tracker.dan_ping
   presence_modes:
     name: Presence Modes
@@ -100,7 +100,7 @@ automation:
           minutes: 3
       # Or if owntracks updates as not_home
       - platform: state
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         from: 'home'
         to: 'not_home'
     condition:
@@ -127,11 +127,11 @@ automation:
     trigger:
       # Triggers if at ECR
       - platform: state
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         to: 'ECR'
       # Or at WIM
       - platform: state
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         to: 'WIM'
     condition:
       # Needs to have been on in the first place - don't want this always firing!
@@ -159,7 +159,7 @@ automation:
           minutes: 3
       # Or if owntracks updates as not_home
       - platform: state
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         from: 'home'
         to: 'not_home'
     condition:
@@ -186,11 +186,11 @@ automation:
     trigger:
       # Triggers if at ECR
       - platform: state
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         to: 'ECR'
       # Or at WIM
       - platform: state
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         to: 'WIM'
     condition:
       # Needs to have been on in the first place - don't want this always firing!
@@ -280,7 +280,7 @@ automation:
     trigger:
       # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         to: 'home'
         for:
           minutes: 3
@@ -304,7 +304,7 @@ automation:
     trigger:
       # If owntracks changes to "home" then wait 3 minutes (to avoid 'just passing through triggers')
       - platform: state
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         to: 'home'
         for:
           minutes: 3
@@ -337,7 +337,7 @@ automation:
         state: 'on'
       # So here if owntracks is home, even if the 3 minute rule hasn't been met, the individual will be marked as home.
       - condition: state
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         state: 'home'
     action:
       - service: homeassistant.turn_on
@@ -359,7 +359,7 @@ automation:
         state: 'on'
       # So here if owntracks is home, even if the 3 minute rule hasn't been met, the individual will be marked as home.
       - condition: state
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         state: 'home'
     action:
       - service: homeassistant.turn_on

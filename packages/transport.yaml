@@ -111,11 +111,11 @@ automation:
   - alias: 'Will at ECR'
     trigger:
       - platform: zone
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         zone: zone.ecrwest
         event: enter
       - platform: zone
-        entity_id: device_tracker.will_iphone
+        entity_id: device_tracker.ws_iphone
         zone: zone.ecr
         event: enter
     condition:
@@ -143,11 +143,11 @@ automation:
   - alias: 'Dan at ECR'
     trigger:
       - platform: zone
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         zone: zone.ecrwest
         event: enter
       - platform: zone
-        entity_id: device_tracker.dan_iphone
+        entity_id: device_tracker.dw_iphone
         zone: zone.ecr
         event: enter
     condition:

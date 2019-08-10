@@ -25,8 +25,8 @@ homeassistant:
       friendly_name: 'Circadian Utility'
 
 circadian_lighting:
-  interval: 30
-  transition: 30
+  interval: 300
+  transition: 2
   sunset_offset: '0:45'
 
 switch:
@@ -62,8 +62,7 @@ switch:
   - platform: circadian_lighting
     name: Living
     lights_ct:
-      - light.sofa
-      - light.dining
+      - light.living_room
     disable_brightness_adjust: true
     sleep_entity: input_boolean.sleep_mode
     sleep_state: 'on'
@@ -71,9 +70,7 @@ switch:
   - platform: circadian_lighting
     name: Bedroom
     lights_ct:
-      - light.main
-      - light.daniel_side
-      - light.will_side
+      - light.bedroom
       - light.map_room
     disable_brightness_adjust: true
     disable_entity: input_boolean.alarm
@@ -84,7 +81,6 @@ lifx:
 light:
   # LIFX now has to be configured differently
   # - platform: lifx
-  # IKEA Trädfri now here (through autoconfig)
   - platform: group
     name: Kitchen
     entities:

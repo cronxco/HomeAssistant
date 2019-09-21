@@ -99,7 +99,7 @@ markdownlint:
     - gem install mdl
     - mdl --version
   script:
-    - mdl --style all --warnings --git-recurse .
+    - mdl --style ci_config/mdstyle.rb --warnings --git-recurse .
 
 # Home Assistant test jobs
 ha-latest:

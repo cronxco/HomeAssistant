@@ -1,3 +1,5 @@
+# Bug Report
+
 <!---
 Please read this!
 
@@ -5,8 +7,6 @@ This is the standard new feature template for all CronxCo projects.
 Please feel free to add additional sections where necessary but ensure that the initial sections are filled in comprehensively!
 
 --->
-
-# Bug Report
 
 ## Problem to solve
 

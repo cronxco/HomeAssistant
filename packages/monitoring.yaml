@@ -87,6 +87,9 @@ input_select:
       - notset
     initial: error
 
+pi_hole:
+  host: !secret pihole
+
 sensor:
   - platform: version
     name: Installed HA version
@@ -158,8 +161,6 @@ sensor:
   - platform: travisci
     api_key: !secret travisci
 
-  - platform: pi_hole
-    host: !secret pihole
   - platform: cert_expiry
     host: !secret base_url
 

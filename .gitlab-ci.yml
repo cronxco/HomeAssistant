@@ -21,8 +21,8 @@ variables:
   before_script:
     - python -m homeassistant --version
     - cp $CI_PROJECT_DIR/ci_secrets.yaml $CI_PROJECT_DIR/secrets.yaml
-    - rm packages/hacs.yaml
-    - rm packages/rubbish.yaml
+    - rm -f packages/hacs.yaml
+    - rm -f packages/rubbish.yaml
   script:
     - |
       python -m homeassistant \
@@ -66,7 +66,7 @@ yamllint:
   before_script:
     - yamllint --version
     - mv ci_secrets.yaml secrets.yaml
-    - rm known_devices.yaml appdaemon.yaml apps/apps.yaml || return
+    - rm -f known_devices.yaml appdaemon.yaml apps/apps.yaml
   script:
     - yamllint .
   allow_failure: true

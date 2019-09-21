@@ -66,7 +66,7 @@ yamllint:
   before_script:
     - yamllint --version
     - mv ci_secrets.yaml secrets.yaml
-    - rm known_devices.yaml appdaemon.yaml apps/apps.yaml
+    - rm known_devices.yaml appdaemon.yaml apps/apps.yaml || return
   script:
     - yamllint .
   allow_failure: true

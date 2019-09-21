@@ -6,6 +6,8 @@ Please feel free to add additional sections where necessary but ensure that the 
 
 --->
 
+# Bug Report
+
 ### Summary
 
 (Summarize the bug encountered concisely)
@@ -13,7 +15,6 @@ Please feel free to add additional sections where necessary but ensure that the 
 ### Steps to reproduce
 
 (How one can reproduce the issue - this is very important)
-
 
 ### What is the current *bug* behavior?
 

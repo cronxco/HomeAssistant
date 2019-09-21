@@ -49,7 +49,7 @@ shellcheck:
     - apk --no-cache add grep
   script:
     - |
-      for file in $(grep -IRl "#\!\(/usr/bin/env \|/bin/\)" --exclude-dir ".git" .); do
+      for file in $(grep -IRl "#\!\(/usr/bin/env bash\|/bin/bash\)" --exclude-dir ".git" .); do
         if ! shellcheck -x $file; then
           export FAILED=1
         else

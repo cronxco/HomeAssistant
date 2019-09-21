@@ -169,6 +169,8 @@ automation:
               entity_id: input_boolean.dan_home
               state: 'on'
     action:
+        - service: homeassistant.turn_off
+          entity_id: switch.circadian_lighting_bedroom
         - service: script.stream
           data:
             message: "\U000023f0 Dan's alarm has triggered"

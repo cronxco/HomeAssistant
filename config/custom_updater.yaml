@@ -4,4 +4,4 @@ card_urls:
   - https://raw.githubusercontent.com/kalkih/simple-weather-card/master/tracker.json
 component_urls:
 # Released build
-    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/master/custom_components.json
+  - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/master/custom_components.json

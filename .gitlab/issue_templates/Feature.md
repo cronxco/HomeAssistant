@@ -1,3 +1,5 @@
+# Bug Report
+
 <!---
 Please read this!
 
@@ -6,7 +8,7 @@ Please feel free to add additional sections where necessary but ensure that the 
 
 --->
 
-### Problem to solve
+## Problem to solve
 
 A one line summary of the problem we're trying to fix
 
@@ -14,9 +16,9 @@ A one line summary of the problem we're trying to fix
 
 (Include use cases, benefits, and/or goals)
 
-### Proposal
+## Proposal
 
-### What does success look like, and how can we measure that?
+### What does success look like? Make it SMART
 
 (If no way to measure success, link to an issue that will implement a way to measure this)
 

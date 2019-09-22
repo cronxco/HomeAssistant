@@ -51,53 +51,53 @@ scene:
 # These are the phased lights at sunset - they have relatively long transitions.
   - name: Sunset1
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 90
         brightness: 50
         color_temp: 285
   - name: Sunset2
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 90
         brightness: 100
         color_temp: 285
-     light.hall:
+      light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
-     light.bedroom:
+      light.bedroom:
         state: on
         transition: 180
         brightness: 100
         color_temp: 285
   - name: Sunset2Quiet
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 90
         brightness: 100
         color_temp: 285
-     light.hall:
+      light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
   - name: Sunset3
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 180
         brightness: 150
         color_temp: 350
-     light.hall:
+      light.hall:
         state: on
         transition: 10
         brightness: 75
         color_temp: 350
-     light.bedroom:
+      light.bedroom:
         state: on
         transition: 180
         brightness: 150
@@ -107,53 +107,53 @@ scene:
 
   - name: trigsunset1
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 5
         brightness: 50
         color_temp: 285
   - name: trigsunset2
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 5
         brightness: 100
         color_temp: 285
-     light.hall:
+      light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
-     light.bedroom:
+      light.bedroom:
         state: on
         transition: 180
         brightness: 100
         color_temp: 285
   - name: trigsunset2Quiet
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 5
         brightness: 100
         color_temp: 285
-     light.hall:
+      light.hall:
         state: on
         transition: 10
         brightness: 15
         color_temp: 285
   - name: trigsunset3
     entities:
-     light.living_room:
+      light.living_room:
         state: on
         transition: 5
         brightness: 150
         color_temp: 350
-     light.hall:
+      light.hall:
         state: on
         transition: 5
         brightness: 75
         color_temp: 350
-     light.bedroom:
+      light.bedroom:
         state: on
         transition: 5
         brightness: 150
@@ -470,19 +470,19 @@ automation:
         entity_id: input_select.sunset_phase
         to: Early Twilight
     condition:
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        # These are two modes that will (when actually set up) have their own lighting schemes and therefore they disable sunset lights.
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      # These are two modes that will (when actually set up) have their own lighting schemes and therefore they disable sunset lights.
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.sunset1
@@ -498,21 +498,21 @@ automation:
         from: 'off'
         to: 'on'
     condition:
-        - condition: state
-          entity_id: input_select.sunset_phase
-          state: Early Twilight
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
+      - condition: state
+        entity_id: input_select.sunset_phase
+        state: Early Twilight
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.trigsunset1
@@ -526,21 +526,21 @@ automation:
         entity_id: input_select.sunset_phase
         to: Mid Twilight
     condition:
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'off'
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.sunset2
@@ -554,21 +554,21 @@ automation:
         entity_id: input_select.sunset_phase
         to: Mid Twilight
     condition:
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'on'
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'on'
     action:
       - service: scene.turn_on
         entity_id: scene.sunset2Quiet
@@ -584,24 +584,24 @@ automation:
         from: 'off'
         to: 'on'
     condition:
-        - condition: state
-          entity_id: input_select.sunset_phase
-          state: Mid Twilight
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'off'
+      - condition: state
+        entity_id: input_select.sunset_phase
+        state: Mid Twilight
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.trigsunset2
@@ -616,24 +616,24 @@ automation:
         from: 'off'
         to: 'on'
     condition:
-        - condition: state
-          entity_id: input_select.sunset_phase
-          state: Mid Twilight
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'on'
+      - condition: state
+        entity_id: input_select.sunset_phase
+        state: Mid Twilight
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'on'
     action:
       - service: scene.turn_on
         entity_id: scene.trigsunset2Quiet
@@ -647,22 +647,22 @@ automation:
         entity_id: input_select.sunset_phase
         to: Dusk
     condition:
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-          # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+        # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.sunset3
@@ -685,27 +685,27 @@ automation:
         from: 'off'
         to: 'on'
     condition:
-        - condition: state
-          entity_id: input_select.sunset_phase
-          state: Dusk
-        - condition: state
-          entity_id: group.people
-          state: 'on'
-        - condition: time
-          before: '22:00:00'
-          # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
+      - condition: state
+        entity_id: input_select.sunset_phase
+        state: Dusk
+      - condition: state
+        entity_id: group.people
+        state: 'on'
+      - condition: time
+        before: '22:00:00'
+        # Sunset Mode 3 also requires quiet mode to be off. Ultimately quiet mode is meant to be for headaches / migraines etc. with no notifications and nice dim lights. By preventing Sunset 3 it means the bedroom lights never come on and the rest of the flat is left dim.
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
     action:
       - service: scene.turn_on
         entity_id: scene.trigsunset3
@@ -729,21 +729,21 @@ automation:
         from: 'off'
         to: 'on'
     condition:
-        - condition: state
-          entity_id: input_select.time_mode
-          state: Night
-        - condition: state
-          entity_id: input_boolean.quiet_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.romance_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.party_mode
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.film_mode
-          state: 'off'
+      - condition: state
+        entity_id: input_select.time_mode
+        state: Night
+      - condition: state
+        entity_id: input_boolean.quiet_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.romance_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.film_mode
+        state: 'off'
     action:
       - service: light.turn_on
         entity_id: light.hall
@@ -768,5 +768,5 @@ automation:
       for:
         minutes: 1
     action:
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.light_trigger
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.light_trigger

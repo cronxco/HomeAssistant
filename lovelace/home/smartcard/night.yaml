@@ -1,9 +1,0 @@
-type: conditional
-conditions:
-  - entity: sensor.mode
-    state: "Night"
-card:
-  type: markdown
-  title: Night
-  content: >
-    Welcome to your **Lovelace UI**.

@@ -159,9 +159,9 @@ automation:
 # Always
   - alias: 'Good Morning'
     trigger:
-        platform: state
-        entity_id: input_boolean.good_morning
-        to: 'on'
+      platform: state
+      entity_id: input_boolean.good_morning
+      to: 'on'
     action:
       - service: script.morning_tv
       - delay:
@@ -179,9 +179,9 @@ automation:
 
   - alias: 'Good Morning - Darkness'
     trigger:
-        platform: state
-        entity_id: input_boolean.good_morning
-        to: 'on'
+      platform: state
+      entity_id: input_boolean.good_morning
+      to: 'on'
     condition:
       - condition: numeric_state
         entity_id: sun.sun
@@ -197,9 +197,9 @@ automation:
 
   - alias: 'Good Morning - Alarm Sleep'
     trigger:
-        platform: state
-        entity_id: input_boolean.good_morning
-        to: 'on'
+      platform: state
+      entity_id: input_boolean.good_morning
+      to: 'on'
     condition:
       - condition: state
         entity_id: 'input_boolean.alarm'
@@ -214,9 +214,9 @@ automation:
 
   - alias: 'Good Night'
     trigger:
-        platform: state
-        entity_id: input_boolean.good_night
-        to: 'on'
+      platform: state
+      entity_id: input_boolean.good_night
+      to: 'on'
     action:
       - service: homeassistant.turn_off
         data:
@@ -232,17 +232,17 @@ automation:
       - service: script.sonos_tts
         data_template:
           what: >
-           {%- if states("sensor.dan_workday_tomorrow") == "False" and states("sensor.will_workday_tomorrow") == "False" -%}
-           There are no alarms set for tomorrow. Sleep well.
-           {%- elif states("sensor.dan_workday_tomorrow") == "True" and states("sensor.will_workday_tomorrow") == "True" -%}
-           Both alarms are set for tomorrow morning. Good night.
-           {%- elif states("sensor.dan_workday_tomorrow") == "True" and states("sensor.will_workday_tomorrow") == "False" -%}
-           Dan's alarm is set for tomorrow morning. Night night.
-           {%- elif states("sensor.dan_workday_tomorrow") == "False" and states("sensor.will_workday_tomorrow") == "True" -%}
-           Will's alarm is set for tomorrow morning. Nos da.
-           {%- else -%}
-           Good night.
-           {%- endif %}
+            {%- if states("sensor.dan_workday_tomorrow") == "False" and states("sensor.will_workday_tomorrow") == "False" -%}
+            There are no alarms set for tomorrow. Sleep well.
+            {%- elif states("sensor.dan_workday_tomorrow") == "True" and states("sensor.will_workday_tomorrow") == "True" -%}
+            Both alarms are set for tomorrow morning. Good night.
+            {%- elif states("sensor.dan_workday_tomorrow") == "True" and states("sensor.will_workday_tomorrow") == "False" -%}
+            Dan's alarm is set for tomorrow morning. Night night.
+            {%- elif states("sensor.dan_workday_tomorrow") == "False" and states("sensor.will_workday_tomorrow") == "True" -%}
+            Will's alarm is set for tomorrow morning. Nos da.
+            {%- else -%}
+            Good night.
+            {%- endif %}
           where: "bedroom_one"
       - delay:
           minutes: 2
@@ -269,9 +269,9 @@ automation:
 
   - alias: 'Goodbye'
     trigger:
-        platform: state
-        entity_id: input_boolean.goodbye
-        to: 'on'
+      platform: state
+      entity_id: input_boolean.goodbye
+      to: 'on'
     action:
       - service: scene.turn_on
         entity_id: scene.goodbye_lights

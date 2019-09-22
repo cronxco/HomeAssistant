@@ -111,16 +111,16 @@ switch:
 scene:
   - name: Media Off
     entities:
-     remote.living_room:
+      remote.living_room:
         state: off
 
 # Suave cinema mode (definitely one of the coolest scenes!)
   - name: Cinema
     entities:
-     light.sofa:
+      light.sofa:
         state: off
         transition: 10
-     light.dining:
+      light.dining:
         state: on
         transition: 10
         brightness: 35

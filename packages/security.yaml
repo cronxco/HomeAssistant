@@ -56,36 +56,36 @@ automation:
 
   - alias: 'Lockdown'
     trigger:
-         platform: state
-         entity_id: group.people
-         from: 'on'
-         to: 'off'
+      platform: state
+      entity_id: group.people
+      from: 'on'
+      to: 'off'
     action:
-        - service: light.turn_off
-          entity_id: group.all_lights
-        - service: alarm_control_panel.alarm_arm_away
-          entity_id: alarm_control_panel.basecamp
-        - service: script.notify_all
-          data:
-            title: "\U0001F512 Lockdown"
-            message: "Everyone's Away - Everything is off and Canary is armed and ready!"
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.home_mode
-        - service: input_boolean.turn_on
-          entity_id: input_boolean.away_mode
-        - service: group.set_visibility
-          entity_id: group.canary
-          data:
-            visible: true
-        - service: script.stream
-          data:
-            message: "\U0001F512 Lockdown! I've switched the lights off and turned Canary on."
+      - service: light.turn_off
+        entity_id: group.all_lights
+      - service: alarm_control_panel.alarm_arm_away
+        entity_id: alarm_control_panel.basecamp
+      - service: script.notify_all
+        data:
+          title: "\U0001F512 Lockdown"
+          message: "Everyone's Away - Everything is off and Canary is armed and ready!"
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.home_mode
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.away_mode
+      - service: group.set_visibility
+        entity_id: group.canary
+        data:
+          visible: true
+      - service: script.stream
+        data:
+          message: "\U0001F512 Lockdown! I've switched the lights off and turned Canary on."
 
   - alias: 'Front Door Opened'
     trigger:
-        platform: state
-        entity_id: sensor.front_door_access_control
-        to: '22'
+      platform: state
+      entity_id: sensor.front_door_access_control
+      to: '22'
     condition:
       - condition: state
         entity_id: input_boolean.front_door
@@ -106,22 +106,22 @@ automation:
   # Another refractory period to stop repeated notifications if the door is opened and closed several times in a short period.
   - alias: 'Front Door Expiry'
     trigger:
-        platform: state
-        entity_id: input_boolean.front_door
-        to: 'on'
-        for:
-          minutes: 3
+      platform: state
+      entity_id: input_boolean.front_door
+      to: 'on'
+      for:
+        minutes: 3
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.front_door
 
   - alias: 'Front Door Recent Expiry'
     trigger:
-        platform: state
-        entity_id: input_boolean.front_door_recent
-        to: 'on'
-        for:
-          minutes: 10 # Might reduce this later
+      platform: state
+      entity_id: input_boolean.front_door_recent
+      to: 'on'
+      for:
+        minutes: 10 # Might reduce this later
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.front_door_recent
@@ -129,24 +129,24 @@ automation:
   # If people get back, turn off Canary, set the flat to home_mode and get rid of the lockdown notification.
   - alias: 'Occupied'
     trigger:
-         platform: state
-         entity_id: group.people
-         from: 'off'
-         to: 'on'
+      platform: state
+      entity_id: group.people
+      from: 'off'
+      to: 'on'
     action:
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.away_mode
-        - service: input_boolean.turn_on
-          entity_id: input_boolean.home_mode
-        - service: alarm_control_panel.alarm_disarm
-          entity_id: alarm_control_panel.basecamp
-        - service: persistent_notification.dismiss
-          data:
-            notification_id: "404"
-        - service: group.set_visibility
-          entity_id: group.canary
-          data:
-            visible: false
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.away_mode
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.home_mode
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.basecamp
+      - service: persistent_notification.dismiss
+        data:
+          notification_id: "404"
+      - service: group.set_visibility
+        entity_id: group.canary
+        data:
+          visible: false
 
   - alias: Canary Hidden
     trigger:
@@ -157,16 +157,16 @@ automation:
         entity_id: input_boolean.away_mode
         state: 'off'
     action:
-        - service: group.set_visibility
-          entity_id: group.canary
-          data:
-            visible: false
+      - service: group.set_visibility
+        entity_id: group.canary
+        data:
+          visible: false
 
   # If at 04:30 everyone is away then automagically switch on holiday mode.
   - alias: 'Auto holiday mode'
     trigger:
-        platform: time
-        at: '04:30:00'
+      platform: time
+      at: '04:30:00'
     condition:
       - condition: state
         entity_id: group.people
@@ -179,7 +179,7 @@ automation:
     action:
       - service: input_boolean.turn_on
         entity_id:
-         - input_boolean.holiday_mode
+          - input_boolean.holiday_mode
       - service: script.notify_away
         data:
           title: "\U0001F334 Holiday Mode"

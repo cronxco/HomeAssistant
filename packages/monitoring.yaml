@@ -180,7 +180,7 @@ speedtestdotnet:
 
 fastdotcom:
   scan_interval:
-      minutes: 35
+    minutes: 35
 
 linode:
   access_token: !secret linode
@@ -197,10 +197,10 @@ group:
     - sensor.speedtest_upload
     - sensor.fastcom_download
   Power:
-    -  sensor.power_usage
-    -  sensor.power_stats_mean
-    -  sensor.electricity_usage
-    -  sensor.tumble_dryer_current
+    - sensor.power_usage
+    - sensor.power_stats_mean
+    - sensor.electricity_usage
+    - sensor.tumble_dryer_current
   Developer:
     control: hidden
     entities:

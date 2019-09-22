@@ -6,8 +6,6 @@
 
 # This package deals with time and all time-based automations
 
-
-
 # This sensor is what allows HASS to know what time it is (and date, day of week etc.)
 sensor:
   - platform: time_date
@@ -60,8 +58,8 @@ automation:
 
   - alias: 'Morning Reset'
     trigger:
-        platform: time
-        at: '04:30:00'
+      platform: time
+      at: '04:30:00'
     condition:
       - condition: time
         before: '06:00:00'

@@ -1,9 +1,0 @@
-type: conditional
-conditions:
-  - entity: sensor.alert_rain
-    state: "true"
-card:
-  type: markdown
-  title: Rain
-  content: >
-    Welcome to your **Lovelace UI**.

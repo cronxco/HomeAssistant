@@ -18,10 +18,10 @@ automation:
           - light.sofa
           - light.dining
         data:
-            period: 2
-            brightness: 160
-            change: 90
-            spread: 45
+          period: 2
+          brightness: 160
+          change: 90
+          spread: 45
       # Music
       - service: sonos.join
         data:

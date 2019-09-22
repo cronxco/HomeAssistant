@@ -23,6 +23,7 @@ pyozw.sqlite
 !/.travis.yml
 !/.gitlab-ci.yml
 !/.gitlab
+!/ci_config/*
 html5_push_registrations.conf
 ip_bans.yaml
 /icloud/*

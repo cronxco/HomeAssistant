@@ -1,4 +1,3 @@
-
 stages:
   - preflight
   - homeassistant
@@ -24,13 +23,19 @@ variables:
     - rm -f packages/hacs.yaml
     - rm -f packages/rubbish.yaml
   script:
-    - /usr/local/bin/python -m homeassistant --config $CI_PROJECT_DIR/ --script check_config
-    - if /usr/local/bin/python -m homeassistant --config $CI_PROJECT_DIR/ --script check_config | grep "ERROR" ; then exit 1; else echo "No YAML errors"; fi
+    - |
+        /usr/local/bin/python -m homeassistant \
+          --config $CI_PROJECT_DIR/ \
+          --script check_config
+    - |
+        if /usr/local/bin/python -m homeassistant \
+          --config $CI_PROJECT_DIR/ --script check_config | \
+          grep "ERROR" ; then exit 1; else echo "No YAML errors"; fi
 
   tags:
     - hass
 
-#before_script:
+# before_script:
 #  - apt-get update
 #  - apt-get install -y mosquitto-clients
 
@@ -47,7 +52,8 @@ shellcheck:
     - apk --no-cache add grep
   script:
     - |
-      for file in $(grep -IRl "#\!\(/usr/bin/env bash\|/bin/bash\)" --exclude-dir ".git" .); do
+      for file in $(grep -IRl "#\!\(/usr/bin/env bash\|/bin/bash\)" \
+      --exclude-dir ".git" .); do
         if ! shellcheck -x $file; then
           export FAILED=1
         else
@@ -66,7 +72,7 @@ yamllint:
     - mv ci_secrets.yaml secrets.yaml
     - rm -f known_devices.yaml appdaemon.yaml apps/apps.yaml
   script:
-    - yamllint .
+    - yamllint -c ci_config/.yamllint .
   allow_failure: true
 
 jsonlint:
@@ -76,7 +82,8 @@ jsonlint:
     - jsonlint --version || true
   script:
     - |
-      for file in $(find . -type f -name "*.json" -path "mysensors.json" -prune); do
+      for file in $(find . -type f -name \
+      "*.json" -path "mysensors.json" -prune); do
         if ! jsonlint -q $file; then
           export FAILED=1
         else
@@ -130,7 +137,9 @@ deploy:
   before_script:
     - apk --no-cache add curl
   script:
-    - "curl -X POST -H \"Authorization: Bearer $DEPLOYMENT_HASS_TOKEN\" -H \"Content-Type: application/json\" $DEPLOYMENT_HASS_URL/api/services/script/configuation_update"
+    - "curl -X POST -H \"Authorization: Bearer $DEPLOYMENT_HASS_TOKEN\" -H \
+      \"Content-Type: application/json\" \
+      $DEPLOYMENT_HASS_URL/api/services/script/configuation_update"
   only:
     refs:
       - master

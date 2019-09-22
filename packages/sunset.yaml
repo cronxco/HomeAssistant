@@ -51,113 +51,113 @@ scene:
 # These are the phased lights at sunset - they have relatively long transitions.
   - name: Sunset1
     entities:
-     light.living_room:
-        state: on
-        transition: 90
-        brightness: 50
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 90
+          brightness: 50
+          color_temp: 285
   - name: Sunset2
     entities:
-     light.living_room:
-        state: on
-        transition: 90
-        brightness: 100
-        color_temp: 285
-     light.hall:
-        state: on
-        transition: 10
-        brightness: 15
-        color_temp: 285
-     light.bedroom:
-        state: on
-        transition: 180
-        brightness: 100
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 90
+          brightness: 100
+          color_temp: 285
+      light.hall:
+          state: on
+          transition: 10
+          brightness: 15
+          color_temp: 285
+      light.bedroom:
+          state: on
+          transition: 180
+          brightness: 100
+          color_temp: 285
   - name: Sunset2Quiet
     entities:
-     light.living_room:
-        state: on
-        transition: 90
-        brightness: 100
-        color_temp: 285
-     light.hall:
-        state: on
-        transition: 10
-        brightness: 15
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 90
+          brightness: 100
+          color_temp: 285
+      light.hall:
+          state: on
+          transition: 10
+          brightness: 15
+          color_temp: 285
   - name: Sunset3
     entities:
-     light.living_room:
-        state: on
-        transition: 180
-        brightness: 150
-        color_temp: 350
-     light.hall:
-        state: on
-        transition: 10
-        brightness: 75
-        color_temp: 350
-     light.bedroom:
-        state: on
-        transition: 180
-        brightness: 150
-        color_temp: 350
+      light.living_room:
+          state: on
+          transition: 180
+          brightness: 150
+          color_temp: 350
+      light.hall:
+          state: on
+          transition: 10
+          brightness: 75
+          color_temp: 350
+      light.bedroom:
+          state: on
+          transition: 180
+          brightness: 150
+          color_temp: 350
 
 # The triggered versions have much shorter transitions - we want the lights to come on nearly instantly if we arrive back home.
 
   - name: trigsunset1
     entities:
-     light.living_room:
-        state: on
-        transition: 5
-        brightness: 50
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 5
+          brightness: 50
+          color_temp: 285
   - name: trigsunset2
     entities:
-     light.living_room:
-        state: on
-        transition: 5
-        brightness: 100
-        color_temp: 285
-     light.hall:
-        state: on
-        transition: 10
-        brightness: 15
-        color_temp: 285
-     light.bedroom:
-        state: on
-        transition: 180
-        brightness: 100
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 5
+          brightness: 100
+          color_temp: 285
+      light.hall:
+          state: on
+          transition: 10
+          brightness: 15
+          color_temp: 285
+      light.bedroom:
+          state: on
+          transition: 180
+          brightness: 100
+          color_temp: 285
   - name: trigsunset2Quiet
     entities:
-     light.living_room:
-        state: on
-        transition: 5
-        brightness: 100
-        color_temp: 285
-     light.hall:
-        state: on
-        transition: 10
-        brightness: 15
-        color_temp: 285
+      light.living_room:
+          state: on
+          transition: 5
+          brightness: 100
+          color_temp: 285
+      light.hall:
+          state: on
+          transition: 10
+          brightness: 15
+          color_temp: 285
   - name: trigsunset3
     entities:
-     light.living_room:
-        state: on
-        transition: 5
-        brightness: 150
-        color_temp: 350
-     light.hall:
-        state: on
-        transition: 5
-        brightness: 75
-        color_temp: 350
-     light.bedroom:
-        state: on
-        transition: 5
-        brightness: 150
-        color_temp: 350
+      light.living_room:
+          state: on
+          transition: 5
+          brightness: 150
+          color_temp: 350
+      light.hall:
+          state: on
+          transition: 5
+          brightness: 75
+          color_temp: 350
+      light.bedroom:
+          state: on
+          transition: 5
+          brightness: 150
+          color_temp: 350
 
 # These are now just automations to turn on the switches. First set for clear(ish)
 # skies, the second & third sets for cloudy days...

@@ -1,9 +1,0 @@
-title: Hall Panel
-widget_dimensions: [1, 1]
-widget_size: [120, 120]
-widget_margins: [0, 0]
-columns: 1000
-layout:
-  - include: top_panel
-  - include: main_hall_panel
-  - include: bottom_panel

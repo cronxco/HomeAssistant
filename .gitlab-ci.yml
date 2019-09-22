@@ -23,12 +23,14 @@ variables:
     - rm -f packages/hacs.yaml
     - rm -f packages/rubbish.yaml
   script:
-    - /usr/local/bin/python -m homeassistant \
-      --config $CI_PROJECT_DIR/ \
-      --script check_config
-    - if /usr/local/bin/python -m homeassistant \
-      --config $CI_PROJECT_DIR/ --script check_config | \
-      grep "ERROR" ; then exit 1; else echo "No YAML errors"; fi
+    - |
+        /usr/local/bin/python -m homeassistant \
+          --config $CI_PROJECT_DIR/ \
+          --script check_config
+    - |
+        if /usr/local/bin/python -m homeassistant \
+          --config $CI_PROJECT_DIR/ --script check_config | \
+          grep "ERROR" ; then exit 1; else echo "No YAML errors"; fi
 
   tags:
     - hass

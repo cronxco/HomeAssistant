@@ -1,7 +1,7 @@
-    alias: Emergency Party Lights
-    sequence:
-    - service: light.lifx_effect_colorloop
-      data:
-        entity_id: light.sofa, light.dining
-        period: 2
-        brightness: 115
+alias: Emergency Party Lights
+sequence:
+- service: light.lifx_effect_colorloop
+  data:
+    entity_id: light.sofa, light.dining
+    period: 2
+    brightness: 115

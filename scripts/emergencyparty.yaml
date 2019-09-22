@@ -1,15 +1,15 @@
-    alias: Emergency Party Mode
-    sequence:
-    - service: switch.turn_off
-      data:
-        entity_id: switch.flux
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.spotify
-        media_content_id: spotify:user:willscott:playlist:7KDKCaZOse0ApNsyWjYTje
-        media_content_type: playlist
-    - service: light.lifx_effect_colorloop
-      data:
-        entity_id: light.sofa, light.dining
-        period: 2
-        brightness: 115
+alias: Emergency Party Mode
+sequence:
+- service: switch.turn_off
+  data:
+    entity_id: switch.flux
+- service: media_player.play_media
+  data:
+    entity_id: media_player.spotify
+    media_content_id: spotify:user:willscott:playlist:7KDKCaZOse0ApNsyWjYTje
+    media_content_type: playlist
+- service: light.lifx_effect_colorloop
+  data:
+    entity_id: light.sofa, light.dining
+    period: 2
+    brightness: 115

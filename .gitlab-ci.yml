@@ -72,7 +72,7 @@ yamllint:
     - mv ci_secrets.yaml secrets.yaml
     - rm -f known_devices.yaml appdaemon.yaml apps/apps.yaml
   script:
-    - yamllint .
+    - yamllint -c ci_config/.yamllint .
   allow_failure: true
 
 jsonlint:

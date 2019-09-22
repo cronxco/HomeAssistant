@@ -8,27 +8,27 @@
 
 alias: Hall Lights
 sequence:
-- service: light.turn_on
-  entity_id: group.hall
-  data:
-    brightness: 5
-    color_temp: 285
-- delay: 00:00:01
-- service: light.turn_off
-  entity_id: group.hall
-- delay: 00:00:01
-- service: light.turn_on
-  entity_id: group.hall
-  data:
-    brightness: 10
-    color_temp: 285
-- delay: 00:00:01
-- service: light.turn_off
-  entity_id: group.hall
-- delay: 00:00:02
-- service: light.turn_on
-  entity_id: group.hall
-  data:
-    transition: 15
-    brightness: 15
-    color_temp: 285
+  - service: light.turn_on
+    entity_id: group.hall
+    data:
+      brightness: 5
+      color_temp: 285
+  - delay: 00:00:01
+  - service: light.turn_off
+    entity_id: group.hall
+  - delay: 00:00:01
+  - service: light.turn_on
+    entity_id: group.hall
+    data:
+      brightness: 10
+      color_temp: 285
+  - delay: 00:00:01
+  - service: light.turn_off
+    entity_id: group.hall
+  - delay: 00:00:02
+  - service: light.turn_on
+    entity_id: group.hall
+    data:
+      transition: 15
+      brightness: 15
+      color_temp: 285

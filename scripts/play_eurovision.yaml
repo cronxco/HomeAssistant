@@ -1,7 +1,7 @@
 alias: Play Eurovision
 sequence:
-- service: media_player.play_media
-  data:
-    entity_id: media_player.spotify
-    media_content_id: spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q
-    media_content_type: playlist
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.spotify
+      media_content_id: spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q
+      media_content_type: playlist

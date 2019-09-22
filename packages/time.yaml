@@ -6,8 +6,6 @@
 
 # This package deals with time and all time-based automations
 
-
-
 # This sensor is what allows HASS to know what time it is (and date, day of week etc.)
 sensor:
   - platform: time_date

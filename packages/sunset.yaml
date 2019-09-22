@@ -401,7 +401,7 @@ automation:
       platform: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
-      below: 8
+      below: 7
     condition:
       - condition: state
         entity_id: input_select.cloud_cover

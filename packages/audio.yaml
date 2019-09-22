@@ -674,8 +674,6 @@ sensor:
             Off
           {%- endif %}
 
-
-
 # Add the debug inputs for the developer settings
 input_text:
   what:

@@ -101,45 +101,45 @@ automation:
               entity_id: input_boolean.will_home
               state: 'on'
     action:
-    - service: homeassistant.turn_off
-      entity_id: switch.circadian_lighting_bedroom
-    - service: script.stream
-      data:
-        message: "\U000023f0 Will's alarm has triggered"
-    - service: scene.turn_on
-      entity_id: scene.will_sunrise_1
-    - delay: 0:02
-    - service: scene.turn_on
-      entity_id: scene.will_sunrise_2
-    - delay: 0:02
-    - service: scene.turn_on
-      entity_id: scene.will_sunrise_3
-    - delay: 0:01
-    - service: notify.will
-      data_template:
-        title: "\U0001F305 Morning Will!"
-        message: >
-          {%- if states("sensor.dark_sky_daily_max_precip_intensity") | float > 0.05 -%}
-          Take an umbrella - {{ states("sensor.dark_sky_hourly_summary") | lower}}
-          {%- else -%}
-          Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}}
-          {%- endif -%}
-          {%- if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
-          It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
-          {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%}
-          Chilly day ahead - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
-          {%- endif -%}
-          {%- if (states("sensor.heating_temperature")  | float < states("sensor.heating_set_temp") | float) and (states("sensor.heating_heating")  | float > 0 ) -%}
-          It's only {{states("sensor.heating_temperature")}} inside but the heating is on.
-          {%- endif -%}
-          {%- if states("sensor.tram_status") != "Good Service" -%}
-          London Trams currently has {{ states("sensor.tram_status") | lower}}.
-          {%- endif -%}
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.alarm
-    - service: script.stream
-      data:
-        message: "\U000023f0 I've finished waking Will up"
+      - service: homeassistant.turn_off
+        entity_id: switch.circadian_lighting_bedroom
+      - service: script.stream
+        data:
+          message: "\U000023f0 Will's alarm has triggered"
+      - service: scene.turn_on
+        entity_id: scene.will_sunrise_1
+      - delay: 0:02
+      - service: scene.turn_on
+        entity_id: scene.will_sunrise_2
+      - delay: 0:02
+      - service: scene.turn_on
+        entity_id: scene.will_sunrise_3
+      - delay: 0:01
+      - service: notify.will
+        data_template:
+          title: "\U0001F305 Morning Will!"
+          message: >
+            {%- if states("sensor.dark_sky_daily_max_precip_intensity") | float > 0.05 -%}
+            Take an umbrella - {{ states("sensor.dark_sky_hourly_summary") | lower}}
+            {%- else -%}
+            Today's forecast is {{ states("sensor.dark_sky_hourly_summary") | lower}}
+            {%- endif -%}
+            {%- if states("sensor.dark_sky_daily_high_temperature")  | float > states("sensor.heating_temperature") | float -%}
+            It'll be warm out today, with a high of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
+            {%- elif states("sensor.dark_sky_daily_high_temperature")  | float < states("sensor.heating_set_temp") | float -%}
+            Chilly day ahead - max of {{ states("sensor.dark_sky_daily_high_temperature")  }}ºC.
+            {%- endif -%}
+            {%- if (states("sensor.heating_temperature")  | float < states("sensor.heating_set_temp") | float) and (states("sensor.heating_heating")  | float > 0 ) -%}
+            It's only {{states("sensor.heating_temperature")}} inside but the heating is on.
+            {%- endif -%}
+            {%- if states("sensor.tram_status") != "Good Service" -%}
+            London Trams currently has {{ states("sensor.tram_status") | lower}}.
+            {%- endif -%}
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.alarm
+      - service: script.stream
+        data:
+          message: "\U000023f0 I've finished waking Will up"
 
   - alias: 'Wake Dan Up'
     trigger:

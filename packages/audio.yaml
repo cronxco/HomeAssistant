@@ -339,74 +339,74 @@ script:
         data_template:
           message: "{{'\U0001f4e2 Broadcast: '~ what}}"
   play_something_somewhere:
-   sequence:
-   - service: media_player.select_source
-     data_template:
-       entity_id: "{{ where }}"
-       source: "{{ what }}"
+    sequence:
+      - service: media_player.select_source
+        data_template:
+          entity_id: "{{ where }}"
+          source: "{{ what }}"
   play_something_primary:
-   sequence:
-   - service: media_player.select_source
-     data_template:
-       entity_id: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
-       source: "{{ what }}"
+    sequence:
+      - service: media_player.select_source
+        data_template:
+          entity_id: "{{ 'media_player.' ~ states('input_select.primary_player') }}"
+          source: "{{ what }}"
   group_from_lr:
     sequence:
-    - service: sonos.join
-      data_template:
-        master: media_player.living_room_sonos
-        entity_id: media_player.bedroom_one
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.master_living_room_sonos
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.pp_joined
+      - service: sonos.join
+        data_template:
+          master: media_player.living_room_sonos
+          entity_id: media_player.bedroom_one
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.master_living_room_sonos
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.pp_joined
   group_from_br:
     sequence:
-    - service: sonos.join
-      data_template:
-        master: media_player.bedroom_one
-        entity_id: media_player.living_room_sonos
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.master_bedroom_one
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.pp_joined
+      - service: sonos.join
+        data_template:
+          master: media_player.bedroom_one
+          entity_id: media_player.living_room_sonos
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.master_bedroom_one
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.pp_joined
   unjoin_sonos:
     sequence:
-    - service: sonos.unjoin
-      data_template:
-        entity_id:
-          - media_player.living_room_sonos
-          - media_player.bedroom_one
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.pp_living_room_sonos
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.master_living_room_sonos
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.master_bedroom_one
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.primary_player
-        option: "living_room_sonos"
+      - service: sonos.unjoin
+        data_template:
+          entity_id:
+            - media_player.living_room_sonos
+            - media_player.bedroom_one
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.pp_living_room_sonos
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.master_living_room_sonos
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.master_bedroom_one
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.primary_player
+          option: "living_room_sonos"
   sonos_reset:
     sequence:
-    - service: script.unjoin_sonos
-    - service: media_player.media_stop
-      data_template:
-        entity_id:
-          - media_player.living_room_sonos
-          - media_player.bedroom_one
-    - service: media_player.volume_set
-      data_template:
-        entity_id:
-          - media_player.living_room_sonos
-          - media_player.bedroom_one
-        volume_level: 0.20
-    - service: media_player.volume_mute
-      data_template:
-        entity_id:
-          - media_player.living_room_sonos
-          - media_player.bedroom_one
-        is_volume_muted: false
+      - service: script.unjoin_sonos
+      - service: media_player.media_stop
+        data_template:
+          entity_id:
+            - media_player.living_room_sonos
+            - media_player.bedroom_one
+      - service: media_player.volume_set
+        data_template:
+          entity_id:
+            - media_player.living_room_sonos
+            - media_player.bedroom_one
+          volume_level: 0.20
+      - service: media_player.volume_mute
+        data_template:
+          entity_id:
+            - media_player.living_room_sonos
+            - media_player.bedroom_one
+          is_volume_muted: false
   tts_test:
     sequence:
       - service: script.sonos_tts
@@ -703,13 +703,13 @@ input_select:
   where:
     name: Where to speak
     options:
-     - bedroom_one
-     - living_room_sonos
+      - bedroom_one
+      - living_room_sonos
   primary_player:
     name: Primary Player
     options:
-     - bedroom_one
-     - living_room_sonos
+      - bedroom_one
+      - living_room_sonos
 input_boolean:
   pp_bedroom_one:
     name: SONOS Bedroom

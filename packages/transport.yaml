@@ -135,10 +135,10 @@ automation:
         value_template: >-
           {% if states.automation.will_at_ecr.attributes.last_triggered is none %}true{% else %}{{((as_timestamp(now()) - as_timestamp(states.automation.will_at_ecr.attributes.last_triggered))) > 3600}}{% endif %}
     action:
-        - service: script.ecr_will
-        - service: script.stream
-          data:
-            message: "\U0001f686 Will's at ECR"
+      - service: script.ecr_will
+      - service: script.stream
+        data:
+          message: "\U0001f686 Will's at ECR"
 
   - alias: 'Dan at ECR'
     trigger:
@@ -167,7 +167,7 @@ automation:
         value_template: >-
           {% if states.automation.dan_at_ecr.attributes.last_triggered is none %}true{% else %}{{((as_timestamp(now()) - as_timestamp(states.automation.dan_at_ecr.attributes.last_triggered))) > 3600}}{% endif %}
     action:
-        - service: script.ecr_dan
-        - service: script.stream
-          data:
-            message: "\U0001f686 Dan's at ECR"
+      - service: script.ecr_dan
+      - service: script.stream
+        data:
+          message: "\U0001f686 Dan's at ECR"

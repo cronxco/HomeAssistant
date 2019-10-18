@@ -258,7 +258,7 @@ alexa_media:
 rest_command:
   sonos_livingroom:
     url: 'http://hub.local:8349/api/speakText?playerId=RINCON_949F3EC2AF2D01400&text={{ what }}&volume=30'
-  sonos_livingroom:
+  sonos_bedroom:
     url: 'http://hub.local:8349/api/speakText?playerId=RINCON_7828CA00F86E01400&text={{ what }}&volume=30'
 
 script:

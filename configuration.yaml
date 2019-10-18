@@ -38,6 +38,7 @@ ffmpeg:
 system_health:
 mobile_app:
 person:
+cloud:
 
 frontend: !include config/frontend.yaml
 history: !include config/history.yaml
@@ -54,7 +55,6 @@ canary: !include config/canary.yaml
 mqtt: !include config/mqtt.yaml
 # emulated_hue: !include config/emulated_hue.yaml
 ios: !include config/ios.yaml
-cloud: !include config/cloud.yaml
 homekit: !include config/homekit.yaml
 influxdb: !include config/influxdb.yaml
 ifttt: !include config/ifttt.yaml

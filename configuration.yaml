@@ -58,4 +58,3 @@ ios: !include config/ios.yaml
 homekit: !include config/homekit.yaml
 influxdb: !include config/influxdb.yaml
 ifttt: !include config/ifttt.yaml
-custom_updater: !include config/custom_updater.yaml

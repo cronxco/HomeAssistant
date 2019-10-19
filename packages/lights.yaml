@@ -289,7 +289,7 @@ automation:
       - service: light.toggle
         entity_id:
           - light.map_room
-      - delay: '00:00:01'
+      - delay: '00:00:05'
       - service: switch.turn_on
         entity_id:
           - switch.circadian_lighting_map_room_ct

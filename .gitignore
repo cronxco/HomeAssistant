@@ -18,6 +18,8 @@ plex.conf
 phue.conf
 harmony_media_room.conf
 pyozw.sqlite
+/custom_components/*
+!/custom_components/hacs/*
 .*
 !/.gitignore
 !/.travis.yml

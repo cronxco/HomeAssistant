@@ -45,6 +45,11 @@ input_boolean:
     initial: off
     icon: mdi:light
 
+  sunset:
+    name: Sunset Mode
+    initial: off
+    icon: mdi:sun
+
 # SCENES
 scene:
 
@@ -189,11 +194,9 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to clear"
-      - service: homeassistant.turn_off
+      - service: homeassistant.turn_on
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
   - alias: 'Cloud Status: Cloudy'
     trigger:
       platform: numeric_state
@@ -222,11 +225,9 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to cloudy"
-      - service: homeassistant.turn_off
+      - service: homeassistant.turn_on
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
   - alias: 'Cloud Status: Overcast'
     trigger:
       platform: numeric_state
@@ -252,11 +253,9 @@ automation:
       - service: script.stream
         data:
           message: "\U00002601 Cloud status set to overcast"
-      - service: homeassistant.turn_off
+      - service: homeassistant.turn_on
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
 
   - alias: 'Early Twilight; Clear'
     trigger:
@@ -671,11 +670,9 @@ automation:
           message: "\U0001f4a1 Phase 3 lights have come on"
       # Wait for 5 minutes and then turn on circadian lighting again
       - delay: '0:05'
-      - service: homeassistant.turn_on
+      - service: homeassistant.turn_off
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
 
 # This is the near-duplicate triggered version with the fast-transition scene.
   - alias: 'Triggered Sunset 3'
@@ -714,11 +711,9 @@ automation:
           message: "\U0001f4a1 Lights have been tiggered"
       # Wait for 5 minutes and then turn on circadian lighting again
       - delay: '0:05'
-      - service: homeassistant.turn_on
+      - service: homeassistant.turn_off
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
 
 # If it's gone 22:00 and the flat is in "night mode" we still want some lighting if the trigger is enabled. Here it just turns on the hall lights.
 
@@ -752,11 +747,9 @@ automation:
           message: "\U0001f4a1 The hall lights have been tiggered"
       # Wait for 5 minutes and then turn on circadian lighting again
       - delay: '0:05'
-      - service: homeassistant.turn_on
+      - service: homeassistant.turn_off
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
+          - input_boolean.sunset
 
 # Add a way for the light trigger to be reset. By having it remain on for a minute, it leads to a refractory period where a faully state elsewhere cannot lead to the lights triggering every second!
   - alias: 'Reset Light Trigger'
@@ -770,3 +763,47 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.light_trigger
+
+  - alias: 'Start Sunset Mode'
+    trigger:
+      platform: state
+      entity_id: input_boolean.sunset
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 1
+    action:
+      - service: home_assistant.turn_off
+        entity_id:
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
+
+  - alias: 'End Sunset Mode'
+    trigger:
+      platform: state
+      entity_id: input_boolean.sunset
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 1
+    action:
+      - service: home_assistant.turn_on
+        entity_id:
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux

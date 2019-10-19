@@ -100,11 +100,22 @@ automation:
       # Reset all circadian lightling
       - service: homeassistant.turn_on
         entity_id:
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_bathroom
-          - switch.circadian_lighting_utility
+          - switch.circadian_lighting_bedroom_ct
+          - switch.circadian_lighting_bedroom_lux
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
 
 # 2: Sunrise! Turn off Danw and turn on Morning.
 

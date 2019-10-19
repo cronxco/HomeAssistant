@@ -101,8 +101,8 @@ automation:
               entity_id: input_boolean.will_home
               state: 'on'
     action:
-      - service: homeassistant.turn_off
-        entity_id: switch.circadian_lighting_bedroom
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.alarm
       - service: script.stream
         data:
           message: "\U000023f0 Will's alarm has triggered"
@@ -135,8 +135,6 @@ automation:
             {%- if states("sensor.tram_status") != "Good Service" -%}
             London Trams currently has {{ states("sensor.tram_status") | lower}}.
             {%- endif -%}
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alarm
       - service: script.stream
         data:
           message: "\U000023f0 I've finished waking Will up"
@@ -169,8 +167,8 @@ automation:
               entity_id: input_boolean.dan_home
               state: 'on'
     action:
-      - service: homeassistant.turn_off
-        entity_id: switch.circadian_lighting_bedroom
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.alarm
       - service: script.stream
         data:
           message: "\U000023f0 Dan's alarm has triggered"
@@ -203,8 +201,6 @@ automation:
             {%- if states("sensor.tram_status") != "Good Service" -%}
             London Trams currently has {{ states("sensor.tram_status") | lower}}.
             {%- endif -%}
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alarm
       - service: script.stream
         data:
           message: "\U000023f0 I've finished waking Dan up"
@@ -216,6 +212,8 @@ automation:
       entity_id: input_boolean.alarm
       to: 'on'
     action:
+      - delay:
+          seconds: 300
       - service: media_player.select_source
         entity_id: media_player.bedroom_one
         data:

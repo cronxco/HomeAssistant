@@ -221,10 +221,22 @@ automation:
       - service: homeassistant.turn_off
         data:
           entity_id:
-            - switch.circadian_lighting_bathroom
-            - switch.circadian_lighting_hall
-            - switch.circadian_lighting_living
-            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_bedroom_ct
+            - switch.circadian_lighting_bedroom_lux
+            - switch.circadian_lighting_ensuite_ct
+            - switch.circadian_lighting_ensuite_lux
+            - switch.circadian_lighting_hall_ct
+            - switch.circadian_lighting_hall_lux
+            - switch.circadian_lighting_bathroom_ct
+            - switch.circadian_lighting_bathroom_lux
+            - switch.circadian_lighting_utility_ct
+            - switch.circadian_lighting_utility_lux
+            - switch.circadian_lighting_living_room_ct
+            - switch.circadian_lighting_living_room_lux
+            - switch.circadian_lighting_kitchen_ct
+            - switch.circadian_lighting_kitchen_lux
+            - switch.circadian_lighting_map_room_ct
+            - switch.circadian_lighting_map_room_lux
       - service: scene.turn_on
         entity_id: scene.good_night_lights
       - service: homeassistant.turn_off
@@ -262,10 +274,22 @@ automation:
       - service: homeassistant.turn_on
         data:
           entity_id:
-            - switch.circadian_lighting_bathroom
-            - switch.circadian_lighting_hall
-            - switch.circadian_lighting_living
-            - switch.circadian_lighting_bedroom
+            - switch.circadian_lighting_bedroom_ct
+            - switch.circadian_lighting_bedroom_lux
+            - switch.circadian_lighting_ensuite_ct
+            - switch.circadian_lighting_ensuite_lux
+            - switch.circadian_lighting_hall_ct
+            - switch.circadian_lighting_hall_lux
+            - switch.circadian_lighting_bathroom_ct
+            - switch.circadian_lighting_bathroom_lux
+            - switch.circadian_lighting_utility_ct
+            - switch.circadian_lighting_utility_lux
+            - switch.circadian_lighting_living_room_ct
+            - switch.circadian_lighting_living_room_lux
+            - switch.circadian_lighting_kitchen_ct
+            - switch.circadian_lighting_kitchen_lux
+            - switch.circadian_lighting_map_room_ct
+            - switch.circadian_lighting_map_room_lux
 
   - alias: 'Goodbye'
     trigger:

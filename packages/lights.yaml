@@ -13,68 +13,169 @@ homeassistant:
       emulated_hue_hidden: false
   customize:
     # Add some friendly names
-    switch.circadian_lighting_bathroom:
-      friendly_name: 'Circadian Downlights'
-    switch.circadian_lighting_bedroom:
-      friendly_name: 'Circadian Bedrooms'
-    switch.circadian_lighting_hall:
-      friendly_name: 'Circadian Hall'
-    switch.circadian_lighting_living:
-      friendly_name: 'Circadian Living Room'
-    switch.circadian_lighting_utility:
-      friendly_name: 'Circadian Utility'
+    switch.circadian_lighting_bedroom_ct:
+      friendly_name: 'Circadian Bedroom Temperature'
+    switch.circadian_lighting_bedroom_lux:
+      friendly_name: 'Circadian Bedroom Brightness'
+    switch.circadian_lighting_ensuite_ct:
+      friendly_name: 'Circadian Ensuite Temperature'
+    switch.circadian_lighting_ensuite_lux:
+      friendly_name: 'Circadian Ensuite Brightness'
+    switch.circadian_lighting_hall_ct:
+      friendly_name: 'Circadian Hall Temperature'
+    switch.circadian_lighting_hall_lux:
+      friendly_name: 'Circadian Hall Brightness'
+    switch.circadian_lighting_bathroom_ct:
+      friendly_name: 'Circadian Bathroom Temperature'
+    switch.circadian_lighting_bathroom_lux:
+      friendly_name: 'Circadian Bathroom Brightness'
+    switch.circadian_lighting_utility_ct:
+      friendly_name: 'Circadian Utility Temperature'
+    switch.circadian_lighting_utility_lux:
+      friendly_name: 'Circadian Utility Brightness'
+    switch.circadian_lighting_living_room_ct:
+      friendly_name: 'Circadian Living Room Temperature'
+    switch.circadian_lighting_living_room_lux:
+      friendly_name: 'Circadian Living Room Brightness'
+    switch.circadian_lighting_kitchen_ct:
+      friendly_name: 'Circadian Kitchen Temperature'
+    switch.circadian_lighting_kitchen_lux:
+      friendly_name: 'Circadian Kicthen Brightness'
+    switch.circadian_lighting_map_room_ct:
+      friendly_name: 'Circadian Map Room Temperature'
+    switch.circadian_lighting_map_room_lux:
+      friendly_name: 'Circadian Map Room Brightness'
 
 circadian_lighting:
   interval: 300
   transition: 2
-  sunset_offset: '0:45'
+  sunrise_time: '07:00:00'
 
 switch:
+
+# Bedroom
   - platform: circadian_lighting
-    name: Bathroom
-    lights_ct:
-      - light.bathroom
-      - light.ensuite
-      - light.kitchen
-    max_brightness: 80
-    sleep_entity: input_boolean.sleep_mode
-    sleep_state: 'on'
-    sleep_colortemp: 2500
-    sleep_brightness: 2
-  - platform: circadian_lighting
-    name: Utility
-    lights_ct:
-      - light.utility
-    max_brightness: 80
-    sleep_entity: input_boolean.sleep_mode
-    sleep_state: 'on'
-    sleep_colortemp: 2500
-    sleep_brightness: 2
-  - platform: circadian_lighting
-    name: Hall
-    lights_ct:
-      - light.hall
-    max_brightness: 60
-    sleep_entity: input_boolean.sleep_mode
-    sleep_state: 'on'
-    sleep_colortemp: 2500
-    sleep_brightness: 5
-  - platform: circadian_lighting
-    name: Living
-    lights_ct:
-      - light.living_room
-    disable_brightness_adjust: true
-    sleep_entity: input_boolean.sleep_mode
-    sleep_state: 'on'
-    sleep_colortemp: 2500
-  - platform: circadian_lighting
-    name: Bedroom
+    name: Bedroom CT
     lights_ct:
       - light.bedroom
-      - light.map_room
     disable_brightness_adjust: true
     disable_entity: input_boolean.alarm
     disable_state: "on"
+  - platform: circadian_lighting
+    name: Bedroom Lux
+    lights_brightness:
+      - light.bedroom
+    disable_entity: input_boolean.alarm
+    disable_state: "on"
+    max_brightness: 100
+    min_brightness: 10
+
+# Ensuite
+  - platform: circadian_lighting
+    name: Ensuite CT
+    lights_ct:
+      - light.ensuite
+    disable_brightness_adjust: true
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: 'on'
+    sleep_colortemp: 2500
+    sleep_brightness: 2
+  - platform: circadian_lighting
+    name: Ensuite Lux
+    lights_brightness:
+      - light.ensuite
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: 'on'
+    sleep_colortemp: 2500
+    sleep_brightness: 2
+    max_brightness: 100
+    min_brightness: 20
+
+# Hall
+  - platform: circadian_lighting
+    name: Hall CT
+    lights_ct:
+      - light.hall
+    disable_brightness_adjust: true
+  - platform: circadian_lighting
+    name: Hall Lux
+    lights_brightness:
+      - light.hall
+    max_brightness: 80
+    min_brightness: 20
+
+# Bathroom
+  - platform: circadian_lighting
+    name: Bathroom CT
+    lights_ct:
+      - light.bathrooom
+    disable_brightness_adjust: true
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: 'on'
+    sleep_colortemp: 2500
+    sleep_brightness: 2
+  - platform: circadian_lighting
+    name: Bathroom Lux
+    lights_brightness:
+      - light.bathroom
+    sleep_entity: input_boolean.sleep_mode
+    sleep_state: 'on'
+    sleep_colortemp: 2500
+    sleep_brightness: 2
+    max_brightness: 100
+    min_brightness: 20
+
+# Utility
+  - platform: circadian_lighting
+    name: Utility CT
+    lights_ct:
+      - light.utility
+    disable_brightness_adjust: true
+  - platform: circadian_lighting
+    name: Utility Lux
+    lights_brightness:
+      - light.utility
+    max_brightness: 80
+    min_brightness: 20
+
+# Living Room
+  - platform: circadian_lighting
+    name: Living Room CT
+    lights_ct:
+      - light.living_room
+    disable_brightness_adjust: true
+  - platform: circadian_lighting
+    name: Living Room Lux
+    lights_brightness:
+      - light.living_room
+    max_brightness: 100
+    min_brightness: 30
+
+# Kitchen
+  - platform: circadian_lighting
+    name: Kitchen CT
+    lights_ct:
+      - light.kitchen
+    disable_brightness_adjust: true
+  - platform: circadian_lighting
+    name: Kitchen Lux
+    lights_brightness:
+      - light.kitchen
+    max_brightness: 100
+    min_brightness: 30
+
+# Map Room
+  - platform: circadian_lighting
+    name: Map Room CT
+    lights_ct:
+      - light.map_room
+    disable_brightness_adjust: true
+  - platform: circadian_lighting
+    name: Map Room Lux
+    lights_brightness:
+      - light.map_room
+    max_brightness: 100
+    min_brightness: 10
 
 lifx:
 
@@ -155,11 +256,22 @@ automation:
       service: homeassistant.turn_on
       data:
         entity_id:
-          - switch.circadian_lighting_bathroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_living
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_utility
+          - switch.circadian_lighting_bedroom_ct
+          - switch.circadian_lighting_bedroom_lux
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
   # Map Room Switch
   - alias: 'Toggle map room lights'
     initial_state: 'on'
@@ -172,15 +284,17 @@ automation:
     action:
       - service: switch.turn_off
         entity_id:
-          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
       - service: light.toggle
         entity_id:
           - light.map_room
-      - delay: '00:00:30'
+      - delay: '00:00:01'
       - service: switch.turn_on
         entity_id:
-          - switch.circadian_lighting_bedroom
-  - alias: 'Turn on map room lights'
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
+  - alias: 'Turn up map room lights'
     initial_state: 'on'
     trigger:
       platform: event
@@ -191,15 +305,19 @@ automation:
     action:
       - service: switch.turn_off
         entity_id:
-          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
       - service: light.turn_on
-        entity_id:
-          - light.map_room
-      - delay: '00:00:30'
+        data_template:
+          entity_id: light.map_room
+          brightness: >
+            {% set bri = state_attr('light.map_room', 'brightness') | int %}
+            {{ [bri+30, 249] | min }}
+      - delay: '00:00:01'
       - service: switch.turn_on
         entity_id:
-          - switch.circadian_lighting_bedroom
-  - alias: 'Turn off map room lights'
+          - switch.circadian_lighting_map_room_ct
+  - alias: 'Turn down map room lights'
     initial_state: 'on'
     trigger:
       platform: event
@@ -210,14 +328,18 @@ automation:
     action:
       - service: switch.turn_off
         entity_id:
-          - switch.circadian_lighting_bedroom
-      - service: light.turn_off
-        entity_id:
-          - light.map_room
-      - delay: '00:00:30'
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.map_room
+          brightness: >
+            {% set bri = state_attr('light.map_room', 'brightness') | int %}
+            {{ [bri-30, 0] | max }}
+      - delay: '00:00:01'
       - service: switch.turn_on
         entity_id:
-          - switch.circadian_lighting_bedroom
+          - switch.circadian_lighting_map_room_ct
   - alias: 'Turn off map + hall + living'
     initial_state: 'on'
     trigger:
@@ -229,20 +351,36 @@ automation:
     action:
       - service: switch.turn_off
         entity_id:
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_living
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
       - service: light.turn_off
         entity_id:
           - light.map_room
           - light.hall
           - light.living_room
-      - delay: '00:00:30'
+          - light.utility
+          - light.kitchen
+      - delay: '00:00:01'
       - service: switch.turn_on
         entity_id:
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_living
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
   - alias: 'Turn off map + hall + living v2'
     initial_state: 'on'
     trigger:
@@ -254,17 +392,240 @@ automation:
     action:
       - service: switch.turn_off
         entity_id:
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_living
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
       - service: light.turn_off
         entity_id:
           - light.map_room
           - light.hall
           - light.living_room
-      - delay: '00:00:30'
+          - light.utility
+          - light.kitchen
+      - delay: '00:00:01'
       - service: switch.turn_on
         entity_id:
-          - switch.circadian_lighting_bedroom
-          - switch.circadian_lighting_hall
-          - switch.circadian_lighting_living
+          - switch.circadian_lighting_hall_ct
+          - switch.circadian_lighting_hall_lux
+          - switch.circadian_lighting_utility_ct
+          - switch.circadian_lighting_utility_lux
+          - switch.circadian_lighting_living_room_ct
+          - switch.circadian_lighting_living_room_lux
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+          - switch.circadian_lighting_map_room_ct
+          - switch.circadian_lighting_map_room_lux
+
+  # Ensuite Switch
+  - alias: 'Toggle ensuite lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: ensuite_remote
+        event: 1002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+      - service: light.toggle
+        entity_id:
+          - light.ensuite
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+  - alias: 'Turn up ensuite lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: ensuite_remote
+        event: 2002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.ensuite
+          brightness: >
+            {% set bri = state_attr('light.ensuite', 'brightness') | int %}
+            {{ [bri+30, 249] | min }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+  - alias: 'Turn down ensuite lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: ensuite_remote
+        event: 3002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+          - switch.circadian_lighting_ensuite_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.ensuite
+          brightness: >
+            {% set bri = state_attr('light.ensuite', 'brightness') | int %}
+            {{ [bri-30, 0] | max }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_ensuite_ct
+
+  # Bathroom Switch
+  - alias: 'Toggle bathroom lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bathroom_remote
+        event: 1002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+      - service: light.toggle
+        entity_id:
+          - light.bathroom
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+  - alias: 'Turn up bathroom lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bathroom_remote
+        event: 2002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.bathroom
+          brightness: >
+            {% set bri = state_attr('light.bathroom', 'brightness') | int %}
+            {{ [bri+30, 249] | min }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+  - alias: 'Turn down bathroom lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bathroom_remote
+        event: 3002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+          - switch.circadian_lighting_bathroom_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.bathroom
+          brightness: >
+            {% set bri = state_attr('light.bathroom', 'brightness') | int %}
+            {{ [bri-30, 0] | max }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_bathroom_ct
+
+  # Kitchen Switch
+  - alias: 'Toggle kitchen lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: kitchen_remote
+        event: 1002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+      - service: light.toggle
+        entity_id:
+          - light.kitchen
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+  - alias: 'Turn up kitchen lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: kitchen_remote
+        event: 2002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.kitchen
+          brightness: >
+            {% set bri = state_attr('light.kitchen', 'brightness') | int %}
+            {{ [bri+30, 249] | min }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
+  - alias: 'Turn down kitchen lights'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: kitchen_remote
+        event: 3002
+    action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
+          - switch.circadian_lighting_kitchen_lux
+      - service: light.turn_on
+        data_template:
+          entity_id: light.kitchen
+          brightness: >
+            {% set bri = state_attr('light.kitchen', 'brightness') | int %}
+            {{ [bri-30, 0] | max }}
+      - delay: '00:00:01'
+      - service: switch.turn_on
+        entity_id:
+          - switch.circadian_lighting_kitchen_ct
